@@ -7,10 +7,12 @@ Match facts, hero and unit stats, mechanics references, and ability properties
 are exported as Markdown tables. CTA ability kits use one row per ability.
 Titles follow `Game Name — Page Name` across the three game wikis.
 
-GOTA has three active wiki pages: Game Guide, Hero Statistics, and Player
+GOTA targets three active wiki pages: Game Guide, Hero Statistics, and Player
 Standings. The earlier Overview, Mechanics, and Policy and Host Surface pages
 describe an older game revision. Their last published text and revision IDs
-are preserved in `wiki/GOTA/archive/`; they were removed from the active wiki.
+are preserved in `wiki/GOTA/archive/`. Removing them from the active wiki is
+pending: Softmax requires the game owner or a Softmax team member, and the
+current publishing account received HTTP 403 when requesting removal.
 Routine sync only updates the five pages listed below and never removes pages.
 
 Install `tools/wiki_requirements.txt` in a Python environment. Preview with:
