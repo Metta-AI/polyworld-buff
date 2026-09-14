@@ -61,9 +61,21 @@
       height: auto;
       margin: 0 auto 8px;
     }
-    nav { display: flex; gap: 18px; font-size: 13px; letter-spacing: 0.08em; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; font-size: 13px; letter-spacing: 0.08em; }
     nav a { color: var(--muted); }
     nav a:hover { color: var(--gold); }
+    .standings-callout {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+    .standings-callout img { width: 44px; height: 44px; }
+    .standings-callout div { flex: 1; min-width: 220px; }
+    .standings-callout h2 { font-size: 22px; margin: 0; }
+    .standings-callout p { margin: 6px 0 0; font-size: 16px; }
+    .standings-callout span { font-size: 16px; font-weight: 700; }
+    .standings-callout:hover { border-color: var(--gold-dim); }
     .balance-callout {
       display: flex;
       flex-wrap: wrap;
@@ -391,6 +403,7 @@
   <header class="top">
     <div class="wrap top-inner">
       <nav>
+        <a href="standings/">Player standings</a>
         <a href="#arena">Arena</a>
         <a href="#heroes">Heroes</a>
         <a href="hero_stats.html">Hero balance</a>
@@ -402,6 +415,14 @@
   </header>
 
   <main class="wrap">
+    <a class="panel standings-callout" href="standings/">
+      <img src="assets/icons/victory.png" alt="">
+      <div>
+        <h2>Player standings</h2>
+        <p>Compare the latest published mixed and mono team tournament results.</p>
+      </div>
+      <span>View standings &rarr;</span>
+    </a>
     <p class="lede">
       Two gods sit in opposite-corner forts. Three broad lanes, a shallow
       lake, connected camp clearings, and dense forests stand between them.
