@@ -1,4 +1,6 @@
-import std/[os, strutils]
+import
+  std/[os, strutils],
+  layouts
 
 const Root = currentSourcePath().parentDir.parentDir
 
@@ -29,6 +31,7 @@ proc publish(source: string) =
       "<a href=\"index.html\">GOTA guide</a> · " &
         "Static hero report · Works offline"
     )
+  html = stylePage(html, HeroStats)
   copyDir(sourceAssets, target.parentDir / "hero_assets")
   writeFile(target & ".tmp", html)
   moveFile(target & ".tmp", target)

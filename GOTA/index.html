@@ -395,18 +395,27 @@
     .spell-table th, .spell-table td { text-align: left; padding: 10px; border-bottom: 1px solid #354458; }
     @media (max-width: 850px) { .spell-grid { grid-template-columns: 1fr; } }
   </style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <div class="wrap">
-    <img class="page-logo" src="assets/themes/gota/gota_logo.png" alt="Gods of the Arena">
-  </div>
+<!-- GOTA navigation. -->
+<header class="site-header wrap">
+  <a class="site-brand" href="../" aria-label="Polyworld Buff home">
+    <img src="assets/themes/gota/gota_logo.png" alt="Gods of the Arena">
+  </a>
+  <nav class="site-nav" aria-label="GOTA pages">
+    <a href="index.html" aria-current="page">Game guide</a>
+    <a href="hero_stats.html">Hero statistics</a>
+    <a href="standings/">Player standings</a>
+    <a href="https://softmax.com/gods-of-the-arena/wiki/game-guide">Softmax wiki</a>
+  </nav>
+</header>
+<!-- End GOTA navigation. -->
   <header class="top">
     <div class="wrap top-inner">
-      <nav>
-        <a href="standings/">Player standings</a>
+      <nav aria-label="Guide sections">
         <a href="#arena">Arena</a>
         <a href="#heroes">Heroes</a>
-        <a href="hero_stats.html">Hero balance</a>
         <a href="#shop">Shop</a>
         <a href="#casting">Casting</a>
         <a href="#controls">Controls</a>

@@ -1,4 +1,6 @@
-import std/[base64, os, strutils]
+import
+  std/[base64, os, strutils],
+  layouts
 
 const
   SiteRoot = currentSourcePath().parentDir.parentDir
@@ -36,6 +38,7 @@ proc update(reportPath: string) =
     "nav{display:flex;gap:",
     "nav{display:flex;flex-wrap:wrap;gap:"
   )
+  html = stylePage(html, Standings)
   for i, path in Assets:
     let destination = SiteRoot / "GOTA/assets" / path
     createDir(destination.parentDir)

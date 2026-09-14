@@ -128,13 +128,23 @@
       .hero-banner .facts {grid-template-columns:1fr}
     }
   </style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
   <div class="wrap">
-    <header class="mast">
-      <a href="#" aria-label="GOTA statistics home"><img class="logo" src="hero_assets/logo.png" alt="Gods of the Arena"></a>
-      <nav aria-label="Primary"><a href="#">Hero statistics</a><a href="index.html">Game guide</a><a href="#methods">Methodology</a><span class="label">Hero balance</span></nav>
-    </header>
+    <!-- GOTA navigation. -->
+<header class="site-header">
+  <a class="site-brand" href="../" aria-label="Polyworld Buff home">
+    <img src="assets/themes/gota/gota_logo.png" alt="Gods of the Arena">
+  </a>
+  <nav class="site-nav" aria-label="GOTA pages">
+    <a href="index.html">Game guide</a>
+    <a href="hero_stats.html" aria-current="page">Hero statistics</a>
+    <a href="standings/">Player standings</a>
+    <a href="https://softmax.com/gods-of-the-arena/wiki/game-guide">Softmax wiki</a>
+  </nav>
+</header>
+<!-- End GOTA navigation. -->
     <div class="heading">
       <div><div class="kicker">League intelligence / Replay analysis</div><h1 id="page-title">The arena, by the numbers.</h1><p id="window" class="small"></p></div>
       <span class="status" id="verification"><i></i><span></span></span>
