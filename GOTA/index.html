@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gods of the Arena</title>
+  <!-- Icons, portraits, and fonts are bundled in the assets folder. -->
+  <style>
+    @font-face {
+      font-family: Rubik;
+      src: url("assets/fonts/Rubik-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: Rubik;
+      src: url("assets/fonts/Rubik-Bold.ttf") format("truetype");
+      font-weight: 700;
+    }
+    :root {
+      --bg: #0c1014;
+      --panel: #16181e;
+      --panel-2: #1c1f27;
+      --well: #101216;
+      --gold: #f7dd8f;
+      --gold-dim: #c4a45a;
+      --red: #e05053;
+      --blue: #4c80e8;
+      --green: #6ad36a;
+      --mana: #5aa8f0;
+      --xp: #9b6adf;
+      --text: #eef0f4;
+      --muted: #a6aebf;
+      --line: rgba(247, 221, 143, 0.18);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Rubik, sans-serif;
+    }
+    body {
+      background:
+        radial-gradient(1200px 600px at 50% -80px, rgba(76, 128, 232, 0.16), transparent 60%),
+        radial-gradient(900px 500px at 100% 20%, rgba(224, 80, 83, 0.12), transparent 55%),
+        var(--bg);
+    }
+    a { color: var(--gold); text-decoration: none; }
+    img { display: block; }
+    .wrap { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
+    header.top { margin: 0 0 24px; }
+    .top-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .page-logo {
+      display: block;
+      width: min(720px, 100%);
+      height: auto;
+      margin: 0 auto 8px;
+    }
+    nav { display: flex; gap: 18px; font-size: 13px; letter-spacing: 0.08em; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--gold); }
+    .kicker {
+      color: var(--gold);
+      letter-spacing: 0.28em;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+    .lede {
+      max-width: 760px;
+      margin: 0 0 28px;
+      color: #d7dbe4;
+      line-height: 1.5;
+    }
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 0 0 36px;
+    }
+    .fact, .panel, .hero-card, .item-card {
+      background: linear-gradient(180deg, #1b1e26, #14171d);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+    .fact {
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .fact img, .stat img, .cost img { width: 22px; height: 22px; }
+    .fact b { display: block; font-size: 20px; }
+    .fact span, .muted { color: var(--muted); font-size: 12px; letter-spacing: 0.06em; }
+    h2 {
+      margin: 0 0 14px;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+    }
+    h3 { margin: 0; letter-spacing: 0.03em; }
+    .panel { padding: 22px; margin-bottom: 28px; }
+    .split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+    p { line-height: 1.6; color: #d5dae3; }
+    .lanes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--well);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .chip img { width: 28px; height: 28px; }
+    .team { font-weight: 700; font-size: 12px; letter-spacing: 0.12em; }
+    .team.red { color: var(--red); }
+    .team.blue { color: var(--blue); }
+    .roster {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .hero-card { padding: 18px; }
+    .hero-head {
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .portrait {
+      position: relative;
+      width: 148px;
+      height: 210px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #222;
+    }
+    .portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .portrait.blue { box-shadow: inset 0 0 0 3px var(--blue); }
+    .portrait.red { box-shadow: inset 0 0 0 3px var(--red); }
+    .lvl {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      min-width: 42px;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 8px;
+      background: #111318;
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      border: 1px solid var(--gold-dim);
+    }
+    .role {
+      margin: 4px 0 12px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .stat {
+      background: var(--well);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .stat b { display: block; font-size: 15px; }
+    .bars { margin-top: 10px; display: grid; gap: 8px; }
+    .bar {
+      height: 26px;
+      border-radius: 8px;
+      background: #0d0f13;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .bar > i {
+      display: block;
+      height: 100%;
+    }
+    .hp > i { background: linear-gradient(90deg, #2d7a38, #6ad36a); }
+    .mp > i { background: linear-gradient(90deg, #1f5ea8, #5aa8f0); }
+    .bar-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 26px;
+      letter-spacing: 0.06em;
+      color: #fff;
+      text-shadow: 0 1px 2px #000, 0 0 8px rgba(0,0,0,0.9);
+    }
+    .abilities {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .ability {
+      min-width: 0;
+      padding: 14px;
+      background: var(--well);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+    }
+    .ability-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .ability-art { position: relative; flex: 0 0 64px; }
+    .ability-art img { width: 64px; height: 64px; border-radius: 10px; }
+    .key {
+      position: absolute;
+      right: -4px;
+      bottom: -4px;
+      display: grid;
+      place-items: center;
+      width: 25px;
+      height: 25px;
+      border: 1px solid var(--gold-dim);
+      border-radius: 7px;
+      background: #2a2418;
+      color: var(--gold);
+      font: 700 12px Rubik, sans-serif;
+    }
+    .footprint { display: flex; align-items: center; gap: 6px; }
+    .footprint svg {
+      flex: 0 0 34px;
+      width: 34px;
+      height: 40px;
+      fill: rgba(196,164,90,0.24);
+      stroke: var(--gold-dim);
+      stroke-width: 1.8;
+      stroke-linejoin: round;
+    }
+    .footprint .icon-line { fill: none; }
+    .footprint .icon-core { fill: var(--gold); stroke: none; }
+    .footprint span { display: block; color: var(--muted); font-size: 10px; }
+    .footprint b { display: block; margin-top: 3px; font-size: 12px; }
+    .ability h4 { margin: 0 0 5px; min-height: 38px; font-size: 16px; line-height: 1.2; }
+    .cast-type { margin: 0 0 12px; color: var(--gold); font-size: 12px; }
+    .ability-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 8px;
+      margin: 0 0 14px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .ability-stats dt { margin: 0 0 4px; color: var(--muted); font-size: 11px; }
+    .ability-stats dd { margin: 0; font-size: 13px; line-height: 1.4; }
+    .ability-charges { display: flex; align-items: center; gap: 8px; }
+    .ability-charge-pips { display: inline-flex; gap: 4px; }
+    .ability-charge-pips > span {
+      display: block;
+      width: 11px;
+      height: 11px;
+      border: 1px solid var(--gold-dim);
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 4px;
+    }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #252830;
+      color: #d7dbe6;
+    }
+    .tag.strike { background: #3a1f24; color: #ffb3b4; }
+    .tag.heal { background: #1d3322; color: #9be39b; }
+    .tag.restore { background: #1b2d44; color: #9ec8ff; }
+    .tag.ult { background: #3a2a12; color: var(--gold); }
+    .shop {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .item-card { padding: 14px; }
+    .item-card img.icon {
+      width: 84px;
+      height: 84px;
+      border-radius: 12px;
+      background: #0e1014;
+    }
+    .item-top {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .cost {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .bonus { font-size: 13px; color: #d7dbe4; margin: 0; }
+    @media (max-width: 980px) {
+      .facts, .split, .shop, .stats { grid-template-columns: 1fr 1fr; }
+      .abilities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      header.top { display: none; }
+      .facts, .split, .shop, .lanes, .hero-head, .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .abilities { grid-template-columns: 1fr; }
+      .ability h4 { min-height: 0; }
+    }
+
+    .spell-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .spell-rule { background: #111c2a; border: 1px solid #354458; border-radius: 12px; padding: 18px; }
+    .spell-rule h3 { margin-top: 0; }
+    .charge-demo { background: #111c2a; border: 1px solid #354458; border-radius: 12px; padding: 20px; margin: 20px 0; }
+    .charge-demo button { background: #305274; color: #fff; border: 1px solid #7594b1; padding: 10px 14px; border-radius: 8px; margin: 4px; cursor: pointer; font: inherit; }
+    .charge-demo button:disabled { opacity: .45; cursor: default; }
+    .charge-demo output { display: block; min-height: 56px; margin: 12px 0; font-variant-numeric: tabular-nums; }
+    .charge-pips { display: flex; gap: 8px; margin: 12px 0; }
+    .charge-pips span { width: 28px; height: 28px; border: 2px solid #b3c5d7; border-radius: 50%; background: #caa965; }
+    .charge-pips span.empty { background: #182131; }
+    .spell-table { width: 100%; border-collapse: collapse; }
+    .spell-table th, .spell-table td { text-align: left; padding: 10px; border-bottom: 1px solid #354458; }
+    @media (max-width: 850px) { .spell-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="page-logo" src="assets/themes/gota/gota_logo.png" alt="Gods of the Arena">
+  </div>
+  <header class="top">
+    <div class="wrap top-inner">
+      <nav>
+        <a href="#arena">Arena</a>
+        <a href="#heroes">Heroes</a>
+        <a href="#shop">Shop</a>
+        <a href="#casting">Casting</a>
+        <a href="#controls">Controls</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="lede">
+      Two gods sit in opposite-corner forts. Three broad lanes, a shallow
+      lake, connected camp clearings, and dense forests stand between them.
+      Ten heroes, footmen, and towers fight until one god falls.
+    </p>
+
+    <section class="facts">
+      <div class="fact"><img src="assets/icons/champion.png" alt=""><div><b>10</b><span>HEROES</span></div></div>
+      <div class="fact"><img src="assets/icons/tower.png" alt=""><div><b>18</b><span>TOWERS</span></div></div>
+      <div class="fact"><img src="assets/icons/minion.png" alt=""><div><b>3</b><span>LANES</span></div></div>
+      <div class="fact"><img src="assets/icons/experience.png" alt=""><div><b>20</b><span>MAX LEVEL</span></div></div>
+      <div class="fact"><img src="assets/icons/gold.png" alt=""><div><b>20</b><span>SHOP ITEMS</span></div></div>
+    </section>
+
+    <section id="arena" class="panel">
+      <p class="kicker">THE MATCH</p>
+      <h2>How the arena works</h2>
+      <div class="split">
+        <div>
+          <p>
+            Gods of the Arena is a 5v5 lane battler. Red brings
+            the living roster. Blue brings the undead warband. Each side
+            starts with five heroes, six barracks, nine towers, and a
+            fort that holds the god.
+          </p>
+          <p>
+            The 128 by 128 arena uses the map editor's saved seed 54 preset.
+            Blue starts in the southwest and Red in the northeast. Roads
+            carve the forest and cross cliffs at short ramps. Each fort has
+            three exits, two barracks per exit, and a separate walled spawn.
+            Match seeds control gameplay randomness without changing this layout.
+          </p>
+          <p>
+            Footmen spawn two per lane every ten seconds and march until they
+            meet the enemy. Heroes start at level 1 with 150 gold and their
+            full four-ability kit already unlocked. Kills grant gold and XP.
+            Heroes grow to level 20, then spend gold in a six-slot inventory.
+          </p>
+          <p>
+            Outer towers fall first, then inner, then the gate. A god becomes
+            attackable after one of its lanes is cleared. The first fort to
+            reach zero health loses.
+          </p>
+        </div>
+        <div class="lanes">
+          <div class="chip"><img src="assets/icons/minion.png" alt=""><div><b>Footmen</b><div class="muted">60 HP, 12 damage, 15 gold</div></div></div>
+          <div class="chip"><img src="assets/icons/tower.png" alt=""><div><b>Towers</b><div class="muted">Outer 600, inner 800, gate 1000</div></div></div>
+          <div class="chip"><img src="assets/icons/fort.png" alt=""><div><b>Gods</b><div class="muted">400 HP, exposed after a lane falls</div></div></div>
+          <div class="chip"><img src="assets/icons/kills.png" alt=""><div><b>Hero bounty</b><div class="muted">150 XP and 100 gold</div></div></div>
+          <div class="chip"><img src="assets/icons/experience.png" alt=""><div><b>Level curve</b><div class="muted">100 XP, then +75 each level</div></div></div>
+          <div class="chip"><img src="assets/icons/day.png" alt=""><div><b>Clock</b><div class="muted">20 minute match</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="heroes">
+      <p class="kicker">THE ROSTER</p>
+      <h2>Heroes and ability kits</h2>
+      <p class="lede">Each ability shows what it affects beside its artwork. Footprints describe the hit area; visual effects describe its appearance. Arc and cone effects share a sector footprint. Every area spell leaves a warning on the map until impact.</p>
+      <p>
+        Every hero enters with Q, W, E, and R ready at <b>level 1</b>. There is
+        no skill-point tree. Stats climb through level 20. Cooldowns and ranges
+        below use the live HUD units: seconds and tiles.
+      </p>
+
+      <div class="roster">
+        <!-- Vanguard Knight -->
+        <article class="hero-card" id="vanguard-knight">
+          <div class="hero-head">
+            <div class="portrait blue">
+              <img src="assets/characters/modular_chars/character.preset_1.profile.png" alt="Vanguard Knight">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team blue">BLUE TEAM</div>
+              <h3>VANGUARD KNIGHT</h3>
+              <div class="role" style="color:var(--blue)">MELEE · FRONTLINE PROTECTOR</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>330 → 1470</b><span class="muted">HP +60/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>110 → 262</b><span class="muted">MANA +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>25 → 120</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.17</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.32 → 2.78</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.00</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>330 → 1470</span></div></div>
+                <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>110 → 262</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/lion_guard.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Lion Guard</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+28 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your health.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/firebrand_sword.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Firebrand Sword</h4>
+              <p class="cast-type">Melee</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>40</dd></div>
+                <div><dt>Mana cost</dt><dd>20</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>1.5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Strike one enemy at close range. Aim at empty ground to swing into space.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/inferno_aegis.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Inferno Aegis</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+50 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>35</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>10s</dd></div>
+                <div><dt>Recharge</dt><dd>10s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>2.33 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2.33 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Centered on you. Heals all allied heroes in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/blazing_blade.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41L6 10a36 36 0 0 1 36 0Z"/></svg>
+                  <div><span>Footprint</span><b>Sector</b></div>
+                </div>
+              </div>
+              <h4>Blazing Blade</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>90</dd></div>
+                <div><dt>Mana cost</dt><dd>70</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>20s</dd></div>
+                <div><dt>Recharge</dt><dd>20s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.25s</dd></div>
+                <div><dt>Cast range</dt><dd>1.83 tiles</dd></div>
+                <div><dt>Radius</dt><dd>1.83 tiles</dd></div>
+                <div><dt>Angle</dt><dd>120°</dd></div>
+                <div><dt>Visual effect</dt><dd>Arc</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the sector at impact.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Ranger -->
+        <article class="hero-card" id="ranger">
+          <div class="hero-head">
+            <div class="portrait blue">
+              <img src="assets/characters/modular_chars/character.preset_13.profile.png" alt="Ranger">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team blue">BLUE TEAM</div>
+              <h3>RANGER</h3>
+              <div class="role" style="color:var(--blue)">RANGER · MOBILE RANGED CARRY</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>210 → 932</b><span class="muted">HP +38/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>110 → 262</b><span class="muted">MANA +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>25 → 139</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.50</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.76 → 3.44</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.33</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:23%"></i><div class="bar-label"><span>HEALTH</span><span>210 → 932</span></div></div>
+                <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>110 → 262</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/dragon_sight.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Dragon Sight</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>16</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>7 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/verdant_arrow.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Verdant Arrow</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>32</dd></div>
+                <div><dt>Mana cost</dt><dd>18</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/ricochet_disc.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Ricochet Disc</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>48</dd></div>
+                <div><dt>Mana cost</dt><dd>32</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>6.5 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Disc</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/storm_eagle.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="5" width="20" height="38"/></svg>
+                  <div><span>Footprint</span><b>Line</b></div>
+                </div>
+              </div>
+              <h4>Storm Eagle</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>95</dd></div>
+                <div><dt>Mana cost</dt><dd>80</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>24s</dd></div>
+                <div><dt>Recharge</dt><dd>24s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>8 tiles</dd></div>
+                <div><dt>Width × length</dt><dd>1.5 × 8 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Line</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the line at impact.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Arcanist -->
+        <article class="hero-card" id="arcanist">
+          <div class="hero-head">
+            <div class="portrait blue">
+              <img src="assets/characters/modular_chars/character.preset_16.profile.png" alt="Arcanist">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team blue">BLUE TEAM</div>
+              <h3>ARCANIST</h3>
+              <div class="role" style="color:var(--blue)">MAGE · BURST MAGE</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>190 → 760</b><span class="muted">HP +30/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>180 → 465</b><span class="muted">MANA +15/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>38 → 190</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.00</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.48 → 3.01</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:25%"></i><div class="bar-label"><span>HEALTH</span><span>190 → 760</span></div></div>
+                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>180 → 465</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/mana_crystal.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Mana Crystal</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Restores</dt><dd>+28 mana</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>6s</dd></div>
+                <div><dt>Recharge</dt><dd>6s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your mana.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/frost_lance.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Frost Lance</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>42</dd></div>
+                <div><dt>Mana cost</dt><dd>28</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>5.5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/meteor_strike.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Meteor Strike</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>70</dd></div>
+                <div><dt>Mana cost</dt><dd>50</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>2s</dd></div>
+                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/arcane_meteor.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Arcane Meteor</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>120</dd></div>
+                <div><dt>Mana cost</dt><dd>100</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>25s</dd></div>
+                <div><dt>Recharge</dt><dd>25s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>3s</dd></div>
+                <div><dt>Cast range</dt><dd>7 tiles</dd></div>
+                <div><dt>Radius</dt><dd>3 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Druid Warden -->
+        <article class="hero-card" id="druid-warden">
+          <div class="hero-head">
+            <div class="portrait blue">
+              <img src="assets/characters/modular_chars/character.preset_17.profile.png" alt="Druid Warden">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team blue">BLUE TEAM</div>
+              <h3>DRUID WARDEN</h3>
+              <div class="role" style="color:var(--blue)">MAGE · DURABLE SUPPORT</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>250 → 1162</b><span class="muted">HP +48/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>170 → 436</b><span class="muted">MANA +14/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>22 → 98</b><span class="muted">BASIC DAMAGE +4/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>4.00</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.56 → 3.09</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.92</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>250 → 1162</span></div></div>
+                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>170 → 436</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/nature_talisman.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Nature Talisman</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+22 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your health.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/healing_bloom.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Healing Bloom</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+55 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>30</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>7s</dd></div>
+                <div><dt>Recharge</dt><dd>7s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>4 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Heals all allied heroes in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/kindred_wisps.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Kindred Wisps</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+80 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>45</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>12s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>4 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2.5 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Sphere</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Heals all allied heroes in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/golem_seed.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Golem Seed</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>85</dd></div>
+                <div><dt>Mana cost</dt><dd>75</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>22s</dd></div>
+                <div><dt>Recharge</dt><dd>22s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>3.33 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Cylinder</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Demon Hunter -->
+        <article class="hero-card" id="demon-hunter">
+          <div class="hero-head">
+            <div class="portrait blue">
+              <img src="assets/characters/modular_chars/character.preset_2.profile.png" alt="Demon Hunter">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team blue">BLUE TEAM</div>
+              <h3>DEMON HUNTER</h3>
+              <div class="role" style="color:var(--blue)">MELEE · MELEE ASSASSIN</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>220 → 904</b><span class="muted">HP +36/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>90 → 223</b><span class="muted">MANA +7/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>32 → 165</b><span class="muted">BASIC DAMAGE +7/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.25</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>3.04 → 3.95</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.50</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:24%"></i><div class="bar-label"><span>HEALTH</span><span>220 → 904</span></div></div>
+                <div class="bar mp"><i style="width:40%"></i><div class="bar-label"><span>MANA</span><span>90 → 223</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/shadow_cloak.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Shadow Cloak</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+18 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>10s</dd></div>
+                <div><dt>Recharge</dt><dd>10s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your health.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/void_blade.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Void Blade</h4>
+              <p class="cast-type">Melee</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>38</dd></div>
+                <div><dt>Mana cost</dt><dd>16</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>1.5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Strike one enemy at close range. Aim at empty ground to swing into space.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/gale_slash.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41L6 10a36 36 0 0 1 36 0Z"/></svg>
+                  <div><span>Footprint</span><b>Sector</b></div>
+                </div>
+              </div>
+              <h4>Gale Slash</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>52</dd></div>
+                <div><dt>Mana cost</dt><dd>28</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>7s</dd></div>
+                <div><dt>Recharge</dt><dd>7s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.25s</dd></div>
+                <div><dt>Cast range</dt><dd>2 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Angle</dt><dd>120°</dd></div>
+                <div><dt>Visual effect</dt><dd>Cone</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the sector at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/shadow_comet.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Shadow Comet</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>100</dd></div>
+                <div><dt>Mana cost</dt><dd>65</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>21s</dd></div>
+                <div><dt>Recharge</dt><dd>21s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Death Knight -->
+        <article class="hero-card" id="death-knight">
+          <div class="hero-head">
+            <div class="portrait red">
+              <img src="assets/characters/modular_chars/character.preset_3.profile.png" alt="Death Knight">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team red">RED TEAM</div>
+              <h3>DEATH KNIGHT</h3>
+              <div class="role" style="color:var(--red)">MELEE · SUSTAINING BRUISER</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>350 → 1528</b><span class="muted">HP +62/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>90 → 242</b><span class="muted">MANA +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>30 → 144</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.27</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.28 → 2.74</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.86</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:23%"></i><div class="bar-label"><span>HEALTH</span><span>350 → 1528</span></div></div>
+                <div class="bar mp"><i style="width:37%"></i><div class="bar-label"><span>MANA</span><span>90 → 242</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/sanguine_chalice.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Sanguine Chalice</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+26 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your health.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/afterlight_sickle.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Afterlight Sickle</h4>
+              <p class="cast-type">Melee</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>42</dd></div>
+                <div><dt>Mana cost</dt><dd>18</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>1.5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Strike one enemy at close range. Aim at empty ground to swing into space.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/withering_idol.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Withering Idol</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>60</dd></div>
+                <div><dt>Mana cost</dt><dd>36</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>2.67 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/dark_eclipse.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path fill-rule="evenodd" d="M42 24a18 18 0 1 0-36 0a18 18 0 1 0 36 0M32 24a8 8 0 1 1-16 0a8 8 0 1 1 16 0"/></svg>
+                  <div><span>Footprint</span><b>Ring</b></div>
+                </div>
+              </div>
+              <h4>Dark Eclipse</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>110</dd></div>
+                <div><dt>Mana cost</dt><dd>80</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>26s</dd></div>
+                <div><dt>Recharge</dt><dd>26s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>2.33 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2.33 tiles</dd></div>
+                <div><dt>Inner radius</dt><dd>0.67 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Ring</dd></div>
+              </dl>
+              <p class="bonus">Centered on you. Hits all enemies in the ring at impact. The center is safe.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Crossbowman -->
+        <article class="hero-card" id="crossbowman">
+          <div class="hero-head">
+            <div class="portrait red">
+              <img src="assets/characters/modular_chars/character.preset_11.profile.png" alt="Crossbowman">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team red">RED TEAM</div>
+              <h3>CROSSBOWMAN</h3>
+              <div class="role" style="color:var(--red)">RANGER · HEAVY RANGED CARRY</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>230 → 1028</b><span class="muted">HP +42/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>80 → 194</b><span class="muted">MANA +6/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>43 → 195</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>6.50</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.40 → 2.86</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.67</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>230 → 1028</span></div></div>
+                <div class="bar mp"><i style="width:41%"></i><div class="bar-label"><span>MANA</span><span>80 → 194</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/final_measure.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Final Measure</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>20</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>7 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/siege_scarab.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Siege Scarab</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>50</dd></div>
+                <div><dt>Mana cost</dt><dd>22</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>6.67 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/lodestone_surge.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41L6 10a36 36 0 0 1 36 0Z"/></svg>
+                  <div><span>Footprint</span><b>Sector</b></div>
+                </div>
+              </div>
+              <h4>Lodestone Surge</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>68</dd></div>
+                <div><dt>Mana cost</dt><dd>40</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>10s</dd></div>
+                <div><dt>Recharge</dt><dd>10s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+                <div><dt>Radius</dt><dd>6 tiles</dd></div>
+                <div><dt>Angle</dt><dd>90°</dd></div>
+                <div><dt>Visual effect</dt><dd>Cone</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the sector at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/clockwork_charge.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="4" width="20" height="40" rx="10"/></svg>
+                  <div><span>Footprint</span><b>Capsule</b></div>
+                </div>
+              </div>
+              <h4>Clockwork Charge</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>115</dd></div>
+                <div><dt>Mana cost</dt><dd>70</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>23s</dd></div>
+                <div><dt>Recharge</dt><dd>23s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>7.5 tiles</dd></div>
+                <div><dt>Width × length</dt><dd>1.5 × 7.5 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Capsule</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the capsule at impact.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Lich -->
+        <article class="hero-card" id="lich">
+          <div class="hero-head">
+            <div class="portrait red">
+              <img src="assets/characters/modular_chars/character.preset_12.profile.png" alt="Lich">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team red">RED TEAM</div>
+              <h3>LICH</h3>
+              <div class="role" style="color:var(--red)">MAGE · CONTROL MAGE</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>185 → 717</b><span class="muted">HP +28/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>210 → 533</b><span class="muted">MANA +17/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>36 → 188</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.50</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.40 → 2.86</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.75</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:26%"></i><div class="bar-label"><span>HEALTH</span><span>185 → 717</span></div></div>
+                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>210 → 533</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/frost_sigil.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Frost Sigil</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>14</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/ice_spear.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Ice Spear</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>44</dd></div>
+                <div><dt>Mana cost</dt><dd>30</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/bone_marionette.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Bone Marionette</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>66</dd></div>
+                <div><dt>Mana cost</dt><dd>48</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>5 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Dome</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/bound_void.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path fill-rule="evenodd" d="M42 24a18 18 0 1 0-36 0a18 18 0 1 0 36 0M32 24a8 8 0 1 1-16 0a8 8 0 1 1 16 0"/></svg>
+                  <div><span>Footprint</span><b>Ring</b></div>
+                </div>
+              </div>
+              <h4>Bound Void</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>125</dd></div>
+                <div><dt>Mana cost</dt><dd>110</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>27s</dd></div>
+                <div><dt>Recharge</dt><dd>27s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>6.5 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Inner radius</dt><dd>0.67 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Torus</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the ring at impact. The center is safe.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Warlock -->
+        <article class="hero-card" id="warlock">
+          <div class="hero-head">
+            <div class="portrait red">
+              <img src="assets/characters/modular_chars/character.preset_6.profile.png" alt="Warlock">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team red">RED TEAM</div>
+              <h3>WARLOCK</h3>
+              <div class="role" style="color:var(--red)">MAGE · UTILITY SUMMONER</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>240 → 1114</b><span class="muted">HP +46/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>190 → 494</b><span class="muted">MANA +16/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>26 → 121</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>4.50</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.48 → 3.01</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.86</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>240 → 1114</span></div></div>
+                <div class="bar mp"><i style="width:38%"></i><div class="bar-label"><span>MANA</span><span>190 → 494</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/aether_siphon.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Aether Siphon</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Restores</dt><dd>+22 mana</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>7s</dd></div>
+                <div><dt>Recharge</dt><dd>7s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your mana.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/moth_hex.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Moth Hex</h4>
+              <p class="cast-type">Projectile</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>36</dd></div>
+                <div><dt>Mana cost</dt><dd>24</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>4.67 tiles</dd></div>
+              </dl>
+              <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/dread_totem.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="14" y="5" width="20" height="38"/></svg>
+                  <div><span>Footprint</span><b>Line</b></div>
+                </div>
+              </div>
+              <h4>Dread Totem</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>58</dd></div>
+                <div><dt>Mana cost</dt><dd>42</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>9s</dd></div>
+                <div><dt>Recharge</dt><dd>9s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>4 tiles</dd></div>
+                <div><dt>Width × length</dt><dd>1 × 4 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Box</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the line at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/void_portal.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path fill-rule="evenodd" d="M42 24a18 18 0 1 0-36 0a18 18 0 1 0 36 0M32 24a8 8 0 1 1-16 0a8 8 0 1 1 16 0"/></svg>
+                  <div><span>Footprint</span><b>Ring</b></div>
+                </div>
+              </div>
+              <h4>Void Portal</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>105</dd></div>
+                <div><dt>Mana cost</dt><dd>90</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>24s</dd></div>
+                <div><dt>Recharge</dt><dd>24s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>1s</dd></div>
+                <div><dt>Cast range</dt><dd>5 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Inner radius</dt><dd>0.67 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Helix</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the ring at impact. The center is safe.</p>
+            </article>
+          </div>
+        </article>
+
+        <!-- Berserker -->
+        <article class="hero-card" id="berserker">
+          <div class="hero-head">
+            <div class="portrait red">
+              <img src="assets/characters/modular_chars/character.preset_14.profile.png" alt="Berserker">
+              <div class="lvl">1-20</div>
+            </div>
+            <div>
+              <div class="team red">RED TEAM</div>
+              <h3>BERSERKER</h3>
+              <div class="role" style="color:var(--red)">MELEE · AGGRESSIVE MELEE CARRY</div>
+              <div class="stats">
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>300 → 1345</b><span class="muted">HP +55/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>40 → 116</b><span class="muted">MANA +4/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>35 → 168</b><span class="muted">BASIC DAMAGE +7/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.33</b><span class="muted">RANGE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.72 → 3.40</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.20</b><span class="muted">ATTACKS / S</span></div></div>
+              </div>
+              <div class="bars">
+                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>300 → 1345</span></div></div>
+                <div class="bar mp"><i style="width:34%"></i><div class="bar-label"><span>MANA</span><span>40 → 116</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="abilities">
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/rage_crucible.png" alt="" loading="lazy">
+                  <kbd class="key">Q</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle class="icon-core" cx="24" cy="24" r="4"/></svg>
+                  <div><span>Affects</span><b>Self</b></div>
+                </div>
+              </div>
+              <h4>Rage Crucible</h4>
+              <p class="cast-type">Self cast</p>
+              <dl class="ability-stats">
+                <div><dt>Healing</dt><dd>+20 HP</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+              </dl>
+              <p class="bonus">Restores your health.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/molten_fist.png" alt="" loading="lazy">
+                  <kbd class="key">W</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11"/><path class="icon-line" d="M24 5v10m0 18v10M5 24h10m18 0h10"/><circle class="icon-core" cx="24" cy="24" r="3"/></svg>
+                  <div><span>Affects</span><b>Single target</b></div>
+                </div>
+              </div>
+              <h4>Molten Fist</h4>
+              <p class="cast-type">Melee</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>45</dd></div>
+                <div><dt>Mana cost</dt><dd>0</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>3</span><span class="ability-charge-pips" aria-hidden="true"><span></span><span></span><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>2s</dd></div>
+                <div><dt>Recharge</dt><dd>12s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>Instant</dd></div>
+                <div><dt>Cast range</dt><dd>1.5 tiles</dd></div>
+              </dl>
+              <p class="bonus">Strike one enemy at close range. Aim at empty ground to swing into space.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/winged_boot.png" alt="" loading="lazy">
+                  <kbd class="key">E</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41L6 10a36 36 0 0 1 36 0Z"/></svg>
+                  <div><span>Footprint</span><b>Sector</b></div>
+                </div>
+              </div>
+              <h4>Winged Boot</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>40</dd></div>
+                <div><dt>Mana cost</dt><dd>12</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>8s</dd></div>
+                <div><dt>Recharge</dt><dd>8s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>0.5s</dd></div>
+                <div><dt>Cast range</dt><dd>2.5 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2.5 tiles</dd></div>
+                <div><dt>Angle</dt><dd>90°</dd></div>
+                <div><dt>Visual effect</dt><dd>Cone</dd></div>
+              </dl>
+              <p class="bonus">Starts at your position, facing your aim. Hits all enemies in the sector at impact.</p>
+            </article>
+            <article class="ability">
+              <div class="ability-head">
+                <div class="ability-art">
+                  <img src="assets/abilities/volcanic_eruption.png" alt="" loading="lazy">
+                  <kbd class="key">R</kbd>
+                </div>
+                <div class="footprint">
+                  <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/></svg>
+                  <div><span>Footprint</span><b>Circle</b></div>
+                </div>
+              </div>
+              <h4>Volcanic Eruption</h4>
+              <p class="cast-type">Area cast</p>
+              <dl class="ability-stats">
+                <div><dt>Damage</dt><dd>100</dd></div>
+                <div><dt>Mana cost</dt><dd>24</dd></div>
+                <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
+                <div><dt>Cast cooldown</dt><dd>20s</dd></div>
+                <div><dt>Recharge</dt><dd>20s / charge</dd></div>
+                <div><dt>Cast delay</dt><dd>2s</dd></div>
+                <div><dt>Cast range</dt><dd>2.17 tiles</dd></div>
+                <div><dt>Radius</dt><dd>2 tiles</dd></div>
+                <div><dt>Visual effect</dt><dd>Circle</dd></div>
+              </dl>
+              <p class="bonus">Locks at your aimed map position. Hits all enemies in the circle at impact.</p>
+            </article>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="shop" class="panel">
+      <p class="kicker">THE SHOP</p>
+      <h2>Items, costs, and bonuses</h2>
+      <p>
+        Six inventory slots. Consumables stack to 8. Heroes start with 150 gold.
+        Footmen drop 15, towers 75, heroes 100.
+      </p>
+      <h3 style="margin: 8px 0 12px; color: var(--gold);">Consumables</h3>
+      <div class="shop">
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/ironroot_ration.png" alt="Ironroot Ration">
+            <div>
+              <h3>Ironroot Ration</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">30</div>
+            </div>
+          </div>
+          <p class="bonus">Use: restore 40 health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/vitality_elixir.png" alt="Vitality Elixir">
+            <div>
+              <h3>Vitality Elixir</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">50</div>
+            </div>
+          </div>
+          <p class="bonus">Use: restore 90 health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/mana_potion.png" alt="Mana Potion">
+            <div>
+              <h3>Mana Potion</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">45</div>
+            </div>
+          </div>
+          <p class="bonus">Use: restore 60 mana.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/poison_potion.png" alt="Poison Potion">
+            <div>
+              <h3>Poison Potion</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">40</div>
+            </div>
+          </div>
+          <p class="bonus">Use: deal 35 strike damage to a living, visible enemy within your hero's attack range. Tower order and god protection still apply.</p>
+        </article>
+      </div>
+
+      <h3 style="margin: 22px 0 12px; color: var(--gold);">Equipment</h3>
+      <div class="shop">
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/steel_helmet.png" alt="Steel Helmet">
+            <div>
+              <h3>Steel Helmet</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">80</div>
+            </div>
+          </div>
+          <p class="bonus">+50 maximum health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/steel_buckler.png" alt="Steel Buckler">
+            <div>
+              <h3>Steel Buckler</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">90</div>
+            </div>
+          </div>
+          <p class="bonus">+60 maximum health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/leather_gauntlets.png" alt="Leather Gauntlets">
+            <div>
+              <h3>Leather Gauntlets</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">70</div>
+            </div>
+          </div>
+          <p class="bonus">+4 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/ranger_boots.png" alt="Ranger Boots">
+            <div>
+              <h3>Ranger Boots</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">100</div>
+            </div>
+          </div>
+          <p class="bonus">+0.32 move speed.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/ruby_amulet.png" alt="Ruby Amulet">
+            <div>
+              <h3>Ruby Amulet</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">120</div>
+            </div>
+          </div>
+          <p class="bonus">+70 maximum health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/sapphire_ring.png" alt="Sapphire Ring">
+            <div>
+              <h3>Sapphire Ring</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">120</div>
+            </div>
+          </div>
+          <p class="bonus">+40 maximum mana.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/crimson_dagger.png" alt="Crimson Dagger">
+            <div>
+              <h3>Crimson Dagger</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">110</div>
+            </div>
+          </div>
+          <p class="bonus">+8 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/amethyst_wand.png" alt="Amethyst Wand">
+            <div>
+              <h3>Amethyst Wand</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">140</div>
+            </div>
+          </div>
+          <p class="bonus">+9 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/sunsteel_longsword.png" alt="Sunsteel Longsword">
+            <div>
+              <h3>Sunsteel Longsword</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">150</div>
+            </div>
+          </div>
+          <p class="bonus">+10 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/ranger_bow.png" alt="Ranger Bow">
+            <div>
+              <h3>Ranger Bow</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">150</div>
+            </div>
+          </div>
+          <p class="bonus">+10 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/ironbark_pauldrons.png" alt="Ironbark Pauldrons">
+            <div>
+              <h3>Ironbark Pauldrons</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">140</div>
+            </div>
+          </div>
+          <p class="bonus">+80 maximum health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/knight_armor.png" alt="Knight Armor">
+            <div>
+              <h3>Knight Armor</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">160</div>
+            </div>
+          </div>
+          <p class="bonus">+120 maximum health.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/thornwood_staff.png" alt="Thornwood Staff">
+            <div>
+              <h3>Thornwood Staff</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">170</div>
+            </div>
+          </div>
+          <p class="bonus">+40 maximum health, +6 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/battle_axe.png" alt="Battle Axe">
+            <div>
+              <h3>Battle Axe</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">180</div>
+            </div>
+          </div>
+          <p class="bonus">+14 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/rune_crossbow.png" alt="Rune Crossbow">
+            <div>
+              <h3>Rune Crossbow</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">180</div>
+            </div>
+          </div>
+          <p class="bonus">+14 damage.</p>
+        </article>
+        <article class="item-card">
+          <div class="item-top">
+            <img class="icon" src="assets/items/arcane_spellbook.png" alt="Arcane Spellbook">
+            <div>
+              <h3>Arcane Spellbook</h3>
+              <div class="cost"><img src="assets/icons/gold.png" alt="">190</div>
+            </div>
+          </div>
+          <p class="bonus">+30 maximum mana, +12 damage.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="casting" class="panel">
+      <p class="kicker">ACTIONS AND SPELLS</p>
+      <h2>Aim, cast, impact, recharge</h2>
+      <p><strong>Basic attack + four abilities:</strong> Every hero has a separate single-target basic attack: a melee strike or a ranged shot, including magic bolts. Basic attacks cost no mana, use no spell charges, and repeat at the hero's attack speed. Their damage grows every level: base damage + (level − 1) × damage per level, plus equipment bonuses. Q/W/E/R are four additional abilities with their own cooldowns and charges.</p>
+      <div class="spell-grid">
+        <article class="spell-rule"><h3>One target</h3><p>Melee strikes need close range. Projectiles travel to one target. Neither becomes an area attack just because its effect looks wide. In player mode, aim at an object to target it, or aim at empty ground to swing or shoot into space.</p></article>
+        <article class="spell-rule"><h3>An area on the map</h3><p>Circles, lines, sectors and other footprints affect every eligible occupant when the effect lands. The area locks when cast. Moving into it before impact can get you hit; moving out can avoid it. Enemy damage, allied healing and structure protection still apply.</p></article>
+        <article class="spell-rule"><h3>A visible warning</h3><p>Cast delay is the time from releasing an area spell until it takes effect. The full footprint remains on the map during that delay, then flashes at impact. Every cast uses the same warnings and timing. Changing playback speed speeds up or slows down the battle and spell effects together.</p></article>
+      </div>
+      <p><strong>Mana</strong> is paid when a cast is accepted. Basic attacks cost zero mana, as does Molten Fist. Other spells have their own mana costs. Invalid casts do not spend mana or charges; a valid shot into empty space does.</p>
+      <div class="spell-grid">
+        <article class="spell-rule"><h3>Charges</h3><p>The number of casts held in reserve. You need at least one charge. Each hero starts with a full set; a respawn restores the set.</p></article>
+        <article class="spell-rule"><h3>Cast cooldown</h3><p>The minimum time between uses of the same action, even if charges remain. It is separate from the effect's cast delay and from its recharge timer.</p></article>
+        <article class="spell-rule"><h3>Recharge cooldown</h3><p>Charges refill one at a time. The timer starts with the first spent charge. Spending another does not restart it. When a charge returns, the next missing charge starts its own full recharge.</p></article>
+      </div>
+      <div class="charge-demo" aria-label="Interactive charge timing example">
+        <h3>Try it: 3 charges · 2s cooldown · 12s recharge</h3>
+        <p>Cast at 0, 2 and 4 seconds. Charges return at 12, 24 and 36 seconds if you stop casting.</p>
+        <div class="charge-pips" id="charge-pips" aria-hidden="true"></div>
+        <output id="charge-status" aria-live="polite"></output>
+        <button id="charge-cast" type="button">Cast</button>
+        <button id="charge-step" type="button">Advance 2 seconds</button>
+        <button id="charge-wait" type="button">Advance 10 seconds</button>
+        <button id="charge-reset" type="button">Reset</button>
+      </div>
+      <p><strong>Refill resources:</strong> Ironroot Ration costs 30 gold and heals 40 HP; Vitality Elixir costs 50 gold and heals 90 HP; Mana Potion costs 45 gold and restores 60 mana. Buy them in the <a href="#shop">shop</a>. Healing cannot revive a hero at zero HP.</p>
+    </section>
+    <section id="controls" class="panel">
+      <p class="kicker">PLAYER CONTROLS</p>
+      <h2>Control your hero</h2>
+      <p>Idle heroes automatically attack the closest visible enemy creep nearby. Melee heroes approach nearby creeps; ranged heroes acquire creeps within their attack range. Select an enemy or right-click it to make it take priority. Both melee and ranged heroes move toward that target until they reach their own basic-attack range, then stop and attack repeatedly. When the target dies or is lost in fog, they return to nearby creeps. A ground move order cancels the attack and takes priority over automatic acquisition. These rules also apply with zero mana or all four abilities on cooldown.</p>
+      <p>You control your four extra abilities; they only cast when you use them. Q/W/E/R cast immediately at your current valid target. Self actions always fire on key press and affect you. Melee actions also fire immediately: they strike a nearby target, or swing toward the pointer when there is none. For other abilities with no valid target, the key selects the ability and right-click casts at an object or the ground. Escape cancels the selection. With no ability selected, right-click moves or attacks. Click SHOP in the inventory, or press B, to open the full-screen item shop; click an item to buy it. Space pauses or resumes the battle, including while shopping. The HUD shows remaining charges and the wait until an empty action can be used again. A blue bar tracks progress toward the next charge.</p>
+      <table class="spell-table"><thead><tr><th>Input</th><th>Action</th></tr></thead><tbody>
+        <tr><td>Q / W / E / R</td><td>Your four extra abilities. Self and melee actions fire immediately; other actions use your current target or select right-click aiming.</td></tr>
+        <tr><td>F / G</td><td>Use the first two inventory items, including health and mana potions.</td></tr>
+        <tr><td>O</td><td>Toggle character outlines behind scenery. Enabled by default; hidden portions are outlined without revealing enemies in fog of war.</td></tr>
+      </tbody></table>
+    </section>
+
+  </main>
+
+  <script>
+    (() => {
+      let now = 0, charges = 3, readyAt = 0, rechargeAt = null;
+      const status = document.getElementById('charge-status');
+      function draw() {
+        document.getElementById('charge-pips').innerHTML = [0, 1, 2].map(i => `<span class="${i < charges ? '' : 'empty'}"></span>`).join('');
+        status.textContent = `Time: ${now}s · Charges: ${charges}/3 · Cast cooldown: ${Math.max(0, readyAt - now)}s · Next charge: ${rechargeAt === null ? 'full' : (rechargeAt - now) + 's'}`;
+        document.getElementById('charge-cast').disabled = charges === 0 || now < readyAt;
+      }
+      function advance(seconds) {
+        now += seconds;
+        while (rechargeAt !== null && rechargeAt <= now) {
+          charges++;
+          rechargeAt = charges < 3 ? rechargeAt + 12 : null;
+        }
+        draw();
+      }
+      document.getElementById('charge-cast').onclick = () => {
+        if (charges === 0 || now < readyAt) return;
+        charges--; readyAt = now + 2;
+        if (rechargeAt === null) rechargeAt = now + 12;
+        draw();
+      };
+      document.getElementById('charge-step').onclick = () => advance(2);
+      document.getElementById('charge-wait').onclick = () => advance(10);
+      document.getElementById('charge-reset').onclick = () => { now = 0; charges = 3; readyAt = 0; rechargeAt = null; draw(); };
+      draw();
+    })();
+  </script>
+</body>
+</html>

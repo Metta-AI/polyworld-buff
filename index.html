@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Game guides for Gods of the Arena, Light vs Dark, and Call to Adventure.">
+  <title>Polyworld Buff</title>
+  <style>
+    @font-face {
+      font-family: Rubik;
+      src: url("GOTA/assets/fonts/Rubik-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: Rubik;
+      src: url("GOTA/assets/fonts/Rubik-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at top, #202a3b, #0c1014 70%);
+      color: #eef0f4;
+      font-family: Rubik, sans-serif;
+    }
+    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { padding: 80px 0 40px; }
+    h1 { margin: 0 0 16px; font-size: clamp(36px, 7vw, 64px); }
+    header p { color: #a6aebf; font-size: 18px; line-height: 1.6; }
+    .games {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .game {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid #51472f;
+      border-radius: 16px;
+      background: #161b24;
+      color: inherit;
+      text-decoration: none;
+    }
+    .game:hover { background: #202733; border-color: #f7dd8f; }
+    a:focus-visible { outline: 3px solid #f7dd8f; outline-offset: 5px; }
+    .game img { width: 100%; height: 150px; object-fit: contain; }
+    .game h2 { margin: 24px 0 12px; font-size: 22px; }
+    .game p { margin: 0 0 28px; color: #b8c0ce; line-height: 1.6; }
+    .game span { margin-top: auto; color: #f7dd8f; }
+    footer { padding: 48px 0; color: #a6aebf; font-size: 14px; }
+    footer a { color: #f7dd8f; }
+    @media (max-width: 800px) {
+      header { padding-top: 48px; }
+      .games { grid-template-columns: 1fr; }
+      .game img { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Polyworld Buff</h1>
+      <p>Explore the games. Learn the heroes, units, abilities, and rules.</p>
+    </header>
+    <nav class="games" aria-label="Game guides">
+      <a class="game" href="GOTA/">
+        <img src="GOTA/assets/themes/gota/gota_logo.png" alt="">
+        <h2>Gods of the Arena</h2>
+        <p>Meet the heroes, explore their abilities, and learn the arena.</p>
+        <span>Read the GOTA guide &rarr;</span>
+      </a>
+      <a class="game" href="LvD/">
+        <img src="LvD/assets/themes/lvd/lvd_logo.png" alt="">
+        <h2>Light vs Dark</h2>
+        <p>Compare the factions, units, buildings, and match rules.</p>
+        <span>Read the LvD guide &rarr;</span>
+      </a>
+      <a class="game" href="CTA/">
+        <img src="CTA/assets/themes/cta/cta_logo.png" alt="">
+        <h2>Call to Adventure</h2>
+        <p>Discover the party, dungeon monsters, abilities, and loot.</p>
+        <span>Read the CTA guide &rarr;</span>
+      </a>
+    </nav>
+    <footer>
+      <a href="https://github.com/Metta-AI/polyworld-buff">View on GitHub</a>
+    </footer>
+  </main>
+</body>
+</html>
