@@ -1,49 +1,17 @@
 import
-  std/[os, strutils],
-  layouts
+  std/os,
+  heroreports
 
 const Root = currentSourcePath().parentDir.parentDir
-
-type HeroReportError = object of CatchableError
-
-proc publish(source: string) =
-  ## Copies a generated hero report and its artwork into the GOTA site.
-  let
-    sourcePath = absolutePath(source)
-    sourceAssets = sourcePath.parentDir / "hero_assets"
-    target = Root / "GOTA" / "hero_stats.html"
-  var html = readFile(sourcePath)
-  if "@@" in html or "id=\"report-data\"" notin html:
-    raise newException(HeroReportError,
-      "Pass the generated report, not the HTML template")
-  if not dirExists(sourceAssets):
-    raise newException(HeroReportError,
-      "Missing hero_assets folder beside " & sourcePath)
-  if "<a href=\"index.html\">Game guide</a>" notin html:
-    html = html.replace(
-      "<a href=\"#methods\">Methodology</a>",
-      "<a href=\"index.html\">Game guide</a>" &
-        "<a href=\"#methods\">Methodology</a>"
-    )
-  if "<a href=\"index.html\">GOTA guide</a>" notin html:
-    html = html.replace(
-      "Static hero report · Works offline",
-      "<a href=\"index.html\">GOTA guide</a> · " &
-        "Static hero report · Works offline"
-    )
-  html = stylePage(html, HeroStats)
-  copyDir(sourceAssets, target.parentDir / "hero_assets")
-  writeFile(target & ".tmp", html)
-  moveFile(target & ".tmp", target)
-  echo "Updated ", target
 
 proc main() =
   ## Accepts one generated HTML path without starting a local server.
   let arguments = commandLineParams()
-  if arguments.len != 1:
-    raise newException(HeroReportError,
-      "Usage: update_hero_stats GENERATED_REPORT_HTML")
-  publish(arguments[0])
+  if arguments.len notin 1 .. 2 or
+    (arguments.len == 2 and arguments[1] != "--refresh-source"):
+      raise newException(HeroReportError,
+        "Usage: update_hero_stats GENERATED_REPORT_HTML [--refresh-source]")
+  publishHeroReport(arguments[0], Root, arguments.len == 2)
 
 try:
   main()

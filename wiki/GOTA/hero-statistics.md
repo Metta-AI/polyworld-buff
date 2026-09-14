@@ -1,4 +1,4 @@
-Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/hero_stats.html). Synced snapshot; interactive views remain on the source site.
+Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/heros/). Synced snapshot; interactive views remain on the source site.
 
 Analysis window: **2026-09-13T18:23:46.637658000Z to 2026-09-14T18:23:46.637658000Z**.
 

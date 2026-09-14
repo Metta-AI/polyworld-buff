@@ -143,7 +143,7 @@ def guide(folder, images):
 
 def heroStats():
   """Export dated aggregate hero statistics and their interpretation."""
-  soup = BeautifulSoup((ROOT / "GOTA/hero_stats.html").read_text(), "html.parser")
+  soup = BeautifulSoup((ROOT / "GOTA/heros/index.html").read_text(), "html.parser")
   summary = json.loads(soup.find("script", id="report-data").string)["summary"]
   text = (
     f"Analysis window: **{summary['start']} to {summary['end']}**.\n\n"
@@ -244,7 +244,7 @@ def main():
     for folder, game, route in GAMES:
       pages.append((folder, game, route, "game-guide", game + " — Game Guide", folder + "/", guide(folder, images)))
     pages.extend([
-      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "Gods of the Arena — Hero Statistics", "GOTA/hero_stats.html", heroStats()),
+      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "Gods of the Arena — Hero Statistics", "GOTA/heros/", heroStats()),
       ("GOTA", "Gods of the Arena", "gods-of-the-arena", "player-standings", "Gods of the Arena — Player Standings", "GOTA/standings/", standings()),
     ])
     for folder, game, route, slug, title, source, content in pages:

@@ -8,8 +8,8 @@ type
 proc navigation(page: SitePage): string =
   ## Builds the shared GOTA header with paths relative to each page.
   let
-    prefix = if page == Standings: "../" else: ""
-    links = ["index.html", "hero_stats.html", "standings/"]
+    prefix = if page == Guide: "" else: "../"
+    links = ["index.html", "heros/", "standings/"]
     labels = ["Game guide", "Hero statistics", "Player standings"]
   result = "<!-- GOTA navigation. -->\n" &
     "<header class=\"site-header wrap\">\n" &
@@ -32,12 +32,13 @@ proc stylePage*(html: string, page: SitePage): string =
   ## Applies shared navigation without changing report data or behavior.
   result = html
   let
-    prefix = if page == Standings: "../" else: ""
+    prefix = if page == Guide: "" else: "../"
     stylesheet = "<link rel=\"stylesheet\" href=\"" & prefix &
       "site.css\">"
     marker = "<!-- GOTA navigation. -->"
     ending = "<!-- End GOTA navigation. -->"
   if stylesheet notin result:
+    result = result.replace("<link rel=\"stylesheet\" href=\"site.css\">", "")
     result = result.replace("</head>", stylesheet & "\n</head>")
   var
     start = result.find(marker)
