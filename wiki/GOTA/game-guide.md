@@ -4,15 +4,13 @@ Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/). Synce
 
 Two gods sit in opposite-corner forts. Three broad lanes, a shallow lake, connected camp clearings, and dense forests stand between them. Ten heroes, footmen, and towers fight until one god falls.
 
-- **10** HEROES
-
-- **18** TOWERS
-
-- **3** LANES
-
-- **20** MAX LEVEL
-
-- **20** SHOP ITEMS
+| Stat | Value |
+| --- | --- |
+| HEROES | 10 |
+| TOWERS | 18 |
+| LANES | 3 |
+| MAX LEVEL | 20 |
+| SHOP ITEMS | 20 |
 
 THE MATCH
 
@@ -26,17 +24,14 @@ Footmen spawn two per lane every ten seconds and march until they meet the enemy
 
 Outer towers fall first, then inner, then the gate. A god becomes attackable after one of its lanes is cleared. The first fort to reach zero health loses.
 
-- **Footmen** 60 HP, 12 damage, 15 gold
-
-- **Towers** Outer 600, inner 800, gate 1000
-
-- **Gods** 400 HP, exposed after a lane falls
-
-- **Hero bounty** 150 XP and 100 gold
-
-- **Level curve** 100 XP, then +75 each level
-
-- **Clock** 20 minute match
+| Reference | Details |
+| --- | --- |
+| Footmen | 60 HP, 12 damage, 15 gold |
+| Towers | Outer 600, inner 800, gate 1000 |
+| Gods | 400 HP, exposed after a lane falls |
+| Hero bounty | 150 XP and 100 gold |
+| Level curve | 100 XP, then +75 each level |
+| Clock | 20 minute match |
 
 THE ROSTER
 
@@ -56,17 +51,14 @@ BLUE TEAM
 
 MELEE · FRONTLINE PROTECTOR
 
-- **330 → 1470** HP +60/LVL
-
-- **110 → 262** MANA +8/LVL
-
-- **25 → 120** BASIC DAMAGE +5/LVL
-
-- **1.17** RANGE
-
-- **2.32 → 2.78** MOVE
-
-- **1.00** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +60/LVL | 330 → 1470 |
+| MANA +8/LVL | 110 → 262 |
+| BASIC DAMAGE +5/LVL | 25 → 120 |
+| RANGE | 1.17 |
+| MOVE | 2.32 → 2.78 |
+| ATTACKS / S | 1.00 |
 
 HEALTH  330 → 1470
 
@@ -80,12 +72,14 @@ Affects **Self**
 
 Self cast
 
-- **Healing:** +28 HP
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Healing | +28 HP |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | Instant |
 
 Restores your health.
 
@@ -97,13 +91,15 @@ Affects **Single target**
 
 Melee
 
-- **Damage:** 40
-- **Mana cost:** 20
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 1.5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 40 |
+| Mana cost | 20 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 1.5 tiles |
 
 Strike one enemy at close range. Aim at empty ground to swing into space.
 
@@ -115,15 +111,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Healing:** +50 HP
-- **Mana cost:** 35
-- **Charges:** 1
-- **Cast cooldown:** 10s
-- **Recharge:** 10s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 2.33 tiles
-- **Radius:** 2.33 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Healing | +50 HP |
+| Mana cost | 35 |
+| Charges | 1 |
+| Cast cooldown | 10s |
+| Recharge | 10s / charge |
+| Cast delay | 0.5s |
+| Cast range | 2.33 tiles |
+| Radius | 2.33 tiles |
+| Visual effect | Circle |
 
 Centered on you. Heals all allied heroes in the circle at impact.
 
@@ -135,16 +133,18 @@ Footprint **Sector**
 
 Area cast
 
-- **Damage:** 90
-- **Mana cost:** 70
-- **Charges:** 1
-- **Cast cooldown:** 20s
-- **Recharge:** 20s / charge
-- **Cast delay:** 0.25s
-- **Cast range:** 1.83 tiles
-- **Radius:** 1.83 tiles
-- **Angle:** 120°
-- **Visual effect:** Arc
+| Property | Value |
+| --- | --- |
+| Damage | 90 |
+| Mana cost | 70 |
+| Charges | 1 |
+| Cast cooldown | 20s |
+| Recharge | 20s / charge |
+| Cast delay | 0.25s |
+| Cast range | 1.83 tiles |
+| Radius | 1.83 tiles |
+| Angle | 120° |
+| Visual effect | Arc |
 
 Starts at your position, facing your aim. Hits all enemies in the sector at impact.
 
@@ -158,17 +158,14 @@ BLUE TEAM
 
 RANGER · MOBILE RANGED CARRY
 
-- **210 → 932** HP +38/LVL
-
-- **110 → 262** MANA +8/LVL
-
-- **25 → 139** BASIC DAMAGE +6/LVL
-
-- **5.50** RANGE
-
-- **2.76 → 3.44** MOVE
-
-- **1.33** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +38/LVL | 210 → 932 |
+| MANA +8/LVL | 110 → 262 |
+| BASIC DAMAGE +6/LVL | 25 → 139 |
+| RANGE | 5.50 |
+| MOVE | 2.76 → 3.44 |
+| ATTACKS / S | 1.33 |
 
 HEALTH  210 → 932
 
@@ -182,13 +179,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 16
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** Instant
-- **Cast range:** 7 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 16 |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | Instant |
+| Cast range | 7 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -200,13 +199,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 32
-- **Mana cost:** 18
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 6 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 32 |
+| Mana cost | 18 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 6 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -218,15 +219,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 48
-- **Mana cost:** 32
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** 1s
-- **Cast range:** 6.5 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Disc
+| Property | Value |
+| --- | --- |
+| Damage | 48 |
+| Mana cost | 32 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | 1s |
+| Cast range | 6.5 tiles |
+| Radius | 2 tiles |
+| Visual effect | Disc |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -238,15 +241,17 @@ Footprint **Line**
 
 Area cast
 
-- **Damage:** 95
-- **Mana cost:** 80
-- **Charges:** 1
-- **Cast cooldown:** 24s
-- **Recharge:** 24s / charge
-- **Cast delay:** 1s
-- **Cast range:** 8 tiles
-- **Width × length:** 1.5 × 8 tiles
-- **Visual effect:** Line
+| Property | Value |
+| --- | --- |
+| Damage | 95 |
+| Mana cost | 80 |
+| Charges | 1 |
+| Cast cooldown | 24s |
+| Recharge | 24s / charge |
+| Cast delay | 1s |
+| Cast range | 8 tiles |
+| Width × length | 1.5 × 8 tiles |
+| Visual effect | Line |
 
 Starts at your position, facing your aim. Hits all enemies in the line at impact.
 
@@ -260,17 +265,14 @@ BLUE TEAM
 
 MAGE · BURST MAGE
 
-- **190 → 760** HP +30/LVL
-
-- **180 → 465** MANA +15/LVL
-
-- **38 → 190** BASIC DAMAGE +8/LVL
-
-- **5.00** RANGE
-
-- **2.48 → 3.01** MOVE
-
-- **0.80** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +30/LVL | 190 → 760 |
+| MANA +15/LVL | 180 → 465 |
+| BASIC DAMAGE +8/LVL | 38 → 190 |
+| RANGE | 5.00 |
+| MOVE | 2.48 → 3.01 |
+| ATTACKS / S | 0.80 |
 
 HEALTH  190 → 760
 
@@ -284,12 +286,14 @@ Affects **Self**
 
 Self cast
 
-- **Restores:** +28 mana
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 6s
-- **Recharge:** 6s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Restores | +28 mana |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 6s |
+| Recharge | 6s / charge |
+| Cast delay | Instant |
 
 Restores your mana.
 
@@ -301,13 +305,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 42
-- **Mana cost:** 28
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 5.5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 42 |
+| Mana cost | 28 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 5.5 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -319,15 +325,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 70
-- **Mana cost:** 50
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** 2s
-- **Cast range:** 6 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Damage | 70 |
+| Mana cost | 50 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | 2s |
+| Cast range | 6 tiles |
+| Radius | 2 tiles |
+| Visual effect | Circle |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -339,15 +347,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 120
-- **Mana cost:** 100
-- **Charges:** 1
-- **Cast cooldown:** 25s
-- **Recharge:** 25s / charge
-- **Cast delay:** 3s
-- **Cast range:** 7 tiles
-- **Radius:** 3 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Damage | 120 |
+| Mana cost | 100 |
+| Charges | 1 |
+| Cast cooldown | 25s |
+| Recharge | 25s / charge |
+| Cast delay | 3s |
+| Cast range | 7 tiles |
+| Radius | 3 tiles |
+| Visual effect | Circle |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -361,17 +371,14 @@ BLUE TEAM
 
 MAGE · DURABLE SUPPORT
 
-- **250 → 1162** HP +48/LVL
-
-- **170 → 436** MANA +14/LVL
-
-- **22 → 98** BASIC DAMAGE +4/LVL
-
-- **4.00** RANGE
-
-- **2.56 → 3.09** MOVE
-
-- **0.92** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +48/LVL | 250 → 1162 |
+| MANA +14/LVL | 170 → 436 |
+| BASIC DAMAGE +4/LVL | 22 → 98 |
+| RANGE | 4.00 |
+| MOVE | 2.56 → 3.09 |
+| ATTACKS / S | 0.92 |
 
 HEALTH  250 → 1162
 
@@ -385,12 +392,14 @@ Affects **Self**
 
 Self cast
 
-- **Healing:** +22 HP
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Healing | +22 HP |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | Instant |
 
 Restores your health.
 
@@ -402,15 +411,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Healing:** +55 HP
-- **Mana cost:** 30
-- **Charges:** 1
-- **Cast cooldown:** 7s
-- **Recharge:** 7s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 4 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Healing | +55 HP |
+| Mana cost | 30 |
+| Charges | 1 |
+| Cast cooldown | 7s |
+| Recharge | 7s / charge |
+| Cast delay | 0.5s |
+| Cast range | 4 tiles |
+| Radius | 2 tiles |
+| Visual effect | Circle |
 
 Locks at your aimed map position. Heals all allied heroes in the circle at impact.
 
@@ -422,15 +433,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Healing:** +80 HP
-- **Mana cost:** 45
-- **Charges:** 1
-- **Cast cooldown:** 12s
-- **Recharge:** 12s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 4 tiles
-- **Radius:** 2.5 tiles
-- **Visual effect:** Sphere
+| Property | Value |
+| --- | --- |
+| Healing | +80 HP |
+| Mana cost | 45 |
+| Charges | 1 |
+| Cast cooldown | 12s |
+| Recharge | 12s / charge |
+| Cast delay | 0.5s |
+| Cast range | 4 tiles |
+| Radius | 2.5 tiles |
+| Visual effect | Sphere |
 
 Locks at your aimed map position. Heals all allied heroes in the circle at impact.
 
@@ -442,15 +455,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 85
-- **Mana cost:** 75
-- **Charges:** 1
-- **Cast cooldown:** 22s
-- **Recharge:** 22s / charge
-- **Cast delay:** 1s
-- **Cast range:** 3.33 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Cylinder
+| Property | Value |
+| --- | --- |
+| Damage | 85 |
+| Mana cost | 75 |
+| Charges | 1 |
+| Cast cooldown | 22s |
+| Recharge | 22s / charge |
+| Cast delay | 1s |
+| Cast range | 3.33 tiles |
+| Radius | 2 tiles |
+| Visual effect | Cylinder |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -464,17 +479,14 @@ BLUE TEAM
 
 MELEE · MELEE ASSASSIN
 
-- **220 → 904** HP +36/LVL
-
-- **90 → 223** MANA +7/LVL
-
-- **32 → 165** BASIC DAMAGE +7/LVL
-
-- **1.25** RANGE
-
-- **3.04 → 3.95** MOVE
-
-- **1.50** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +36/LVL | 220 → 904 |
+| MANA +7/LVL | 90 → 223 |
+| BASIC DAMAGE +7/LVL | 32 → 165 |
+| RANGE | 1.25 |
+| MOVE | 3.04 → 3.95 |
+| ATTACKS / S | 1.50 |
 
 HEALTH  220 → 904
 
@@ -488,12 +500,14 @@ Affects **Self**
 
 Self cast
 
-- **Healing:** +18 HP
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 10s
-- **Recharge:** 10s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Healing | +18 HP |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 10s |
+| Recharge | 10s / charge |
+| Cast delay | Instant |
 
 Restores your health.
 
@@ -505,13 +519,15 @@ Affects **Single target**
 
 Melee
 
-- **Damage:** 38
-- **Mana cost:** 16
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 1.5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 38 |
+| Mana cost | 16 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 1.5 tiles |
 
 Strike one enemy at close range. Aim at empty ground to swing into space.
 
@@ -523,16 +539,18 @@ Footprint **Sector**
 
 Area cast
 
-- **Damage:** 52
-- **Mana cost:** 28
-- **Charges:** 1
-- **Cast cooldown:** 7s
-- **Recharge:** 7s / charge
-- **Cast delay:** 0.25s
-- **Cast range:** 2 tiles
-- **Radius:** 2 tiles
-- **Angle:** 120°
-- **Visual effect:** Cone
+| Property | Value |
+| --- | --- |
+| Damage | 52 |
+| Mana cost | 28 |
+| Charges | 1 |
+| Cast cooldown | 7s |
+| Recharge | 7s / charge |
+| Cast delay | 0.25s |
+| Cast range | 2 tiles |
+| Radius | 2 tiles |
+| Angle | 120° |
+| Visual effect | Cone |
 
 Starts at your position, facing your aim. Hits all enemies in the sector at impact.
 
@@ -544,13 +562,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 100
-- **Mana cost:** 65
-- **Charges:** 1
-- **Cast cooldown:** 21s
-- **Recharge:** 21s / charge
-- **Cast delay:** Instant
-- **Cast range:** 5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 100 |
+| Mana cost | 65 |
+| Charges | 1 |
+| Cast cooldown | 21s |
+| Recharge | 21s / charge |
+| Cast delay | Instant |
+| Cast range | 5 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -564,17 +584,14 @@ RED TEAM
 
 MELEE · SUSTAINING BRUISER
 
-- **350 → 1528** HP +62/LVL
-
-- **90 → 242** MANA +8/LVL
-
-- **30 → 144** BASIC DAMAGE +6/LVL
-
-- **1.27** RANGE
-
-- **2.28 → 2.74** MOVE
-
-- **0.86** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +62/LVL | 350 → 1528 |
+| MANA +8/LVL | 90 → 242 |
+| BASIC DAMAGE +6/LVL | 30 → 144 |
+| RANGE | 1.27 |
+| MOVE | 2.28 → 2.74 |
+| ATTACKS / S | 0.86 |
 
 HEALTH  350 → 1528
 
@@ -588,12 +605,14 @@ Affects **Self**
 
 Self cast
 
-- **Healing:** +26 HP
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Healing | +26 HP |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | Instant |
 
 Restores your health.
 
@@ -605,13 +624,15 @@ Affects **Single target**
 
 Melee
 
-- **Damage:** 42
-- **Mana cost:** 18
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 1.5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 42 |
+| Mana cost | 18 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 1.5 tiles |
 
 Strike one enemy at close range. Aim at empty ground to swing into space.
 
@@ -623,15 +644,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 60
-- **Mana cost:** 36
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** 1s
-- **Cast range:** 2.67 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Damage | 60 |
+| Mana cost | 36 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | 1s |
+| Cast range | 2.67 tiles |
+| Radius | 2 tiles |
+| Visual effect | Circle |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -643,16 +666,18 @@ Footprint **Ring**
 
 Area cast
 
-- **Damage:** 110
-- **Mana cost:** 80
-- **Charges:** 1
-- **Cast cooldown:** 26s
-- **Recharge:** 26s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 2.33 tiles
-- **Radius:** 2.33 tiles
-- **Inner radius:** 0.67 tiles
-- **Visual effect:** Ring
+| Property | Value |
+| --- | --- |
+| Damage | 110 |
+| Mana cost | 80 |
+| Charges | 1 |
+| Cast cooldown | 26s |
+| Recharge | 26s / charge |
+| Cast delay | 0.5s |
+| Cast range | 2.33 tiles |
+| Radius | 2.33 tiles |
+| Inner radius | 0.67 tiles |
+| Visual effect | Ring |
 
 Centered on you. Hits all enemies in the ring at impact. The center is safe.
 
@@ -666,17 +691,14 @@ RED TEAM
 
 RANGER · HEAVY RANGED CARRY
 
-- **230 → 1028** HP +42/LVL
-
-- **80 → 194** MANA +6/LVL
-
-- **43 → 195** BASIC DAMAGE +8/LVL
-
-- **6.50** RANGE
-
-- **2.40 → 2.86** MOVE
-
-- **0.67** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +42/LVL | 230 → 1028 |
+| MANA +6/LVL | 80 → 194 |
+| BASIC DAMAGE +8/LVL | 43 → 195 |
+| RANGE | 6.50 |
+| MOVE | 2.40 → 2.86 |
+| ATTACKS / S | 0.67 |
 
 HEALTH  230 → 1028
 
@@ -690,13 +712,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 20
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** Instant
-- **Cast range:** 7 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 20 |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | Instant |
+| Cast range | 7 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -708,13 +732,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 50
-- **Mana cost:** 22
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 6.67 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 50 |
+| Mana cost | 22 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 6.67 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -726,16 +752,18 @@ Footprint **Sector**
 
 Area cast
 
-- **Damage:** 68
-- **Mana cost:** 40
-- **Charges:** 1
-- **Cast cooldown:** 10s
-- **Recharge:** 10s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 6 tiles
-- **Radius:** 6 tiles
-- **Angle:** 90°
-- **Visual effect:** Cone
+| Property | Value |
+| --- | --- |
+| Damage | 68 |
+| Mana cost | 40 |
+| Charges | 1 |
+| Cast cooldown | 10s |
+| Recharge | 10s / charge |
+| Cast delay | 0.5s |
+| Cast range | 6 tiles |
+| Radius | 6 tiles |
+| Angle | 90° |
+| Visual effect | Cone |
 
 Starts at your position, facing your aim. Hits all enemies in the sector at impact.
 
@@ -747,15 +775,17 @@ Footprint **Capsule**
 
 Area cast
 
-- **Damage:** 115
-- **Mana cost:** 70
-- **Charges:** 1
-- **Cast cooldown:** 23s
-- **Recharge:** 23s / charge
-- **Cast delay:** 1s
-- **Cast range:** 7.5 tiles
-- **Width × length:** 1.5 × 7.5 tiles
-- **Visual effect:** Capsule
+| Property | Value |
+| --- | --- |
+| Damage | 115 |
+| Mana cost | 70 |
+| Charges | 1 |
+| Cast cooldown | 23s |
+| Recharge | 23s / charge |
+| Cast delay | 1s |
+| Cast range | 7.5 tiles |
+| Width × length | 1.5 × 7.5 tiles |
+| Visual effect | Capsule |
 
 Starts at your position, facing your aim. Hits all enemies in the capsule at impact.
 
@@ -769,17 +799,14 @@ RED TEAM
 
 MAGE · CONTROL MAGE
 
-- **185 → 717** HP +28/LVL
-
-- **210 → 533** MANA +17/LVL
-
-- **36 → 188** BASIC DAMAGE +8/LVL
-
-- **5.50** RANGE
-
-- **2.40 → 2.86** MOVE
-
-- **0.75** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +28/LVL | 185 → 717 |
+| MANA +17/LVL | 210 → 533 |
+| BASIC DAMAGE +8/LVL | 36 → 188 |
+| RANGE | 5.50 |
+| MOVE | 2.40 → 2.86 |
+| ATTACKS / S | 0.75 |
 
 HEALTH  185 → 717
 
@@ -793,13 +820,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 14
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** Instant
-- **Cast range:** 6 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 14 |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | Instant |
+| Cast range | 6 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -811,13 +840,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 44
-- **Mana cost:** 30
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 6 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 44 |
+| Mana cost | 30 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 6 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -829,15 +860,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 66
-- **Mana cost:** 48
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** 1s
-- **Cast range:** 5 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Dome
+| Property | Value |
+| --- | --- |
+| Damage | 66 |
+| Mana cost | 48 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | 1s |
+| Cast range | 5 tiles |
+| Radius | 2 tiles |
+| Visual effect | Dome |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 
@@ -849,16 +882,18 @@ Footprint **Ring**
 
 Area cast
 
-- **Damage:** 125
-- **Mana cost:** 110
-- **Charges:** 1
-- **Cast cooldown:** 27s
-- **Recharge:** 27s / charge
-- **Cast delay:** 1s
-- **Cast range:** 6.5 tiles
-- **Radius:** 2 tiles
-- **Inner radius:** 0.67 tiles
-- **Visual effect:** Torus
+| Property | Value |
+| --- | --- |
+| Damage | 125 |
+| Mana cost | 110 |
+| Charges | 1 |
+| Cast cooldown | 27s |
+| Recharge | 27s / charge |
+| Cast delay | 1s |
+| Cast range | 6.5 tiles |
+| Radius | 2 tiles |
+| Inner radius | 0.67 tiles |
+| Visual effect | Torus |
 
 Locks at your aimed map position. Hits all enemies in the ring at impact. The center is safe.
 
@@ -872,17 +907,14 @@ RED TEAM
 
 MAGE · UTILITY SUMMONER
 
-- **240 → 1114** HP +46/LVL
-
-- **190 → 494** MANA +16/LVL
-
-- **26 → 121** BASIC DAMAGE +5/LVL
-
-- **4.50** RANGE
-
-- **2.48 → 3.01** MOVE
-
-- **0.86** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +46/LVL | 240 → 1114 |
+| MANA +16/LVL | 190 → 494 |
+| BASIC DAMAGE +5/LVL | 26 → 121 |
+| RANGE | 4.50 |
+| MOVE | 2.48 → 3.01 |
+| ATTACKS / S | 0.86 |
 
 HEALTH  240 → 1114
 
@@ -896,12 +928,14 @@ Affects **Self**
 
 Self cast
 
-- **Restores:** +22 mana
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 7s
-- **Recharge:** 7s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Restores | +22 mana |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 7s |
+| Recharge | 7s / charge |
+| Cast delay | Instant |
 
 Restores your mana.
 
@@ -913,13 +947,15 @@ Affects **Single target**
 
 Projectile
 
-- **Damage:** 36
-- **Mana cost:** 24
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 4.67 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 36 |
+| Mana cost | 24 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 4.67 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -931,15 +967,17 @@ Footprint **Line**
 
 Area cast
 
-- **Damage:** 58
-- **Mana cost:** 42
-- **Charges:** 1
-- **Cast cooldown:** 9s
-- **Recharge:** 9s / charge
-- **Cast delay:** 1s
-- **Cast range:** 4 tiles
-- **Width × length:** 1 × 4 tiles
-- **Visual effect:** Box
+| Property | Value |
+| --- | --- |
+| Damage | 58 |
+| Mana cost | 42 |
+| Charges | 1 |
+| Cast cooldown | 9s |
+| Recharge | 9s / charge |
+| Cast delay | 1s |
+| Cast range | 4 tiles |
+| Width × length | 1 × 4 tiles |
+| Visual effect | Box |
 
 Locks at your aimed map position. Hits all enemies in the line at impact.
 
@@ -951,16 +989,18 @@ Footprint **Ring**
 
 Area cast
 
-- **Damage:** 105
-- **Mana cost:** 90
-- **Charges:** 1
-- **Cast cooldown:** 24s
-- **Recharge:** 24s / charge
-- **Cast delay:** 1s
-- **Cast range:** 5 tiles
-- **Radius:** 2 tiles
-- **Inner radius:** 0.67 tiles
-- **Visual effect:** Helix
+| Property | Value |
+| --- | --- |
+| Damage | 105 |
+| Mana cost | 90 |
+| Charges | 1 |
+| Cast cooldown | 24s |
+| Recharge | 24s / charge |
+| Cast delay | 1s |
+| Cast range | 5 tiles |
+| Radius | 2 tiles |
+| Inner radius | 0.67 tiles |
+| Visual effect | Helix |
 
 Locks at your aimed map position. Hits all enemies in the ring at impact. The center is safe.
 
@@ -974,17 +1014,14 @@ RED TEAM
 
 MELEE · AGGRESSIVE MELEE CARRY
 
-- **300 → 1345** HP +55/LVL
-
-- **40 → 116** MANA +4/LVL
-
-- **35 → 168** BASIC DAMAGE +7/LVL
-
-- **1.33** RANGE
-
-- **2.72 → 3.40** MOVE
-
-- **1.20** ATTACKS / S
+| Stat | Value |
+| --- | --- |
+| HP +55/LVL | 300 → 1345 |
+| MANA +4/LVL | 40 → 116 |
+| BASIC DAMAGE +7/LVL | 35 → 168 |
+| RANGE | 1.33 |
+| MOVE | 2.72 → 3.40 |
+| ATTACKS / S | 1.20 |
 
 HEALTH  300 → 1345
 
@@ -998,12 +1035,14 @@ Affects **Self**
 
 Self cast
 
-- **Healing:** +20 HP
-- **Mana cost:** 0
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** Instant
+| Property | Value |
+| --- | --- |
+| Healing | +20 HP |
+| Mana cost | 0 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | Instant |
 
 Restores your health.
 
@@ -1015,13 +1054,15 @@ Affects **Single target**
 
 Melee
 
-- **Damage:** 45
-- **Mana cost:** 0
-- **Charges:** 3
-- **Cast cooldown:** 2s
-- **Recharge:** 12s / charge
-- **Cast delay:** Instant
-- **Cast range:** 1.5 tiles
+| Property | Value |
+| --- | --- |
+| Damage | 45 |
+| Mana cost | 0 |
+| Charges | 3 |
+| Cast cooldown | 2s |
+| Recharge | 12s / charge |
+| Cast delay | Instant |
+| Cast range | 1.5 tiles |
 
 Strike one enemy at close range. Aim at empty ground to swing into space.
 
@@ -1033,16 +1074,18 @@ Footprint **Sector**
 
 Area cast
 
-- **Damage:** 40
-- **Mana cost:** 12
-- **Charges:** 1
-- **Cast cooldown:** 8s
-- **Recharge:** 8s / charge
-- **Cast delay:** 0.5s
-- **Cast range:** 2.5 tiles
-- **Radius:** 2.5 tiles
-- **Angle:** 90°
-- **Visual effect:** Cone
+| Property | Value |
+| --- | --- |
+| Damage | 40 |
+| Mana cost | 12 |
+| Charges | 1 |
+| Cast cooldown | 8s |
+| Recharge | 8s / charge |
+| Cast delay | 0.5s |
+| Cast range | 2.5 tiles |
+| Radius | 2.5 tiles |
+| Angle | 90° |
+| Visual effect | Cone |
 
 Starts at your position, facing your aim. Hits all enemies in the sector at impact.
 
@@ -1054,15 +1097,17 @@ Footprint **Circle**
 
 Area cast
 
-- **Damage:** 100
-- **Mana cost:** 24
-- **Charges:** 1
-- **Cast cooldown:** 20s
-- **Recharge:** 20s / charge
-- **Cast delay:** 2s
-- **Cast range:** 2.17 tiles
-- **Radius:** 2 tiles
-- **Visual effect:** Circle
+| Property | Value |
+| --- | --- |
+| Damage | 100 |
+| Mana cost | 24 |
+| Charges | 1 |
+| Cast cooldown | 20s |
+| Recharge | 20s / charge |
+| Cast delay | 2s |
+| Cast range | 2.17 tiles |
+| Radius | 2 tiles |
+| Visual effect | Circle |
 
 Locks at your aimed map position. Hits all enemies in the circle at impact.
 

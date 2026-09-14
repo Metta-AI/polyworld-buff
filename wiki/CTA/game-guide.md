@@ -4,15 +4,13 @@ Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/CTA/). Synced
 
 A fighter, a wizard, a rogue, and a cleric descend a seeded dungeon. They start with empty bags. Kill monsters for gold and gear, pick the piles up off the floor, then climb back to the surface before the vault's reinforcements close the way out.
 
-- **4** HEROES
-
-- **6** LEVELS
-
-- **2** ITEM SLOTS
-
-- **22** DROPS
-
-- **20** MINUTES
+| Stat | Value |
+| --- | --- |
+| HEROES | 4 |
+| LEVELS | 6 |
+| ITEM SLOTS | 2 |
+| DROPS | 22 |
+| MINUTES | 20 |
 
 THE RUN
 
@@ -24,17 +22,14 @@ The party starts on the surface with no items and fights down. When the vault is
 
 Each class has four abilities (keys 1–4) and two item slots (Q, E). Click a pile or item on the floor to pick it up. Click an item slot or press Q or E to use it. Right-click a slot or hold Shift and press Q or E to drop it. Clicking an enemy paints it with a red outline. Damage rolls **base + 0..spread** , then a class power percent. Healing is negative damage and skips that percent.
 
-- **Regen** 4% max HP every 0.5s after 3s idle
-
-- **Encumbrance** Speed 100 / 85 / 70 / 50%
-
-- **Guard** Guarded targets take 40% damage
-
-- **Aggro** 11 tiles, then hunt the floor
-
-- **Cap** 90 monsters in the whole dungeon
-
-- **Clock** 24 ticks a second, 20 minute run
+| Reference | Details |
+| --- | --- |
+| Regen | 4% max HP every 0.5s after 3s idle |
+| Encumbrance | Speed 100 / 85 / 70 / 50% |
+| Guard | Guarded targets take 40% damage |
+| Aggro | 11 tiles, then hunt the floor |
+| Cap | 90 monsters in the whole dungeon |
+| Clock | 24 ticks a second, 20 minute run |
 
 THE PARTY
 
@@ -48,41 +43,21 @@ BROM · FIGHTER
 
 ### FRONTLINE
 
-- **340** HP
+| Stat | Value |
+| --- | --- |
+| HP | 340 |
+| MANA | 0 |
+| POWER | 150% |
+| SPEED | 2.50 |
+| ITEMS | 2 |
+| LIGHT | 6 |
 
-- **0** MANA
-
-- **150%** POWER
-
-- **2.50** SPEED
-
-- **2** ITEMS
-
-- **6** LIGHT
-
-1
-
-#### Firebrand Sword
-
-PRIMARY  14–20 DMG  21–30 HIT  1 TILE  NO CD
-
-2
-
-#### Molten Fist
-
-34–44 DMG  51–66 HIT  1 TILE  5s CD
-
-3
-
-#### Lion Guard
-
-SELF  2s CD  NO MANA
-
-4
-
-#### Blazing Blade
-
-28–36 DMG  42–54 HIT  1 TILE  4s CD
+| Key | Ability | Details |
+| --- | --- | --- |
+| 1 | Firebrand Sword | PRIMARY · 14–20 DMG · 21–30 HIT · 1 TILE · NO CD |
+| 2 | Molten Fist | 34–44 DMG · 51–66 HIT · 1 TILE · 5s CD |
+| 3 | Lion Guard | SELF · 2s CD · NO MANA |
+| 4 | Blazing Blade | 28–36 DMG · 42–54 HIT · 1 TILE · 4s CD |
 
 ![Nyra](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_0b121a40-a5bc-46cf-bf7a-199baddcf4a6.png)
 
@@ -90,41 +65,21 @@ NYRA · WIZARD
 
 ### BURST MAGE
 
-- **200** HP
+| Stat | Value |
+| --- | --- |
+| HP | 200 |
+| MANA | 160 |
+| POWER | 125% |
+| SPEED | 2.60 |
+| ITEMS | 2 |
+| LIGHT | 8 |
 
-- **160** MANA
-
-- **125%** POWER
-
-- **2.60** SPEED
-
-- **2** ITEMS
-
-- **8** LIGHT
-
-1
-
-#### Meteor Strike
-
-PRIMARY  22–30 DMG  27–37 HIT  12 MANA  7 TILES  1.5s CD
-
-2
-
-#### Frost Lance
-
-10–14 DMG  12–17 HIT  16 MANA  5 TILES  4s CD
-
-3
-
-#### Void Portal
-
-20 MANA  4 TILES  10s CD
-
-4
-
-#### Lightning Storm
-
-30–40 DMG  37–50 HIT  18 MANA  6 TILES  2s CD
+| Key | Ability | Details |
+| --- | --- | --- |
+| 1 | Meteor Strike | PRIMARY · 22–30 DMG · 27–37 HIT · 12 MANA · 7 TILES · 1.5s CD |
+| 2 | Frost Lance | 10–14 DMG · 12–17 HIT · 16 MANA · 5 TILES · 4s CD |
+| 3 | Void Portal | 20 MANA · 4 TILES · 10s CD |
+| 4 | Lightning Storm | 30–40 DMG · 37–50 HIT · 18 MANA · 6 TILES · 2s CD |
 
 ![Fenn](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_e3badbf5-417b-4af6-b50b-041f07eaeeee.png)
 
@@ -132,41 +87,21 @@ FENN · ROGUE
 
 ### MOBILE STRIKER
 
-- **250** HP
+| Stat | Value |
+| --- | --- |
+| HP | 250 |
+| MANA | 40 |
+| POWER | 135% |
+| SPEED | 3.40 |
+| ITEMS | 2 |
+| LIGHT | 5 |
 
-- **40** MANA
-
-- **135%** POWER
-
-- **3.40** SPEED
-
-- **2** ITEMS
-
-- **5** LIGHT
-
-1
-
-#### Venom Dagger
-
-PRIMARY  12–16 DMG  16–21 HIT  1 TILE  4s CD
-
-2
-
-#### Verdant Arrow
-
-9–14 DMG  12–18 HIT  6 TILES  1s CD
-
-3
-
-#### Shadow Cloak
-
-SELF  15s CD
-
-4
-
-#### Gale Slash
-
-20–26 DMG  27–35 HIT  1 TILE  2s CD
+| Key | Ability | Details |
+| --- | --- | --- |
+| 1 | Venom Dagger | PRIMARY · 12–16 DMG · 16–21 HIT · 1 TILE · 4s CD |
+| 2 | Verdant Arrow | 9–14 DMG · 12–18 HIT · 6 TILES · 1s CD |
+| 3 | Shadow Cloak | SELF · 15s CD |
+| 4 | Gale Slash | 20–26 DMG · 27–35 HIT · 1 TILE · 2s CD |
 
 ![Zyra](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_118d62c4-33df-47e6-9a82-4552323bf0bb.png)
 
@@ -174,41 +109,21 @@ ZYRA · CLERIC
 
 ### SUPPORT
 
-- **270** HP
+| Stat | Value |
+| --- | --- |
+| HP | 270 |
+| MANA | 180 |
+| POWER | 100% |
+| SPEED | 2.70 |
+| ITEMS | 2 |
+| LIGHT | 6 |
 
-- **180** MANA
-
-- **100%** POWER
-
-- **2.70** SPEED
-
-- **2** ITEMS
-
-- **6** LIGHT
-
-1
-
-#### Solar Hammer
-
-PRIMARY  14–20 DMG  1 TILE  NO CD
-
-2
-
-#### Healing Bloom
-
-HEAL 70  18 MANA  4 TILES  3s CD
-
-3
-
-#### Angelic Emblem
-
-24 MANA  4 TILES  15s CD
-
-4
-
-#### Sun Orb
-
-26–36 DMG  20 MANA  5 TILES  10s CD
+| Key | Ability | Details |
+| --- | --- | --- |
+| 1 | Solar Hammer | PRIMARY · 14–20 DMG · 1 TILE · NO CD |
+| 2 | Healing Bloom | HEAL 70 · 18 MANA · 4 TILES · 3s CD |
+| 3 | Angelic Emblem | 24 MANA · 4 TILES · 15s CD |
+| 4 | Sun Orb | 26–36 DMG · 20 MANA · 5 TILES · 10s CD |
 
 THE DUNGEON
 
@@ -256,13 +171,12 @@ Items are not attached to heroes. The four abilities on each bar are the class k
 
 Every kill leaves a gold pile. Deeper floors, and golems, can also drop one extra item from the table below. Click the pile or the item to pick it up. Right-click a slot, or hold Shift and press Q or E, to drop gear back on the floor. Each hero keeps their own gold. It only counts as banked after that hero walks it onto the surface.
 
-- **Not on the kit** Heroes spawn with empty Q / E slots
-
-- **On the tile** Drops land on the monster's floor tile
-
-- **After pickup** A hero holds an item only once they take it
-
-- **Can drop** Shift+Q / Shift+E or right-click the slot
+| Reference | Details |
+| --- | --- |
+| Not on the kit | Heroes spawn with empty Q / E slots |
+| On the tile | Drops land on the monster's floor tile |
+| After pickup | A hero holds an item only once they take it |
+| Can drop | Shift+Q / Shift+E or right-click the slot |
 
 ### Gold value
 

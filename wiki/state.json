@@ -1,27 +1,27 @@
 {
   "CTA/game-guide": {
-    "body_sha256": "bee4e5334a6f28135556d5e5f027eab6a747bfa507c42127f31603e84616e25b",
-    "revision": "wrv_392c321a-8954-49e0-b296-e5bf102a8516",
-    "title": "Call to Adventure game guide"
+    "body_sha256": "015a8416c05b48aa946b4bed3c51a6710934b4ca58cd819d5219a6356ec17f35",
+    "revision": "wrv_f347ace9-9540-4785-902e-61f9fde0d95a",
+    "title": "Call to Adventure \u2014 Game Guide"
   },
   "GOTA/game-guide": {
-    "body_sha256": "00720cc0d7b137c6ad83c7050c685cf9069afa803ec27ab942c257712af3d435",
-    "revision": "wrv_cbfa4976-fc0f-4fd7-a698-fff73f5e7acf",
-    "title": "Gods of the Arena game guide"
+    "body_sha256": "70cb33cf94cf481f6bd2e2309d4657620b88c216c8fc650cdb32021eae12cef7",
+    "revision": "wrv_baf34c1e-ce44-4bc6-bcf6-58f92284516a",
+    "title": "Gods of the Arena \u2014 Game Guide"
   },
   "GOTA/hero-statistics": {
     "body_sha256": "39084a9207f868a41173cb55f39dc09fb69d08a6174364bff7544270e5433ba8",
-    "revision": "wrv_940aa0fa-c02d-4099-9c87-1661804d2330",
-    "title": "GOTA hero statistics"
+    "revision": "wrv_191bae81-4655-44c3-b60d-20333f191ca5",
+    "title": "Gods of the Arena \u2014 Hero Statistics"
   },
   "GOTA/player-standings": {
     "body_sha256": "8e80bf734bdd01a3886d5249c900de6a30d593e93a58a6df4e4d1cb744f42568",
-    "revision": "wrv_4452cd14-3bec-402d-b34d-197d37e57053",
-    "title": "GOTA player standings"
+    "revision": "wrv_08f42bf5-d70c-4cf5-83ca-03fe55be5a0b",
+    "title": "Gods of the Arena \u2014 Player Standings"
   },
   "LvD/game-guide": {
-    "body_sha256": "3321f4dbb894b878f458229fc6b928c665668dd458f5ec030f968f3ec64ef1c4",
-    "revision": "wrv_f4c5e6fb-87d1-4409-ab73-a37e88fbcab9",
-    "title": "Light vs Dark game guide"
+    "body_sha256": "6f19c22e41162b8bde0cf788796003960b046d8736eec5ff6abf2afec23b0a11",
+    "revision": "wrv_df77a615-a5e2-418f-975a-f35742241457",
+    "title": "Light vs Dark \u2014 Game Guide"
   }
 }

@@ -69,11 +69,38 @@ def markdown(node, page, images):
     ]
     return "\n\n" + table(rows[0], rows[1:])
   if node.name == "dl":
-    return "\n\n" + "\n".join(
-      f"- **{term.get_text(' ', strip=True)}:** "
-      f"{term.find_next_sibling('dd').get_text(' ', strip=True)}"
+    rows = [
+      [
+        term.get_text(" ", strip=True),
+        term.find_next_sibling("dd").get_text(" ", strip=True),
+      ]
       for term in node.find_all("dt")
-    ) + "\n\n"
+    ]
+    return "\n\n" + table(["Property", "Value"], rows)
+  classes = set(node.get("class", []))
+  if classes & {"facts", "stats"}:
+    rows = [
+      [item.find("span").get_text(" ", strip=True),
+       item.find("b").get_text(" ", strip=True)]
+      for item in node.select(".fact, .stat")
+    ]
+    return "\n\n" + table(["Stat", "Value"], rows)
+  if "lanes" in classes:
+    rows = [
+      [item.find("b").get_text(" ", strip=True),
+       item.select_one(".muted").get_text(" ", strip=True)]
+      for item in node.select(".chip")
+    ]
+    return "\n\n" + table(["Reference", "Details"], rows)
+  if "abilities" in classes and page.parent.name == "CTA":
+    rows = [
+      [ability.select_one(".key").get_text(" ", strip=True),
+       ability.find("h4").get_text(" ", strip=True),
+       " · ".join(tag.get_text(" ", strip=True)
+                  for tag in ability.select(".meta .tag"))]
+      for ability in node.select(".ability")
+    ]
+    return "\n\n" + table(["Key", "Ability", "Details"], rows)
   content = "".join(markdown(child, page, images) for child in node.children)
   if set(node.get("class", [])) & {"stat", "fact", "chip"}:
     return "\n- " + re.sub(r"\s+", " ", content).strip() + "\n"
@@ -215,10 +242,10 @@ def main():
           print("Uploaded", file.relative_to(ROOT), flush=True)
     pages = []
     for folder, game, route in GAMES:
-      pages.append((folder, game, route, "game-guide", game + " game guide", folder + "/", guide(folder, images)))
+      pages.append((folder, game, route, "game-guide", game + " — Game Guide", folder + "/", guide(folder, images)))
     pages.extend([
-      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "GOTA hero statistics", "GOTA/hero_stats.html", heroStats()),
-      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "player-standings", "GOTA player standings", "GOTA/standings/", standings()),
+      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "Gods of the Arena — Hero Statistics", "GOTA/hero_stats.html", heroStats()),
+      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "player-standings", "Gods of the Arena — Player Standings", "GOTA/standings/", standings()),
     ])
     for folder, game, route, slug, title, source, content in pages:
       body = (
@@ -265,7 +292,7 @@ def main():
       verified = client.get(endpoint)
       verified.raise_for_status()
       verified = verified.json()
-      if verified["current_revision"]["body"] != body:
+      if verified["current_revision"]["body"] != body or verified["title"] != title:
         raise RuntimeError(f"Wiki readback differs: {key}")
       state[key] = {"revision": verified["current_revision_id"], "title": title, "body_sha256": digest(body.encode())}
       saveJson(stateFile, state)

@@ -4,15 +4,13 @@ Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/LvD/). Synced
 
 A 1v1 real-time strategy match on a 128-tile map that is fair by construction: Dark's half is Light's half rotated 180 degrees. Two BASIC overlords gather gold and wood, raise an army, and try to wipe the other side out.
 
-- **8** UNIT KINDS
-
-- **8** BUILDINGS
-
-- **800** STARTING GOLD
-
-- **400** STARTING WOOD
-
-- **100** FOOD CAP
+| Stat | Value |
+| --- | --- |
+| UNIT KINDS | 8 |
+| BUILDINGS | 8 |
+| STARTING GOLD | 800 |
+| STARTING WOOD | 400 |
+| FOOD CAP | 100 |
 
 THE MATCH
 
@@ -24,17 +22,14 @@ Combat is piercing plus basic, then armor. Piercing always lands. Basic is reduc
 
 A player is defeated when they have no standing buildings and no peon left to raise one. If the 20-minute clock hits first, score is buildings × 1000, plus army × 100, plus gold and wood ever gathered ÷ 100.
 
-- **Gold trip** 100 gold, 2.5s in the mine, 4 miners
-
-- **Wood trip** 100 wood, 3.3s chop, 400 per tree
-
-- **Hall / farm** +5 and +4 food
-
-- **Walk** Infantry 10 ticks/tile, siege 16
-
-- **Tower** 12 damage, 6 range, 1s cooldown
-
-- **Clock** 24 ticks a second, fog of war
+| Reference | Details |
+| --- | --- |
+| Gold trip | 100 gold, 2.5s in the mine, 4 miners |
+| Wood trip | 100 wood, 3.3s chop, 400 per tree |
+| Hall / farm | +5 and +4 food |
+| Walk | Infantry 10 ticks/tile, siege 16 |
+| Tower | 12 damage, 6 range, 1s cooldown |
+| Clock | 24 ticks a second, fog of war |
 
 THE ARMIES
 
@@ -54,17 +49,14 @@ DARK PEON
 
 Town hall · 400 gold · 18.8s
 
-- **40** HP
-
-- **0** ARMOR
-
-- **0 / 1** DMG
-
-- **1** RANGE
-
-- **10** STEP
-
-- **5** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 40 |
+| ARMOR | 0 |
+| DMG | 0 / 1 |
+| RANGE | 1 |
+| STEP | 10 |
+| SIGHT | 5 |
 
 ![Footman](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_0f64fe61-50c5-42e8-84de-194a81199790.png)
 
@@ -78,17 +70,14 @@ DARK GRUNT
 
 Barracks · 400 gold · 15s
 
-- **60** HP
-
-- **2** ARMOR
-
-- **1 / 9** DMG
-
-- **1** RANGE
-
-- **10** STEP
-
-- **5** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 60 |
+| ARMOR | 2 |
+| DMG | 1 / 9 |
+| RANGE | 1 |
+| STEP | 10 |
+| SIGHT | 5 |
 
 ![Archer](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_061e6205-217c-40ec-a0e9-867d27f2ea38.png)
 
@@ -102,17 +91,14 @@ DARK SPEARMAN
 
 Barracks · mill · 450g 50w · 17.5s
 
-- **60** HP
-
-- **1** ARMOR
-
-- **4–5 / 0** DMG
-
-- **5 / 4** RANGE
-
-- **10** STEP
-
-- **7** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 60 |
+| ARMOR | 1 |
+| DMG | 4–5 / 0 |
+| RANGE | 5 / 4 |
+| STEP | 10 |
+| SIGHT | 7 |
 
 Light: 4 piercing, 5 range. Dark: 5 piercing, 4 range. Cooldown 1.5s.
 
@@ -128,17 +114,14 @@ DARK WARLOCK
 
 Tower · 900 gold · 22.5s
 
-- **40** HP
-
-- **0** ARMOR
-
-- **6 / 0** DMG
-
-- **3 / 2** RANGE
-
-- **10** STEP
-
-- **7** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 40 |
+| ARMOR | 0 |
+| DMG | 6 / 0 |
+| RANGE | 3 / 2 |
+| STEP | 10 |
+| SIGHT | 7 |
 
 Light range 3. Dark range 2. Cooldown 1.5s.
 
@@ -154,17 +137,14 @@ DARK RAIDER
 
 Barracks · stables + smith · 850g · 20s
 
-- **90** HP
-
-- **5** ARMOR
-
-- **1 / 13** DMG
-
-- **1** RANGE
-
-- **10** STEP
-
-- **6** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 90 |
+| ARMOR | 5 |
+| DMG | 1 / 13 |
+| RANGE | 1 |
+| STEP | 10 |
+| SIGHT | 6 |
 
 ![Catapult](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_ba9e40cd-52e6-40ba-8980-1a0cc769729c.png)
 
@@ -178,17 +158,14 @@ DARK CATAPULT
 
 Barracks · smith + mill · 900g 200w · 25s
 
-- **120** HP
-
-- **0** ARMOR
-
-- **255 / 0** DMG
-
-- **8** RANGE
-
-- **16** STEP
-
-- **8** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 120 |
+| ARMOR | 0 |
+| DMG | 255 / 0 |
+| RANGE | 8 |
+| STEP | 16 |
+| SIGHT | 8 |
 
 Never misses. 63 splash piercing. 8s cooldown.
 
@@ -204,17 +181,14 @@ DARK NECROLYTE
 
 Church / temple · 700 gold · 20s
 
-- **40** HP
-
-- **0** ARMOR
-
-- **6 / 0** DMG
-
-- **1 / 2** RANGE
-
-- **10** STEP
-
-- **7** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 40 |
+| ARMOR | 0 |
+| DMG | 6 / 0 |
+| RANGE | 1 / 2 |
+| STEP | 10 |
+| SIGHT | 7 |
 
 Light range 1. Dark range 2. Cooldown 2s.
 
@@ -230,17 +204,14 @@ DARK DAEMON
 
 Tower · 1200 gold · 30s
 
-- **250 / 300** HP
-
-- **0** ARMOR
-
-- **40 / 65** DMG
-
-- **3 / 1** RANGE
-
-- **10** STEP
-
-- **6** SIGHT
+| Stat | Value |
+| --- | --- |
+| HP | 250 / 300 |
+| ARMOR | 0 |
+| DMG | 40 / 65 |
+| RANGE | 3 / 1 |
+| STEP | 10 |
+| SIGHT | 6 |
 
 Light: 250 HP, 40 piercing, range 3. Dark: 300 HP, 65 basic, range 1.
 
