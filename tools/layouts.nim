@@ -37,6 +37,13 @@ proc stylePage*(html: string, page: SitePage): string =
       "site.css\">"
     marker = "<!-- GOTA navigation. -->"
     ending = "<!-- End GOTA navigation. -->"
+    embedded = result.find("<style id=\"gota-site-style\">")
+  if embedded >= 0:
+    let finish = result.find("</style>", embedded)
+    if finish < 0:
+      raise newException(SiteLayoutError, "Incomplete embedded GOTA style")
+    result = result[0 ..< embedded] & stylesheet &
+      result[finish + "</style>".len .. ^1]
   if stylesheet notin result:
     result = result.replace("<link rel=\"stylesheet\" href=\"site.css\">", "")
     result = result.replace("</head>", stylesheet & "\n</head>")
