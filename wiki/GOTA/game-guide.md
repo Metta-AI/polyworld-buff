@@ -1,5 +1,19 @@
 Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/). Synced snapshot; interactive views remain on the source site.
 
+[Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/) provides the illustrated game presentation. Gameplay rules are defined by the [game source](https://github.com/Metta-AI/polyworld/tree/main/examples/gods_of_the_arena).
+
+For BASIC policies, see [policy and host surface](https://softmax.com/gods-of-the-arena/wiki/policy-and-host-surface).
+The keyboard and mouse controls at the end describe human play.
+
+Sources: [content and ability definitions](https://github.com/Metta-AI/polyworld/blob/main/examples/gods_of_the_arena/content.nim),
+[simulation](https://github.com/Metta-AI/polyworld/blob/main/examples/gods_of_the_arena/sim.nim),
+[map configuration](https://github.com/Metta-AI/polyworld/blob/main/examples/gods_of_the_arena/generation/configs.nim),
+and [BASIC host](https://github.com/Metta-AI/polyworld/blob/main/examples/gods_of_the_arena/bots.nim).
+
+Maintained by Codex, an automated agent working for James Boggs.
+
+---
+
 ![Gods of the Arena](https://softmax-public.s3.amazonaws.com/post-media/user/s25q6tn121cx1j3z7ql3ga5d/media_9473934f-e8a2-459d-a660-7a4ff2038a1b.png)
 
 Two gods sit in opposite-corner forts. Three broad lanes, a shallow lake, connected camp clearings, and dense forests stand between them. Ten heroes, footmen, and towers fight until one god falls.
@@ -16,22 +30,22 @@ THE MATCH
 
 ## How the arena works
 
-Gods of the Arena is a 5v5 lane battler. Red brings the living roster. Blue brings the undead warband. Each side starts with five heroes, six barracks, nine towers, and a fort that holds the god.
+Gods of the Arena is a 5v5 lane battler. Red fields Death Knight, Crossbowman, Lich, Warlock and Berserker. Blue fields Vanguard Knight, Ranger, Arcanist, Druid Warden and Demon Hunter. Each side starts with five heroes, six barracks, nine towers, and a fort that holds the god.
 
-The 128 by 128 arena uses the map editor's saved seed 54 preset. Blue starts in the southwest and Red in the northeast. Roads carve the forest and cross cliffs at short ramps. Each fort has three exits, two barracks per exit, and a separate walled spawn. Match seeds control gameplay randomness without changing this layout.
+The default arena is 116 by 116 tiles with map seed 54. Map generation accepts even sizes from 64 through 256; use the match configuration and BASIC mapWidth/mapHeight for the actual dimensions. Blue starts in the southwest and Red in the northeast. Roads carve the forest and cross cliffs at short ramps. Each fort has three exits, two barracks per exit, and a separate walled spawn. Match seeds control gameplay randomness without changing this layout.
 
-Footmen spawn two per lane every ten seconds and march until they meet the enemy. Heroes start at level 1 with 150 gold and their full four-ability kit already unlocked. Kills grant gold and XP. Heroes grow to level 20, then spend gold in a six-slot inventory.
+With the default 240-tick spawn interval, footmen spawn two per lane per team every ten simulated seconds and march until they meet the enemy. Heroes start at level 1 with 150 gold and their full four-ability kit already unlocked. Kills grant gold and XP. Heroes can grow to level 20 and spend gold in a six-slot inventory from level 1; purchases are not gated on reaching level 20 or standing near a shop.
 
-Outer towers fall first, then inner, then the gate. A god becomes attackable after one of its lanes is cleared. The first fort to reach zero health loses.
+Outer towers fall first, then inner, then the gate. A god becomes attackable after one of its lanes is cleared. The first fort to reach zero health loses. Each winning-team seat scores 1 and each losing-team seat scores 0. A time-limit finish without a destroyed fort gives all ten seats 0; XP is separate from this win score.
 
 | Reference | Details |
 | --- | --- |
 | Footmen | 60 HP, 12 damage, 15 gold |
-| Towers | Outer 600, inner 800, gate 1000 |
+| Towers | HP: outer 900, inner 1200, gate 1800. Damage: 18, 24, 30. |
 | Gods | 400 HP, exposed after a lane falls |
 | Hero bounty | 150 XP and 100 gold |
 | Level curve | 100 XP, then +75 each level |
-| Clock | 20 minute match |
+| Clock | Default 28,800 ticks at 24 ticks/s: 20 simulated minutes; match configuration can differ |
 
 THE ROSTER
 
@@ -160,14 +174,14 @@ RANGER · MOBILE RANGED CARRY
 
 | Stat | Value |
 | --- | --- |
-| HP +38/LVL | 210 → 932 |
+| HP +38/LVL | 200 → 922 |
 | MANA +8/LVL | 110 → 262 |
 | BASIC DAMAGE +6/LVL | 25 → 139 |
 | RANGE | 5.50 |
 | MOVE | 2.76 → 3.44 |
 | ATTACKS / S | 1.33 |
 
-HEALTH  210 → 932
+HEALTH  200 → 922
 
 MANA  110 → 262
 
@@ -328,7 +342,7 @@ Area cast
 | Property | Value |
 | --- | --- |
 | Damage | 70 |
-| Mana cost | 50 |
+| Mana cost | 53 |
 | Charges | 1 |
 | Cast cooldown | 9s |
 | Recharge | 9s / charge |
@@ -607,7 +621,7 @@ Self cast
 
 | Property | Value |
 | --- | --- |
-| Healing | +26 HP |
+| Healing | +30 HP |
 | Mana cost | 0 |
 | Charges | 1 |
 | Cast cooldown | 8s |
@@ -848,7 +862,7 @@ Projectile
 | Cast cooldown | 2s |
 | Recharge | 12s / charge |
 | Cast delay | Instant |
-| Cast range | 6 tiles |
+| Cast range | 6.33 tiles |
 
 Follows the selected enemy. A ground shot hits the first enemy along its path.
 
@@ -930,7 +944,7 @@ Self cast
 
 | Property | Value |
 | --- | --- |
-| Restores | +22 mana |
+| Restores | +24 mana |
 | Mana cost | 0 |
 | Charges | 1 |
 | Cast cooldown | 7s |
@@ -1319,9 +1333,11 @@ PLAYER CONTROLS
 
 ## Control your hero
 
+This section describes human-control mode. BASIC-controlled heroes can explicitly cast with `castTarget`/`castPoint`; bot automatic casting is also enabled.
+
 Idle heroes automatically attack the closest visible enemy creep nearby. Melee heroes approach nearby creeps; ranged heroes acquire creeps within their attack range. Select an enemy or right-click it to make it take priority. Both melee and ranged heroes move toward that target until they reach their own basic-attack range, then stop and attack repeatedly. When the target dies or is lost in fog, they return to nearby creeps. A ground move order cancels the attack and takes priority over automatic acquisition. These rules also apply with zero mana or all four abilities on cooldown.
 
-You control your four extra abilities; they only cast when you use them. Q/W/E/R cast immediately at your current valid target. Self actions always fire on key press and affect you. Melee actions also fire immediately: they strike a nearby target, or swing toward the pointer when there is none. For other abilities with no valid target, the key selects the ability and right-click casts at an object or the ground. Escape cancels the selection. With no ability selected, right-click moves or attacks. Click SHOP in the inventory, or press B, to open the full-screen item shop; click an item to buy it. Space pauses or resumes the battle, including while shopping. The HUD shows remaining charges and the wait until an empty action can be used again. A blue bar tracks progress toward the next charge.
+You control your four extra abilities; they only cast when you use them. Q/W/E/R cast immediately at your current valid target. Self actions are attempted on key press and affect you when accepted; resource and cooldown rules apply, and full-health healing or full-mana restoration is rejected. Melee actions also fire immediately: they strike a nearby target, or swing toward the pointer when there is none. For other abilities with no valid target, the key selects the ability and right-click casts at an object or the ground. Escape cancels the selection. With no ability selected, right-click moves or attacks. Click SHOP in the inventory, or press B, to open the full-screen item shop; click an item to buy it. Space pauses or resumes the battle, including while shopping. The HUD shows remaining charges and the wait until an empty action can be used again. A blue bar tracks progress toward the next charge.
 
 | Input | Action |
 | --- | --- |

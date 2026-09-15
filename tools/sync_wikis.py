@@ -188,6 +188,22 @@ def standings():
       value = f"{row['value']:.1%}" if panel["ladder"] == "wins" else f"{row['value']:.2f}"
       rows.append([row["rank"], row["name"], row["version"], row["appearances"], value])
     text += table(["Rank", "Player", "Policy", "Appearances", panel["title"]], rows)
+  players = soup.find("table", id="player-stats")
+  if players:
+    text += "## Player statistics\n\nBoth formats, per-player averages.\n\n"
+    headers = [
+      cell.get_text(" ", strip=True).replace("↕", "").strip()
+      for cell in players.select("thead th")
+    ]
+    rows = [
+      [cell.get_text(" · ", strip=True) for cell in row.find_all(["th", "td"])]
+      for row in players.select("tbody tr")
+    ]
+    text += table(headers, rows)
+    for paragraph in players.find_parent("section").find_all("p"):
+      text += paragraph.get_text(" ", strip=True).replace(
+        " Click a column heading to sort.", ""
+      ) + "\n\n"
   footer = soup.find("footer")
   if footer:
     text += "## How to read the standings\n\n" + footer.get_text(" ", strip=True) + "\n"
@@ -198,8 +214,10 @@ def main():
   """Generate local snapshots or explicitly publish them with revision checks."""
   parser = argparse.ArgumentParser(description=__doc__)
   parser.add_argument("--publish", action="store_true")
+  parser.add_argument("--game", choices=[folder for folder, _, _ in GAMES])
   parser.add_argument("--softmax", default="softmax", help="Path to the authenticated Softmax CLI.")
   arguments = parser.parse_args()
+  games = [game for game in GAMES if arguments.game in (None, game[0])]
   output = ROOT / "wiki"
   output.mkdir(exist_ok=True)
   mediaFile = output / "media.json"
@@ -217,7 +235,7 @@ def main():
     headers["Authorization"] = "Bearer " + token
   with httpx.Client(base_url=SERVER + "/observatory/v2/", headers=headers, timeout=30) as client:
     if arguments.publish:
-      for folder, _, _ in GAMES:
+      for folder, _, _ in games:
         page = ROOT / folder / "index.html"
         soup = BeautifulSoup(page.read_text(), "html.parser")
         for image in soup.find_all("img"):
@@ -241,13 +259,20 @@ def main():
           saveJson(mediaFile, images)
           print("Uploaded", file.relative_to(ROOT), flush=True)
     pages = []
-    for folder, game, route in GAMES:
+    for folder, game, route in games:
       pages.append((folder, game, route, "game-guide", game + " — Game Guide", folder + "/", guide(folder, images)))
-    pages.extend([
-      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "Gods of the Arena — Hero Statistics", "GOTA/heros/", heroStats()),
-      ("GOTA", "Gods of the Arena", "gods-of-the-arena", "player-standings", "Gods of the Arena — Player Standings", "GOTA/standings/", standings()),
-    ])
+    if arguments.game in (None, "GOTA"):
+      pages.extend([
+        ("GOTA", "Gods of the Arena", "gods-of-the-arena", "hero-statistics", "Gods of the Arena — Hero Statistics", "GOTA/heros/", heroStats()),
+        ("GOTA", "Gods of the Arena", "gods-of-the-arena", "player-standings", "Gods of the Arena — Player Standings", "GOTA/standings/", standings()),
+      ])
     for folder, game, route, slug, title, source, content in pages:
+      reference = output / "references" / folder / (slug + ".md")
+      if reference.exists():
+        heading = "" if slug == "game-guide" else "## Published report\n\n"
+        if heading:
+          content = re.sub(r"^(#{2,5}) ", r"#\1 ", content, flags=re.MULTILINE)
+        content = reference.read_text().rstrip() + "\n\n---\n\n" + heading + content
       body = (
         f"Source: [Polyworld Buff]({SITE + source}). "
         "Synced snapshot; interactive views remain on the source site.\n\n"

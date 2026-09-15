@@ -1,57 +1,143 @@
 Source: [Polyworld Buff](https://metta-ai.github.io/polyworld-buff/GOTA/heros/). Synced snapshot; interactive views remain on the source site.
 
-Analysis window: **2026-09-13T18:23:46.637658000Z to 2026-09-14T18:23:46.637658000Z**.
+# Hero statistics
 
-540 verified games; 5400 hero appearances. This is a dated snapshot.
+These are the game's character attributes before equipment bonuses. In each
+“base + growth” column, the first number is the level-1 value and the second is
+the increase per additional level. Maximum level is 20.
+
+| Class ID | Hero | Team | HP: base + growth | Mana: base + growth | Damage: base + growth | Attack range (tiles) | Attacks/s |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | Vanguard Knight | Blue | 330 + 60 | 110 + 8 | 25 + 5 | 1.17 | 1.00 |
+| 1 | Ranger | Blue | 200 + 38 | 110 + 8 | 25 + 6 | 5.50 | 1.33 |
+| 2 | Arcanist | Blue | 190 + 30 | 180 + 15 | 38 + 8 | 5.00 | 0.80 |
+| 3 | Druid Warden | Blue | 250 + 48 | 170 + 14 | 22 + 4 | 4.00 | 0.92 |
+| 4 | Demon Hunter | Blue | 220 + 36 | 90 + 7 | 32 + 7 | 1.25 | 1.50 |
+| 5 | Death Knight | Red | 350 + 62 | 90 + 8 | 30 + 6 | 1.27 | 0.86 |
+| 6 | Crossbowman | Red | 230 + 42 | 80 + 6 | 43 + 8 | 6.50 | 0.67 |
+| 7 | Lich | Red | 185 + 28 | 210 + 17 | 36 + 8 | 5.50 | 0.75 |
+| 8 | Warlock | Red | 240 + 46 | 190 + 16 | 26 + 5 | 4.50 | 0.86 |
+| 9 | Berserker | Red | 300 + 55 | 40 + 4 | 35 + 7 | 1.33 | 1.20 |
+
+For any level, use `base + (level - 1) * growth`. For example, Ranger has
+200 HP at level 1 and `200 + 19 * 38 = 922` HP at level 20 before equipment.
+Ranges and attack rates are rounded to two decimals. Range here is the basic
+attack range; each ability has its own range and resource costs.
+
+See [the game guide](https://softmax.com/gods-of-the-arena/wiki/game-guide) for movement speeds, complete ability kits
+and equipment bonuses. Held equipment modifies maximum HP, maximum mana, basic
+attack damage and movement as specified by each item.
+
+Team win rate describes a team outcome. Fixed faction lineups mean that shared
+wins do not isolate an individual hero's contribution. Evaluate a policy in its
+actual seat/team context and count independent games when analyzing team results.
+
+Source: [hero definitions and scaling functions](https://github.com/Metta-AI/polyworld/blob/main/examples/gods_of_the_arena/content.nim).
+
+---
+Maintained by Codex, an automated agent working for James Boggs.
+
+---
+
+## Published report
+
+Analysis window: **2026-09-14T19:55:28.000000000Z to 2026-09-15T19:55:28.000000000Z**.
+
+576 verified games; 5760 hero appearances. This is a dated snapshot.
 
 Fixed faction lineups share outcomes. Win rate measures faction results, not a hero's causal strength. Draws count as non-wins. Compare game versions separately.
 
-## All versions (540 games)
+### All versions (576 games)
 
 | Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
 | --- | --- | --- | --- | --- | --- |
-| Ranger | 60.2% | 7.37 | 7.37 / 4.83 / 5.20 | 304.8 | 194.0 |
-| Arcanist | 60.2% | 7.23 | 8.17 / 6.05 / 5.20 | 286.1 | 183.7 |
-| Demon Hunter | 60.2% | 6.59 | 4.71 / 6.37 / 3.79 | 247.0 | 156.5 |
-| Druid Warden | 60.2% | 4.64 | 2.34 / 5.24 / 5.48 | 125.9 | 79.4 |
-| Vanguard Knight | 60.2% | 4.52 | 2.34 / 5.30 / 4.00 | 118.5 | 74.9 |
-| Crossbowman | 36.7% | 7.29 | 7.72 / 4.90 / 5.81 | 295.9 | 189.1 |
-| Berserker | 36.7% | 6.71 | 5.35 / 5.54 / 4.31 | 248.2 | 157.8 |
-| Lich | 36.7% | 6.63 | 6.46 / 5.99 / 5.69 | 245.5 | 156.6 |
-| Warlock | 36.7% | 5.58 | 3.70 / 5.26 / 4.87 | 180.3 | 113.9 |
-| Death Knight | 36.7% | 5.15 | 2.91 / 5.19 / 4.21 | 152.8 | 96.6 |
+| Ranger | 50.0% | 6.80 | 6.22 / 4.36 / 3.23 | 288.0 | 182.9 |
+| Arcanist | 50.0% | 6.02 | 5.22 / 4.49 / 3.05 | 224.1 | 142.4 |
+| Demon Hunter | 50.0% | 5.40 | 3.34 / 5.58 / 2.71 | 193.3 | 121.7 |
+| Vanguard Knight | 50.0% | 4.23 | 1.80 / 4.85 / 2.89 | 116.2 | 72.7 |
+| Druid Warden | 50.0% | 3.88 | 1.68 / 4.52 / 3.65 | 103.6 | 64.9 |
+| Crossbowman | 38.9% | 6.56 | 6.39 / 3.39 / 3.76 | 272.5 | 173.3 |
+| Berserker | 38.9% | 6.02 | 4.59 / 4.33 / 3.22 | 227.5 | 143.9 |
+| Lich | 38.9% | 5.88 | 4.91 / 4.36 / 3.84 | 211.4 | 134.3 |
+| Death Knight | 38.9% | 5.03 | 2.72 / 3.86 / 3.09 | 162.8 | 102.2 |
+| Warlock | 38.9% | 4.55 | 2.80 / 4.40 / 3.78 | 135.3 | 85.6 |
 
-## 2026.9.11.5 (516 games)
-
-| Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
-| --- | --- | --- | --- | --- | --- |
-| Ranger | 60.9% | 7.45 | 7.56 / 4.92 / 5.36 | 308.6 | 196.5 |
-| Arcanist | 60.9% | 7.33 | 8.42 / 6.22 / 5.37 | 291.7 | 187.3 |
-| Demon Hunter | 60.9% | 6.68 | 4.86 / 6.52 / 3.91 | 251.3 | 159.3 |
-| Druid Warden | 60.9% | 4.71 | 2.42 / 5.35 / 5.62 | 128.7 | 81.2 |
-| Vanguard Knight | 60.9% | 4.58 | 2.39 / 5.41 / 4.08 | 120.5 | 76.3 |
-| Crossbowman | 35.9% | 7.39 | 7.88 / 5.05 / 5.99 | 299.9 | 191.7 |
-| Berserker | 35.9% | 6.78 | 5.47 / 5.67 / 4.39 | 251.4 | 159.9 |
-| Lich | 35.9% | 6.72 | 6.64 / 6.19 / 5.84 | 249.8 | 159.4 |
-| Warlock | 35.9% | 5.65 | 3.78 / 5.40 / 4.98 | 182.5 | 115.3 |
-| Death Knight | 35.9% | 5.22 | 2.96 / 5.33 / 4.33 | 154.9 | 98.0 |
-
-## 2026.9.14.1 (24 games)
+### 2026.9.14.2 (12 games)
 
 | Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
 | --- | --- | --- | --- | --- | --- |
-| Crossbowman | 54.2% | 5.21 | 4.25 / 1.67 / 1.96 | 201.9 | 129.1 |
-| Berserker | 54.2% | 5.25 | 2.75 / 2.67 / 2.67 | 172.3 | 109.1 |
-| Lich | 54.2% | 4.67 | 2.50 / 1.54 / 2.50 | 143.4 | 90.6 |
-| Warlock | 54.2% | 4.25 | 2.12 / 2.33 / 2.54 | 126.6 | 80.1 |
-| Death Knight | 54.2% | 3.75 | 1.83 / 2.08 / 1.71 | 101.2 | 63.8 |
-| Ranger | 45.8% | 5.79 | 3.29 / 2.96 / 1.75 | 215.0 | 135.3 |
-| Arcanist | 45.8% | 5.00 | 2.79 / 2.25 / 1.50 | 154.0 | 98.4 |
-| Demon Hunter | 45.8% | 4.67 | 1.50 / 3.00 / 1.29 | 143.7 | 89.7 |
-| Vanguard Knight | 45.8% | 3.25 | 1.25 / 2.96 / 2.42 | 69.5 | 44.1 |
-| Druid Warden | 45.8% | 3.08 | 0.71 / 2.88 / 2.54 | 58.4 | 36.2 |
+| Berserker | 58.3% | 3.08 | 0.42 / 1.00 / 0.92 | 103.0 | 65.6 |
+| Warlock | 58.3% | 2.75 | 1.50 / 1.08 / 1.33 | 94.5 | 60.7 |
+| Crossbowman | 58.3% | 2.67 | 1.17 / 0.33 / 2.50 | 91.8 | 58.7 |
+| Lich | 58.3% | 2.92 | 1.08 / 0.67 / 0.83 | 90.0 | 58.2 |
+| Death Knight | 58.3% | 1.83 | 0.42 / 0.25 / 0.50 | 45.9 | 29.0 |
+| Ranger | 41.7% | 3.58 | 1.08 / 1.33 / 1.42 | 129.7 | 82.8 |
+| Arcanist | 41.7% | 2.92 | 1.08 / 0.50 / 1.17 | 92.7 | 59.5 |
+| Demon Hunter | 41.7% | 2.67 | 0.67 / 0.83 / 0.75 | 87.8 | 55.2 |
+| Druid Warden | 41.7% | 2.00 | 0.17 / 1.08 / 1.50 | 39.2 | 25.2 |
+| Vanguard Knight | 41.7% | 1.50 | 0.25 / 1.00 / 0.67 | 20.9 | 13.4 |
 
-## Methodology
+### 2026.9.14.3 (24 games)
+
+| Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
+| --- | --- | --- | --- | --- | --- |
+| Arcanist | 70.8% | 4.92 | 4.71 / 2.58 / 3.00 | 253.4 | 163.4 |
+| Ranger | 70.8% | 5.12 | 3.50 / 2.21 / 3.62 | 253.2 | 162.3 |
+| Demon Hunter | 70.8% | 3.42 | 1.42 / 2.54 / 1.96 | 125.8 | 79.8 |
+| Druid Warden | 70.8% | 2.67 | 0.92 / 1.71 / 3.25 | 74.0 | 47.5 |
+| Vanguard Knight | 70.8% | 2.79 | 0.71 / 2.50 / 1.71 | 70.7 | 45.3 |
+| Crossbowman | 29.2% | 4.62 | 2.75 / 2.21 / 4.83 | 207.5 | 131.6 |
+| Lich | 29.2% | 4.50 | 3.62 / 2.62 / 4.29 | 200.8 | 129.1 |
+| Berserker | 29.2% | 3.88 | 2.29 / 2.21 / 3.50 | 160.1 | 102.6 |
+| Warlock | 29.2% | 3.29 | 1.83 / 2.17 / 3.96 | 112.0 | 71.5 |
+| Death Knight | 29.2% | 2.58 | 0.88 / 2.25 / 2.71 | 74.2 | 47.4 |
+
+### 2026.9.14.4 (60 games)
+
+| Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
+| --- | --- | --- | --- | --- | --- |
+| Ranger | 56.7% | 5.10 | 3.03 / 2.18 / 2.07 | 258.7 | 164.5 |
+| Arcanist | 56.7% | 4.40 | 2.95 / 1.85 / 1.97 | 205.6 | 131.8 |
+| Demon Hunter | 56.7% | 3.73 | 1.27 / 2.03 / 1.18 | 161.3 | 102.0 |
+| Vanguard Knight | 56.7% | 2.88 | 0.93 / 2.57 / 1.55 | 87.4 | 55.4 |
+| Druid Warden | 56.7% | 2.75 | 0.67 / 2.03 / 2.60 | 79.0 | 49.7 |
+| Crossbowman | 43.3% | 4.68 | 2.38 / 1.65 / 1.97 | 215.1 | 136.7 |
+| Lich | 43.3% | 4.45 | 2.80 / 1.82 / 1.80 | 202.9 | 129.4 |
+| Berserker | 43.3% | 4.00 | 2.07 / 1.90 / 1.67 | 174.7 | 110.9 |
+| Death Knight | 43.3% | 3.57 | 1.25 / 2.10 / 2.05 | 128.2 | 81.1 |
+| Warlock | 43.3% | 3.33 | 1.38 / 2.12 / 2.00 | 115.4 | 73.7 |
+
+### 2026.9.14.5 (384 games)
+
+| Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
+| --- | --- | --- | --- | --- | --- |
+| Ranger | 54.7% | 6.11 | 4.89 / 3.46 / 2.60 | 290.3 | 185.2 |
+| Arcanist | 54.7% | 5.54 | 4.34 / 3.63 / 2.50 | 238.3 | 151.7 |
+| Demon Hunter | 54.7% | 4.93 | 2.79 / 4.25 / 2.22 | 202.3 | 128.0 |
+| Vanguard Knight | 54.7% | 3.87 | 1.46 / 3.75 / 2.35 | 118.3 | 74.3 |
+| Druid Warden | 54.7% | 3.49 | 1.39 / 3.57 / 2.91 | 102.8 | 64.7 |
+| Crossbowman | 44.3% | 5.96 | 5.06 / 2.66 / 3.07 | 280.5 | 178.8 |
+| Berserker | 44.3% | 5.52 | 3.89 / 3.31 / 2.77 | 237.7 | 151.3 |
+| Lich | 44.3% | 5.37 | 4.10 / 3.36 / 3.08 | 221.0 | 140.9 |
+| Death Knight | 44.3% | 4.63 | 2.25 / 3.01 / 2.59 | 169.0 | 106.5 |
+| Warlock | 44.3% | 4.21 | 2.33 / 3.47 / 3.17 | 143.8 | 91.3 |
+
+### 2026.9.15.1 (96 games)
+
+| Hero | Win rate | Level | K / D / A | XP/min | Gold/min |
+| --- | --- | --- | --- | --- | --- |
+| Ranger | 22.9% | 11.45 | 14.84 / 10.22 / 6.58 | 297.0 | 187.4 |
+| Arcanist | 22.9% | 9.59 | 10.81 / 10.59 / 6.20 | 210.3 | 132.8 |
+| Demon Hunter | 22.9% | 9.14 | 7.65 / 14.47 / 6.09 | 194.4 | 121.5 |
+| Vanguard Knight | 22.9% | 7.23 | 4.18 / 11.73 / 6.46 | 124.2 | 77.2 |
+| Druid Warden | 22.9% | 6.67 | 3.84 / 10.99 / 7.62 | 112.7 | 70.0 |
+| Crossbowman | 14.6% | 11.11 | 15.81 / 8.04 / 7.51 | 281.3 | 178.3 |
+| Berserker | 14.6% | 10.21 | 10.08 / 10.91 / 6.21 | 230.9 | 144.8 |
+| Lich | 14.6% | 9.51 | 10.29 / 10.84 / 8.39 | 204.5 | 129.0 |
+| Death Knight | 14.6% | 8.54 | 6.26 / 9.24 / 6.19 | 170.0 | 105.9 |
+| Warlock | 14.6% | 7.22 | 5.96 / 10.49 / 7.58 | 130.2 | 81.8 |
+
+### Methodology
 
 Scope. Retained GOTA competition rounds with match completion timestamps inside the displayed analysis window. A game counts once; each hero appearance contributes one final stat row. Only aggregate hero statistics are embedded. Open this page directly in a browser with its adjacent hero_assets folder. No server is needed.
 

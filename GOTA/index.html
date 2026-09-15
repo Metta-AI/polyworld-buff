@@ -428,7 +428,7 @@
       <img src="assets/icons/victory.png" alt="">
       <div>
         <h2>Player standings</h2>
-        <p>Compare the latest published mixed and mono team tournament results.</p>
+        <p>1,000 games completed on September 15, 2026: 500 mixed and 500 mono team games.</p>
       </div>
       <span>View standings &rarr;</span>
     </a>
@@ -441,8 +441,8 @@
     <section class="panel balance-callout" aria-label="Hero balance report">
       <div>
         <h2>Recent hero balance</h2>
-        <p>Compare win rates, levels, XP, K/D/A, and gold from the published
-          24-hour league snapshot.</p>
+        <p>576 verified games and 5,760 hero appearances from September 14–15, 2026.
+          Compare win rates, levels, XP, K/D/A, and gold by game version.</p>
       </div>
       <a class="balance-link" href="heros/">Explore hero statistics &rarr;</a>
     </section>
@@ -461,37 +461,43 @@
       <div class="split">
         <div>
           <p>
-            Gods of the Arena is a 5v5 lane battler. Red brings
-            the living roster. Blue brings the undead warband. Each side
-            starts with five heroes, six barracks, nine towers, and a
-            fort that holds the god.
+            Gods of the Arena is a 5v5 lane battler. Red fields Death Knight,
+            Crossbowman, Lich, Warlock and Berserker. Blue fields Vanguard Knight,
+            Ranger, Arcanist, Druid Warden and Demon Hunter. Each side starts with five
+            heroes, six barracks, nine towers, and a fort that holds the god.
           </p>
           <p>
-            The 128 by 128 arena uses the map editor's saved seed 54 preset.
-            Blue starts in the southwest and Red in the northeast. Roads
-            carve the forest and cross cliffs at short ramps. Each fort has
-            three exits, two barracks per exit, and a separate walled spawn.
-            Match seeds control gameplay randomness without changing this layout.
+            The default arena is 116 by 116 tiles with map seed 54. Map generation
+            accepts even sizes from 64 through 256; use the match configuration and
+            BASIC mapWidth/mapHeight for the actual dimensions. Blue starts in the
+            southwest and Red in the northeast. Roads carve the forest and cross cliffs
+            at short ramps. Each fort has three exits, two barracks per exit, and a
+            separate walled spawn. Match seeds control gameplay randomness without
+            changing this layout.
           </p>
           <p>
-            Footmen spawn two per lane every ten seconds and march until they
-            meet the enemy. Heroes start at level 1 with 150 gold and their
-            full four-ability kit already unlocked. Kills grant gold and XP.
-            Heroes grow to level 20, then spend gold in a six-slot inventory.
+            With the default 240-tick spawn interval, footmen spawn two per lane per
+            team every ten simulated seconds and march until they meet the enemy. Heroes
+            start at level 1 with 150 gold and their full four-ability kit already
+            unlocked. Kills grant gold and XP. Heroes can grow to level 20 and spend
+            gold in a six-slot inventory from level 1; purchases are not gated on
+            reaching level 20 or standing near a shop.
           </p>
           <p>
-            Outer towers fall first, then inner, then the gate. A god becomes
-            attackable after one of its lanes is cleared. The first fort to
-            reach zero health loses.
+            Outer towers fall first, then inner, then the gate. A god becomes attackable
+            after one of its lanes is cleared. The first fort to reach zero health
+            loses. Each winning-team seat scores 1 and each losing-team seat scores 0. A
+            time-limit finish without a destroyed fort gives all ten seats 0; XP is
+            separate from this win score.
           </p>
         </div>
         <div class="lanes">
           <div class="chip"><img src="assets/icons/minion.png" alt=""><div><b>Footmen</b><div class="muted">60 HP, 12 damage, 15 gold</div></div></div>
-          <div class="chip"><img src="assets/icons/tower.png" alt=""><div><b>Towers</b><div class="muted">Outer 600, inner 800, gate 1000</div></div></div>
+          <div class="chip"><img src="assets/icons/tower.png" alt=""><div><b>Towers</b><div class="muted">HP: outer 900, inner 1200, gate 1800. Damage: 18, 24, 30.</div></div></div>
           <div class="chip"><img src="assets/icons/fort.png" alt=""><div><b>Gods</b><div class="muted">400 HP, exposed after a lane falls</div></div></div>
           <div class="chip"><img src="assets/icons/kills.png" alt=""><div><b>Hero bounty</b><div class="muted">150 XP and 100 gold</div></div></div>
           <div class="chip"><img src="assets/icons/experience.png" alt=""><div><b>Level curve</b><div class="muted">100 XP, then +75 each level</div></div></div>
-          <div class="chip"><img src="assets/icons/day.png" alt=""><div><b>Clock</b><div class="muted">20 minute match</div></div></div>
+          <div class="chip"><img src="assets/icons/day.png" alt=""><div><b>Clock</b><div class="muted">Default 28,800 ticks at 24 ticks/s: 20 simulated minutes; match configuration can differ</div></div></div>
         </div>
       </div>
     </section>
@@ -650,7 +656,7 @@
               <a class="hero-balance" href="heros/#hero=ranger">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">RANGER · MOBILE RANGED CARRY</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>210 → 932</b><span class="muted">HP +38/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>200 → 922</b><span class="muted">HP +38/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>110 → 262</b><span class="muted">MANA +8/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>25 → 139</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.50</b><span class="muted">RANGE</span></div></div>
@@ -658,7 +664,7 @@
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.33</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:23%"></i><div class="bar-label"><span>HEALTH</span><span>210 → 932</span></div></div>
+                <div class="bar hp"><i style="width:23%"></i><div class="bar-label"><span>HEALTH</span><span>200 → 922</span></div></div>
                 <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>110 → 262</span></div></div>
               </div>
             </div>
@@ -856,7 +862,7 @@
               <p class="cast-type">Area cast</p>
               <dl class="ability-stats">
                 <div><dt>Damage</dt><dd>70</dd></div>
-                <div><dt>Mana cost</dt><dd>50</dd></div>
+                <div><dt>Mana cost</dt><dd>53</dd></div>
                 <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
                 <div><dt>Cast cooldown</dt><dd>9s</dd></div>
                 <div><dt>Recharge</dt><dd>9s / charge</dd></div>
@@ -1196,7 +1202,7 @@
               <h4>Sanguine Chalice</h4>
               <p class="cast-type">Self cast</p>
               <dl class="ability-stats">
-                <div><dt>Healing</dt><dd>+26 HP</dd></div>
+                <div><dt>Healing</dt><dd>+30 HP</dd></div>
                 <div><dt>Mana cost</dt><dd>0</dd></div>
                 <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
                 <div><dt>Cast cooldown</dt><dd>8s</dd></div>
@@ -1487,7 +1493,7 @@
                 <div><dt>Cast cooldown</dt><dd>2s</dd></div>
                 <div><dt>Recharge</dt><dd>12s / charge</dd></div>
                 <div><dt>Cast delay</dt><dd>Instant</dd></div>
-                <div><dt>Cast range</dt><dd>6 tiles</dd></div>
+                <div><dt>Cast range</dt><dd>6.33 tiles</dd></div>
               </dl>
               <p class="bonus">Follows the selected enemy. A ground shot hits the first enemy along its path.</p>
             </article>
@@ -1588,7 +1594,7 @@
               <h4>Aether Siphon</h4>
               <p class="cast-type">Self cast</p>
               <dl class="ability-stats">
-                <div><dt>Restores</dt><dd>+22 mana</dd></div>
+                <div><dt>Restores</dt><dd>+24 mana</dd></div>
                 <div><dt>Mana cost</dt><dd>0</dd></div>
                 <div><dt>Charges</dt><dd class="ability-charges"><span>1</span><span class="ability-charge-pips" aria-hidden="true"><span></span></span></dd></div>
                 <div><dt>Cast cooldown</dt><dd>7s</dd></div>
@@ -2055,8 +2061,11 @@
     <section id="controls" class="panel">
       <p class="kicker">PLAYER CONTROLS</p>
       <h2>Control your hero</h2>
+      <p>This section describes human-control mode. BASIC-controlled heroes can
+        explicitly cast with <code>castTarget</code>/<code>castPoint</code>; bot
+        automatic casting is also enabled.</p>
       <p>Idle heroes automatically attack the closest visible enemy creep nearby. Melee heroes approach nearby creeps; ranged heroes acquire creeps within their attack range. Select an enemy or right-click it to make it take priority. Both melee and ranged heroes move toward that target until they reach their own basic-attack range, then stop and attack repeatedly. When the target dies or is lost in fog, they return to nearby creeps. A ground move order cancels the attack and takes priority over automatic acquisition. These rules also apply with zero mana or all four abilities on cooldown.</p>
-      <p>You control your four extra abilities; they only cast when you use them. Q/W/E/R cast immediately at your current valid target. Self actions always fire on key press and affect you. Melee actions also fire immediately: they strike a nearby target, or swing toward the pointer when there is none. For other abilities with no valid target, the key selects the ability and right-click casts at an object or the ground. Escape cancels the selection. With no ability selected, right-click moves or attacks. Click SHOP in the inventory, or press B, to open the full-screen item shop; click an item to buy it. Space pauses or resumes the battle, including while shopping. The HUD shows remaining charges and the wait until an empty action can be used again. A blue bar tracks progress toward the next charge.</p>
+      <p>You control your four extra abilities; they only cast when you use them. Q/W/E/R cast immediately at your current valid target. Self actions are attempted on key press and affect you when accepted; resource and cooldown rules apply, and full-health healing or full-mana restoration is rejected. Melee actions also fire immediately: they strike a nearby target, or swing toward the pointer when there is none. For other abilities with no valid target, the key selects the ability and right-click casts at an object or the ground. Escape cancels the selection. With no ability selected, right-click moves or attacks. Click SHOP in the inventory, or press B, to open the full-screen item shop; click an item to buy it. Space pauses or resumes the battle, including while shopping. The HUD shows remaining charges and the wait until an empty action can be used again. A blue bar tracks progress toward the next charge.</p>
       <table class="spell-table"><thead><tr><th>Input</th><th>Action</th></tr></thead><tbody>
         <tr><td>Q / W / E / R</td><td>Your four extra abilities. Self and melee actions fire immediately; other actions use your current target or select right-click aiming.</td></tr>
         <tr><td>F / G</td><td>Use the first two inventory items, including health and mana potions.</td></tr>

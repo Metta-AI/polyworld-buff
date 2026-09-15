@@ -2,6 +2,7 @@
 
 The game guides are the source for three Markdown wiki snapshots. GOTA also
 exports the dated hero statistics and all six tournament standings tables.
+The tournament snapshot also includes the site's player statistics table.
 Interactive controls and replay browsing remain on the website.
 Match facts, hero and unit stats, mechanics references, and ability properties
 are exported as Markdown tables. CTA ability kits use one row per ability.
@@ -27,6 +28,11 @@ Softmax CLI session:
 ```sh
 python tools/sync_wikis.py --publish --softmax /path/to/softmax
 ```
+
+Add `--game GOTA` to update only the GOTA wiki. Reviewed community reference
+sections in `wiki/references/<game>/<page>.md` are preserved above the generated
+content. They include character attributes, scoring guidance, and source credits.
+Further remote edits still require review and merging before publishing.
 
 The tool can also use a `SOFTMAX_TOKEN` environment variable. It never stores
 credentials in the repository. Run it after publishing updated site content.
