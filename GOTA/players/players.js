@@ -164,7 +164,7 @@ function paintCell(cell, row, player, max) {
 }
 
 async function render() {
-  const response = await fetch('data.json');
+  const response = await fetch('data.json', {cache: 'no-cache'});
   if (!response.ok) throw new Error('Snapshot could not be loaded.');
   const data = await response.json();
   data.players.sort(byScore);
