@@ -34,7 +34,9 @@ proc styleHeroReport*(html: string, standalone = false): string =
       ("href=\"../index.html\"", "href=\"" & SiteUrl & "GOTA/\""),
       ("href=\"../heros/\"", "href=\"#\""),
       ("href=\"../standings/\"",
-        "href=\"" & SiteUrl & "GOTA/standings/\"")
+        "href=\"" & SiteUrl & "GOTA/standings/\""),
+      ("href=\"../players/\"",
+        "href=\"" & SiteUrl & "GOTA/players/\"")
     )
 
 proc writeReport(path, html: string) =

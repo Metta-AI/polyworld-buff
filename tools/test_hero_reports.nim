@@ -19,6 +19,8 @@ block:
   doAssert "href=\"../heros/\" aria-current=\"page\"" in html
   doAssert "href=\"../index.html\"" in html
   doAssert "href=\"../standings/\"" in html
+  doAssert "href=\"../players/\"" in html
+  doAssert ">Latest Tournament</a>" in html
   doAssert "src=\"../assets/themes/gota/gota_logo.png\"" in html
   doAssert "{\"games\":540}" in html
   let local = styleHeroReport(html, standalone = true)
