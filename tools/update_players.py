@@ -189,15 +189,40 @@ def buildExtractors(versions, cache, polyworld, dependencies):
     return binaries
 
 
+def summarize(rows, reasons):
+    """Summarize one player's or policy version's hero-game observations."""
+    keys = {key for row in rows for key in row} | set(reasons)
+    means, samples = {}, {}
+    for key in sorted(keys):
+        values = [row.get(key, 0 if key.startswith("rej_") else None) for row in rows]
+        values = [value for value in values if value is not None]
+        samples[key] = len(values)
+        means[key] = sum(values) / len(values) if values else None
+    for hero in range(10):
+        key = f"draft_{hero}"
+        means[key] = sum(row["class"] == hero for row in rows) / len(rows) if rows else None
+        samples[key] = len(rows)
+    return {"games": len(rows),
+            "record": {"wins": sum(row["won"] == 1 for row in rows),
+                       "losses": sum(row["lost"] for row in rows),
+                       "draws": sum(row["drawn"] for row in rows)},
+            "values": means, "samples": samples}
+
+
 def aggregate(players, games):
-    """Average hero-game observations by player ID, keeping all versions."""
+    """Average hero-games by player and exact policy-version identity."""
     observations = defaultdict(list)
     policies = defaultdict(Counter)
     versions = defaultdict(Counter)
+    policyRows = defaultdict(lambda: defaultdict(list))
+    policyDetails = defaultdict(dict)
+    policyEngines = defaultdict(lambda: defaultdict(Counter))
     for episode, rows, policyInfo in games:
         seats = {row["position"]: row for row in policyInfo["policy_stats"]}
         if len(episode["policy_version_ids"]) != 10 or set(seats) != set(range(10)):
             raise PlayersError("Episode metadata does not describe all ten seats")
+        playedAt = stamp(episode["created_at"]).isoformat()
+        hasWinner = any(row["won"] == 1 for row in rows.values())
         for seat, row in rows.items():
             policyId = episode["policy_version_ids"][seat]
             info = seats[seat]
@@ -209,28 +234,34 @@ def aggregate(players, games):
                                          "baseline": playerId.startswith("policy_")})
             row = dict(row)
             row["score"] = info.get("avg_reward")
+            row["lost"] = int(hasWinner and row["won"] == 0)
+            row["drawn"] = int(not hasWinner)
+            row["glory"] = row["score"] if row["won"] == 1 else 0
             observations[playerId].append(row)
             policies[playerId][f'{name}:v{info["policy_version"]}'] += 1
             versions[playerId][episode["version"]] += 1
+            policyRows[playerId][policyId].append(row)
+            policyEngines[playerId][policyId][episode["version"]] += 1
+            detail = policyDetails[playerId].setdefault(policyId, {
+                "id": policyId, "name": name, "version": info["policy_version"],
+                "firstGameAt": playedAt, "lastGameAt": playedAt,
+            })
+            detail["firstGameAt"] = min(detail["firstGameAt"], playedAt)
+            detail["lastGameAt"] = max(detail["lastGameAt"], playedAt)
     reasons = sorted({key for rows in observations.values() for row in rows
                       for key in row if key.startswith("rej_")})
     result = []
     for player in sorted(players.values(), key=lambda value: (value["name"].casefold(), value["id"])):
         playerId = player["id"]
-        rows = observations[playerId]
-        keys = {key for row in rows for key in row} | set(reasons)
-        means, samples = {}, {}
-        for key in keys:
-            values = [row.get(key, 0 if key.startswith("rej_") else None) for row in rows]
-            values = [value for value in values if value is not None]
-            samples[key] = len(values)
-            means[key] = sum(values) / len(values) if values else None
-        for hero in range(10):
-            key = f"draft_{hero}"
-            means[key] = sum(row["class"] == hero for row in rows) / len(rows) if rows else None
-            samples[key] = len(rows)
-        result.append({**player, "games": len(rows), "policies": dict(policies[playerId]),
-                       "engines": dict(versions[playerId]), "values": means, "samples": samples})
+        policyVersions = []
+        for policyId, detail in policyDetails[playerId].items():
+            policyVersions.append({**detail,
+                "engines": dict(policyEngines[playerId][policyId]),
+                **summarize(policyRows[playerId][policyId], reasons)})
+        policyVersions.sort(key=lambda value: (value["lastGameAt"], value["version"], value["id"]), reverse=True)
+        result.append({**player, **summarize(observations[playerId], reasons),
+                       "policies": dict(policies[playerId]), "engines": dict(versions[playerId]),
+                       "policyVersions": policyVersions})
     return result, reasons
 
 

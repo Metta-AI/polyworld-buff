@@ -45,6 +45,11 @@ const reasonInfo = {
 
 function groupsFor(data) {
   return [
+    {id: 'score', title: 'League', image: 'victory', rows: [
+      metric('score', 'Score', 'victory', 'recent average / game', 'number', 'Average recorded evaluation score across this snapshot’s hero-games. Current per-game formula: max(0, floor(total XP − 200 × game minutes)). Earlier games retain their recorded score precision.'),
+      metric('won', 'Win / loss', 'victory', 'win % · loss % below', 'record', 'Wins and losses as percentages of all observed hero-games. Draws are shown separately as D; wins, losses and draws together total 100% before rounding. The bar shows win rate.'),
+      metric('glory', 'Average glory', 'chalice', 'recent average / game', 'number', 'Average of each game’s recorded score on a win, or zero on a loss or draw. Includes losses and draws in the average; this is not the average score among wins only.'),
+    ]},
     {id: 'drafting', title: 'Drafting phase', image: 'champion', rows: heroes.map(([name, portrait], index) =>
       share(`draft_${index}`, name, `portrait:${portrait}`, `Share of hero-games in which this player ended the draft as ${name}.`))},
     {id: 'direct', title: 'Direct control', image: 'attack', rows: [
@@ -94,7 +99,6 @@ function groupsFor(data) {
       metric('buyback_gold', 'Gold spent on buybacks', 'gold'),
     ]},
     {id: 'downstream', title: 'Downstream statistics', image: 'victory', rows: [
-      metric('score', 'League score', 'victory', 'reward / game', 'number', 'The platform-recorded reward for this player and episode, averaged across games.'),
       metric('xp', 'Lifetime experience', 'experience'),
       metric('xp_lasthit', 'XP from creep last hits', 'minion'),
       metric('xp_shared', 'XP from nearby creep deaths', 'experience'),
@@ -108,28 +112,71 @@ function groupsFor(data) {
       metric('level', 'Final level', 'champion', 'at game end'),
       share('alive_share', 'Time alive', 'health', 'Share of recorded game ticks in which the hero was alive, including the drafting phase.'),
       metric('minutes', 'Game duration', 'day', 'minutes / game'),
-      share('won', 'Games on the winning team', 'victory', 'Share of appearances on the team that won the match. Games ending without a winning team count as non-wins.'),
     ]},
   ];
 }
 
 const numberFormat = new Intl.NumberFormat('en-US', {maximumFractionDigits: 1, minimumFractionDigits: 1});
-function formatted(value, format) {
+function formatted(value, format, player) {
   if (value === null || value === undefined) return '—';
+  if (format === 'record') {
+    const record = player.record;
+    return `${formatted(record.wins / player.games, 'percent')} W / ${formatted(record.losses / player.games, 'percent')} L` +
+      (record.draws ? ` · ${formatted(record.draws / player.games, 'percent')} D` : '') +
+      ` (${record.wins} wins, ${record.losses} losses, ${record.draws} draws)`;
+  }
   if (format === 'percent') return numberFormat.format(value * 100) + '%';
   if (format === 'rawPercent') return numberFormat.format(value) + '%';
   return numberFormat.format(value);
+}
+
+function byScore(left, right) {
+  const leftScore = left.values.score;
+  const rightScore = right.values.score;
+  if (leftScore == null && rightScore != null) return 1;
+  if (rightScore == null && leftScore != null) return -1;
+  return (rightScore ?? 0) - (leftScore ?? 0) ||
+    left.name.localeCompare(right.name) || left.id.localeCompare(right.id);
+}
+
+function snapshotFor(player, versionId) {
+  const version = player.policyVersions.find(version => version.id === versionId);
+  if (!version) return player;
+  return {...player, ...version, id: player.id, name: player.name,
+    versionId: version.id, versionLabel: `${version.name}:v${version.version}`};
+}
+
+function paintCell(cell, row, player, max) {
+  const value = player.values[row.key];
+  cell.classList.toggle('missing', value == null);
+  cell.textContent = formatted(value, row.format, player);
+  if (row.format === 'record' && value != null) {
+    cell.replaceChildren(element('span', 'record-count', formatted(value, 'percent')));
+    cell.append(element('span', 'record-losses', `${formatted(player.values.lost, 'percent')} L`));
+    if (player.record.draws) cell.append(element('span', 'record-draws', `${formatted(player.values.drawn, 'percent')} D`));
+  }
+  const scope = player.versionLabel || 'All versions';
+  cell.title = `${player.name} · ${scope} · ${row.label}: ${formatted(value, row.format, player)} · ${player.samples[row.key] || 0} observed hero-games`;
+  if (value != null && max > 0) {
+    const bar = element('span', 'bar'); bar.style.setProperty('--fill', Math.max(0, value / max));
+    bar.setAttribute('aria-hidden', 'true'); cell.append(bar);
+  }
 }
 
 async function render() {
   const response = await fetch('data.json');
   if (!response.ok) throw new Error('Snapshot could not be loaded.');
   const data = await response.json();
+  data.players.sort(byScore);
   const groups = groupsFor(data);
   const table = byId('matrix');
   const scroller = byId('matrix-scroll');
   const topScroll = byId('top-scroll');
   const picker = byId('player-select');
+  const versionPicker = byId('version-select');
+  const chosenVersions = new Map();
+  let displayedPlayers = data.players;
+  const metricRows = [];
   const selectable = new Map(data.players.map(player => [player.id, []]));
   const buttons = new Map();
   const groupBodies = [];
@@ -166,9 +213,20 @@ async function render() {
     const player = data.players.find(player => player.id === selected);
     const status = byId('selection');
     status.replaceChildren();
+    versionPicker.replaceChildren();
+    versionPicker.disabled = !player || !player.policyVersions.length;
     if (player) {
-      status.append(element('strong', '', player.name), ` · ${player.games} hero-games`);
-      status.append(element('small', '', Object.entries(player.policies).map(([name, count]) => `${name} (${count})`).join(' · ') || 'No games in this window.'));
+      const shown = snapshotFor(player, chosenVersions.get(player.id));
+      versionPicker.add(new Option(`All versions · ${player.games} games`, ''));
+      player.policyVersions.forEach((version, index) => {
+        versionPicker.add(new Option(`${version.name}:v${version.version} · ${version.games} games${index === 0 ? ' · latest played' : ''}`, version.id));
+      });
+      versionPicker.value = chosenVersions.get(player.id) || '';
+      status.append(element('strong', '', player.name), ` · ${shown.games} hero-games`);
+      const scope = shown.versionLabel
+        ? `${shown.versionLabel} · Last played ${time(new Date(shown.lastGameAt))} UTC in this snapshot`
+        : `All ${player.policyVersions.length} policy versions in this snapshot`;
+      status.append(element('small', '', player.games ? scope : 'No games in this window.'));
       if (scroll) {
         const heading = selectable.get(selected)[0];
         const labelWidth = parseFloat(getComputedStyle(scroller).getPropertyValue('--label-width'));
@@ -176,12 +234,40 @@ async function render() {
         scroller.scrollTo({left: scroller.scrollLeft + delta - labelWidth - (scroller.clientWidth - labelWidth - heading.offsetWidth) / 2, behavior});
       }
     } else {
-      status.textContent = 'Select a name to highlight its column.';
+      versionPicker.add(new Option('Select a player first', ''));
+      status.textContent = 'Select a name to highlight its column.' +
+        (chosenVersions.size ? ` ${chosenVersions.size} columns use a specific version.` : '');
     }
     try {
       if (selected) localStorage.setItem('gota-selected-player', selected);
       else localStorage.removeItem('gota-selected-player');
     } catch { /* Selection still works when browser storage is unavailable. */ }
+  }
+
+  function updateVersions() {
+    displayedPlayers = data.players.map(player => snapshotFor(player, chosenVersions.get(player.id))).sort(byScore);
+    for (const player of displayedPlayers) {
+      const heading = selectable.get(player.id)[0];
+      const count = heading.querySelector('.sample-count');
+      heading.classList.toggle('has-version', Boolean(player.versionId));
+      count.replaceChildren();
+      if (player.versionId) count.append(element('span', 'column-version', `v${player.version}`));
+      count.append(element('span', '', `${player.games} games`));
+      buttons.get(player.id).title = `${player.name} · ${player.versionLabel || 'All versions'} · ${player.games} hero-games`;
+    }
+    for (const {row, cells} of metricRows) {
+      const max = Math.max(0, ...displayedPlayers.map(player => player.values[row.key] ?? 0));
+      for (const player of displayedPlayers) paintCell(cells.get(player.id), row, player, max);
+    }
+    // Move existing cells so headers, highlights and row associations stay intact.
+    for (const row of table.rows) {
+      const cells = new Map([...row.children].filter(cell => cell.dataset.player).map(cell => [cell.dataset.player, cell]));
+      const end = row.lastElementChild;
+      for (const player of displayedPlayers) row.insertBefore(cells.get(player.id), end);
+    }
+    const options = new Map([...picker.options].map(option => [option.value, option]));
+    for (const player of displayedPlayers) picker.append(options.get(player.id));
+    selectPlayer(selected);
   }
 
   const header = element('tr');
@@ -213,7 +299,7 @@ async function render() {
     const body = element('tbody');
     body.id = group.id;
     groupBodies.push(body);
-    const groupRow = element('tr', 'group-row');
+    const groupRow = element('tr', group.id === 'score' ? 'group-row score-group' : 'group-row');
     const heading = element('th', 'stat-label');
     heading.scope = 'row';
     const title = element('span', 'group-title');
@@ -226,7 +312,7 @@ async function render() {
     groupRow.append(padding());
     body.append(groupRow);
     for (const row of group.rows) {
-      const tr = element('tr', 'metric-row');
+      const tr = element('tr', row.key === 'score' ? 'metric-row score-row' : 'metric-row');
       const th = element('th', 'stat-label');
       th.scope = 'row'; th.id = `metric-${row.key}`;
       const label = element('button', 'metric-label');
@@ -243,16 +329,14 @@ async function render() {
       });
       th.append(label); tr.append(th);
       const max = Math.max(0, ...data.players.map(player => player.values[row.key] ?? 0));
+      const cells = new Map();
+      metricRows.push({row, cells});
       data.players.forEach((player, index) => {
-        const value = player.values[row.key];
-        const cell = element('td', value == null ? 'missing' : '', formatted(value, row.format));
+        const cell = element('td');
+        paintCell(cell, row, player, max);
         register(cell, player);
+        cells.set(player.id, cell);
         cell.setAttribute('headers', `metric-${row.key} player-${index}`);
-        cell.title = `${player.name} · ${row.label}: ${formatted(value, row.format)} · ${player.samples[row.key] || 0} observed hero-games`;
-        if (value != null && max > 0) {
-          const bar = element('span', 'bar'); bar.style.setProperty('--fill', Math.max(0, value / max));
-          bar.setAttribute('aria-hidden', 'true'); cell.append(bar);
-        }
         tr.append(cell);
       });
       tr.append(padding()); body.append(tr);
@@ -268,6 +352,12 @@ async function render() {
     navButtons.push(tab); byId('sections').append(tab);
   });
   picker.addEventListener('change', () => selectPlayer(picker.value));
+  versionPicker.addEventListener('change', () => {
+    if (!selected) return;
+    if (versionPicker.value) chosenVersions.set(selected, versionPicker.value);
+    else chosenVersions.delete(selected);
+    updateVersions();
+  });
   byId('clear-selection').addEventListener('click', () => selectPlayer(''));
   byId('scroll-left').addEventListener('click', () => scroller.scrollBy({left: -400, behavior}));
   byId('scroll-right').addEventListener('click', () => scroller.scrollBy({left: 400, behavior}));
