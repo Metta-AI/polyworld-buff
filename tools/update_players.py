@@ -113,7 +113,7 @@ def replayVersion(data):
         raise PlayersError("Invalid Polyworld replay header")
     version, gameVersion, length = struct.unpack_from("<HHH", data, len(magic))
     game = data[len(magic) + 6:len(magic) + 6 + length]
-    if version != 1 or game != b"gods_of_the_arena":
+    if version not in (1, 2) or length != len(game) or game != b"gods_of_the_arena":
         raise PlayersError("Unsupported replay format or game")
     return str(gameVersion)
 

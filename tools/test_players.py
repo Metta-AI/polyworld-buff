@@ -20,6 +20,13 @@ except PlayersError:
 
 print('Checking engine header dispatch and malformed replays')
 assert replayVersion(b'POLYWORLDREPLAY' + struct.pack('<HHH', 1, 57, 17) + b'gods_of_the_arena') == '57'
+assert replayVersion(b'POLYWORLDREPLAY' + struct.pack('<HHH', 2, 59, 17) + b'gods_of_the_arena') == '59'
+for version, length in [(3, 17), (2, 18)]:
+    try:
+        replayVersion(b'POLYWORLDREPLAY' + struct.pack('<HHH', version, 59, length) + b'gods_of_the_arena')
+        raise AssertionError('Unsupported or truncated header was accepted')
+    except PlayersError:
+        pass
 try:
     replayVersion(b'not a replay')
     raise AssertionError('Invalid header was accepted')
