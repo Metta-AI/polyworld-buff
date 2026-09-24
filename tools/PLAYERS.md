@@ -62,6 +62,11 @@ order counts include rejected commands. Rejection-reason counts absent from a
 verified game are zero. Missing CPU telemetry is unknown and excluded from its
 metric's denominator. Attack-target shares omit games with no accepted target
 orders. Cell tooltips expose the number of contributing hero-games.
+Lane creeps and neutral camps contribute to creep XP. Neutral camp kills do
+not count as tower or building kills. Separate neutral rows show creature kills,
+last-hit XP, nearby shared XP and gold. The XP and gold rows are subsets of the
+combined creep XP and total gold rows. Neutral kills count individual creatures,
+not completed camps. These rows also support exact policy-version filtering.
 
 The extractor fixes two details from the example: tick zero is not counted as
 an extra alive tick, and movement uses full-precision coordinates with death,

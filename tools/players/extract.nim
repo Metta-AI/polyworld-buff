@@ -25,9 +25,11 @@ type HeroStats = object
   distance: float
   walksLowHp: int
   goldEarned, goldSpent, buybacks, buybackGold: int
+  goldNeutral: int
   bought: Table[string, int]
   consumed: int
   xpLastHit, xpShared, xpHeroKill, xpBuilding, xpGod: int
+  xpNeutralLastHit, xpNeutralShared, neutralKills: int
   kills, deaths, assists, buildingKills, towerKills, barracksKills: int
   targetTower, targetBarracks: int
   totalXp, level, goldEnd: int
@@ -145,7 +147,9 @@ for tick in 0 .. replay.hashes.len:
       if isHero(event.actor.id) and stats.hasKey(event.actor.id):
         if event.target.kind == 2:
           inc stats[event.actor.id].kills
-        elif event.target.kind >= 4:
+        elif event.target.kind == 6:
+          inc stats[event.actor.id].neutralKills
+        elif event.target.kind in [4, 5]:
           inc stats[event.actor.id].buildingKills
           if event.target.kind == 5:
             inc stats[event.actor.id].barracksKills
@@ -157,19 +161,26 @@ for tick in 0 .. replay.hashes.len:
     of XpGained:
       if stats.hasKey(event.target.id):
         let a = int(event.amount)
+        if event.actor.kind == 6:
+          if event.cause == NearbyKill:
+            stats[event.target.id].xpNeutralShared += a
+          else:
+            stats[event.target.id].xpNeutralLastHit += a
         if event.cause == NearbyKill:
           stats[event.target.id].xpShared += a
         elif event.actor.kind == 2:
           stats[event.target.id].xpHeroKill += a
-        elif event.actor.kind == 3:
+        elif event.actor.kind in [3, 6]:
           stats[event.target.id].xpLastHit += a
-        elif event.actor.kind >= 4:
+        elif event.actor.kind in [4, 5]:
           stats[event.target.id].xpBuilding += a
         elif event.actor.kind == 1:
           stats[event.target.id].xpGod += a
     of GoldGained:
       if stats.hasKey(event.target.id):
         stats[event.target.id].goldEarned += int(event.amount)
+        if event.actor.kind == 6:
+          stats[event.target.id].goldNeutral += int(event.amount)
     of GoldSpent:
       if stats.hasKey(event.target.id):
         stats[event.target.id].goldSpent += int(-event.amount)
@@ -297,4 +308,5 @@ for hero in game.world.heroes:
   for name, count in s.rejections:
     line.add &" rej_{name}={count}"
   line.add &" xp={s.totalXp} xp_lasthit={s.xpLastHit} xp_shared={s.xpShared} xp_herokill={s.xpHeroKill} xp_building={s.xpBuilding} xp_god={s.xpGod} kills={s.kills} deaths={s.deaths} assists={s.assists} building_kills={s.buildingKills} tower_kills={s.towerKills} barracks_kills={s.barracksKills} level={s.level} score={score:.0f}"
+  line.add &" neutral_kills={s.neutralKills} xp_neutral_lasthit={s.xpNeutralLastHit} xp_neutral_shared={s.xpNeutralShared} gold_neutral={s.goldNeutral}"
   echo line
