@@ -34,9 +34,14 @@ except PlayersError:
     pass
 
 print('Checking all ten seats and unknown telemetry')
-line = 'class=0 minutes=1 orders_pm=5 rejected_share=0 xp=100 won=0 cpu_pct=-1 attack_targets=0 alive_ticks=100 target_hero=0'
+line = 'class=0 minutes=1 orders_pm=5 rejected_share=0 xp=100 won=0 cpu_pct=-1 attack_targets=0 alive_ticks=100 target_hero=0 target_tower=0 target_barracks=0'
 rows = parseRows('\n'.join(f'row {i} {line}' for i in range(10)))
 assert rows[0]['cpu_pct'] is None and rows[0]['target_hero'] is None
+assert rows[0]['target_tower'] is None and rows[0]['target_barracks'] is None
+targetLine = line.replace('attack_targets=0', 'attack_targets=4').replace('target_tower=0', 'target_tower=0.25').replace('target_barracks=0', 'target_barracks=0.75')
+targetRows = parseRows('\n'.join(f'row {i} {targetLine}' for i in range(10)))
+assert targetRows[0]['target_tower'] == 0.25
+assert targetRows[0]['target_barracks'] == 0.75
 try:
     parseRows(f'row 0 {line}\nrow 0 {line}')
     raise AssertionError('Duplicate or incomplete seats were accepted')

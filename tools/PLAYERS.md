@@ -63,10 +63,13 @@ verified game are zero. Missing CPU telemetry is unknown and excluded from its
 metric's denominator. Attack-target shares omit games with no accepted target
 orders. Cell tooltips expose the number of contributing hero-games.
 Lane creeps and neutral camps contribute to creep XP. Neutral camp kills do
-not count as tower or building kills. Separate neutral rows show creature kills,
+not count as tower or barracks kills. Separate neutral rows show creature kills,
 last-hit XP, nearby shared XP and gold. The XP and gold rows are subsets of the
 combined creep XP and total gold rows. Neutral kills count individual creatures,
 not completed camps. These rows also support exact policy-version filtering.
+Tower and barracks attack-target shares, XP and kills are separate, with no
+combined building rows. New XP and target-share fields show no observation in
+older snapshots until the next replay refresh; existing kill counts stay usable.
 
 The extractor fixes two details from the example: tick zero is not counted as
 an extra alive tick, and movement uses full-precision coordinates with death,

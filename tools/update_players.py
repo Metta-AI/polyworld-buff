@@ -142,7 +142,7 @@ def parseRows(output):
         if values["cpu_pct"] < 0:
             values["cpu_pct"] = None
         if values["attack_targets"] == 0:
-            for key in ("target_hero", "target_creep", "target_building", "target_god"):
+            for key in ("target_hero", "target_creep", "target_tower", "target_barracks", "target_god"):
                 values[key] = None
         rows[seat] = values
     if set(rows) != set(range(10)):

@@ -18,7 +18,7 @@ type HeroStats = object
   walks, attackMoves, attackOrders, casts, itemUses, levelUps: int
   orders, duplicates, rejected: int
   rejections: Table[string, int]
-  targetHero, targetCreep, targetBuilding, targetGod: int
+  targetHero, targetCreep, targetTower, targetBarracks, targetGod: int
   aliveTicks, lowHpTicks, halfHpTicks, ownHalfTicks, enemyHalfTicks: int
   nearEnemyTowerTicks, nearOwnGodTicks, nearEnemyGodTicks: int
   hpSum: float
@@ -28,10 +28,9 @@ type HeroStats = object
   goldNeutral: int
   bought: Table[string, int]
   consumed: int
-  xpLastHit, xpShared, xpHeroKill, xpBuilding, xpGod: int
+  xpLastHit, xpShared, xpHeroKill, xpTower, xpBarracks, xpGod: int
   xpNeutralLastHit, xpNeutralShared, neutralKills: int
-  kills, deaths, assists, buildingKills, towerKills, barracksKills: int
-  targetTower, targetBarracks: int
+  kills, deaths, assists, towerKills, barracksKills: int
   totalXp, level, goldEnd: int
 
 let
@@ -52,6 +51,10 @@ for h in game.world.heroes:
   stats[h.id] = HeroStats(team: h.team.ord, class: h.class.ord)
   stats[h.id].bought = initTable[string, int]()
   stats[h.id].rejections = initTable[string, int]()
+
+var buildingKinds: Table[int32, BuildingKind]
+for building in game.world.buildings:
+  buildingKinds[building.id] = building.kind
 
 proc itemGroup(id: int32): string =
   ## Groups item IDs by purchase purpose.
@@ -99,8 +102,12 @@ for action in replay.actions:
       inc stats[action.heroId].targetCreep
     elif t <= 2:
       inc stats[action.heroId].targetGod
-    else:
-      inc stats[action.heroId].targetBuilding
+    elif buildingKinds.hasKey(t):
+      case buildingKinds[t]
+      of TowerBuilding:
+        inc stats[action.heroId].targetTower
+      of BarracksBuilding:
+        inc stats[action.heroId].targetBarracks
   of ActionCastTarget, ActionCastPoint:
     inc stats[action.heroId].casts
   of ActionUseItem, ActionUseItemAt:
@@ -149,12 +156,10 @@ for tick in 0 .. replay.hashes.len:
           inc stats[event.actor.id].kills
         elif event.target.kind == 6:
           inc stats[event.actor.id].neutralKills
-        elif event.target.kind in [4, 5]:
-          inc stats[event.actor.id].buildingKills
-          if event.target.kind == 5:
-            inc stats[event.actor.id].barracksKills
-          else:
-            inc stats[event.actor.id].towerKills
+        elif event.target.kind == 4:
+          inc stats[event.actor.id].towerKills
+        elif event.target.kind == 5:
+          inc stats[event.actor.id].barracksKills
     of Assist:
       if stats.hasKey(event.actor.id):
         inc stats[event.actor.id].assists
@@ -172,8 +177,10 @@ for tick in 0 .. replay.hashes.len:
           stats[event.target.id].xpHeroKill += a
         elif event.actor.kind in [3, 6]:
           stats[event.target.id].xpLastHit += a
-        elif event.actor.kind in [4, 5]:
-          stats[event.target.id].xpBuilding += a
+        elif event.actor.kind == 4:
+          stats[event.target.id].xpTower += a
+        elif event.actor.kind == 5:
+          stats[event.target.id].xpBarracks += a
         elif event.actor.kind == 1:
           stats[event.target.id].xpGod += a
     of GoldGained:
@@ -216,8 +223,12 @@ for tick in 0 .. replay.hashes.len:
             dec s.targetCreep
           elif t <= 2:
             dec s.targetGod
-          else:
-            dec s.targetBuilding
+          elif buildingKinds.hasKey(t):
+            case buildingKinds[t]
+            of TowerBuilding:
+              dec s.targetTower
+            of BarracksBuilding:
+              dec s.targetBarracks
         of ActionCastTarget, ActionCastPoint:
           dec s.casts
         of ActionUseItem, ActionUseItemAt:
@@ -300,13 +311,13 @@ for hero in game.world.heroes:
   line.add &" walks_pm={s.walks.float / max(0.1, aliveMin):.6f} attackmoves_pm={s.attackMoves.float / max(0.1, aliveMin):.6f} attacks_pm={s.attackOrders.float / max(0.1, aliveMin):.6f} casts_pm={s.casts.float / max(0.1, aliveMin):.6f} itemuses_pm={s.itemUses.float / max(0.1, aliveMin):.6f}"
   line.add &" attack_targets={s.attackOrders} alive_ticks={s.aliveTicks}"
   let targets = max(1, s.attackOrders).float
-  line.add &" target_hero={s.targetHero.float / targets:.6f} target_creep={s.targetCreep.float / targets:.6f} target_building={s.targetBuilding.float / targets:.6f} target_god={s.targetGod.float / targets:.6f}"
+  line.add &" target_hero={s.targetHero.float / targets:.6f} target_creep={s.targetCreep.float / targets:.6f} target_tower={s.targetTower.float / targets:.6f} target_barracks={s.targetBarracks.float / targets:.6f} target_god={s.targetGod.float / targets:.6f}"
   line.add &" hp_mean={s.hpSum / alive:.6f} time_below25={s.lowHpTicks.float / alive:.6f} time_below50={s.halfHpTicks.float / alive:.6f} time_enemy_half={s.enemyHalfTicks.float / alive:.6f} time_near_enemy_tower={s.nearEnemyTowerTicks.float / alive:.6f} time_near_own_god={s.nearOwnGodTicks.float / alive:.6f} time_near_enemy_god={s.nearEnemyGodTicks.float / alive:.6f} tiles_pm={s.distance / max(0.1, aliveMin):.6f} lowhp_walks={s.walksLowHp} alive_share={alive / max(1, endTick).float:.6f}"
   line.add &" gold_earned={s.goldEarned} gold_spent={s.goldSpent} gold_end={s.goldEnd} buybacks={s.buybacks} buyback_gold={s.buybackGold} items_consumed={s.consumed} buy_heal={s.bought.getOrDefault(\"heal\")} buy_mana={s.bought.getOrDefault(\"mana\")} buy_portal={s.bought.getOrDefault(\"portal\")} buy_poison={s.bought.getOrDefault(\"poison\")} buy_gear={s.bought.getOrDefault(\"gear\")}"
   let orders = max(1, s.orders).float
   line.add &" orders_pm={s.orders.float / max(0.1, aliveMin):.6f} dup_share={s.duplicates.float / orders:.6f} dup_pm={s.duplicates.float / max(0.1, aliveMin):.6f} rejected_share={s.rejected.float / orders:.6f} rejected_pm={s.rejected.float / max(0.1, aliveMin):.6f}"
   for name, count in s.rejections:
     line.add &" rej_{name}={count}"
-  line.add &" xp={s.totalXp} xp_lasthit={s.xpLastHit} xp_shared={s.xpShared} xp_herokill={s.xpHeroKill} xp_building={s.xpBuilding} xp_god={s.xpGod} kills={s.kills} deaths={s.deaths} assists={s.assists} building_kills={s.buildingKills} tower_kills={s.towerKills} barracks_kills={s.barracksKills} level={s.level} score={score:.0f}"
+  line.add &" xp={s.totalXp} xp_lasthit={s.xpLastHit} xp_shared={s.xpShared} xp_herokill={s.xpHeroKill} xp_tower={s.xpTower} xp_barracks={s.xpBarracks} xp_god={s.xpGod} kills={s.kills} deaths={s.deaths} assists={s.assists} tower_kills={s.towerKills} barracks_kills={s.barracksKills} level={s.level} score={score:.0f}"
   line.add &" neutral_kills={s.neutralKills} xp_neutral_lasthit={s.xpNeutralLastHit} xp_neutral_shared={s.xpNeutralShared} gold_neutral={s.goldNeutral}"
   echo line
