@@ -1,0 +1,6 @@
+Heartleaf guide artwork, copied 2026-09-29.
+logo.png: Metta-AI/polyworld_art, themes/heartleaf/heartleaf_logo.png.
+village.png: Metta-AI/polyworld_art, terrain/heartleaf/layers/stacked-preview.png.
+Original filenames were shortened for this site. Images are unmodified.
+See logo-license.md and terrain-license.md for the original project notices.
+https://github.com/Metta-AI/polyworld_art

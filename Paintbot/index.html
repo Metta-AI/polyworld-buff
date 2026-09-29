@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lead a crew of wheeled cogs, capture heart towers, and hold the island long enough to turn control into victory.">
+  <title>Paintbot PW · Polyworld Buff</title>
+  <link rel="stylesheet" href="../guides.css">
+</head>
+<body style="--accent: #a1d8ee">
+  <a class="skip" href="#guide">Skip to guide</a>
+  <header class="topbar"><nav class="nav-inner" aria-label="Site navigation">
+    <a class="brand" href="../">Polyworld Buff</a>
+    <span class="crumb">Paintbot PW / Game guide</span>
+    <a href="../">All games &rarr;</a>
+  </nav></header>
+  <main id="guide">
+    <div class="hero">
+      <div><p class="eyebrow label">Heartwick · Territory control · Paint combat</p>
+        <h1>Paintbot PW</h1><p>Lead a crew of wheeled cogs, capture heart towers, and hold the island long enough to turn control into victory.</p>
+        <a class="jump" href="#overview">Learn the game &darr;</a>
+      </div>
+      <div class="hero-visual"><img class="hero-art"
+        src="assets/paint-crew.png" alt="Paintbot PW artwork"></div>
+    </div>
+    <dl class="facts"><div class="fact"><dt>Standard teams</dt><dd>8 vs 8</dd></div><div class="fact"><dt>Baseline hearts</dt><dd>10</dd></div><div class="fact"><dt>Winning meter</dt><dd>900 points</dd></div><div class="fact"><dt>Match limit</dt><dd>10 minutes</dd></div></dl>
+    <nav class="section-nav" aria-label="Guide sections"><a class="jump" href="#overview">How to play</a><a class="jump" href="#hearts">Hearts &amp; territory</a><a class="jump" href="#scoring">Winning &amp; glory</a><a class="jump" href="#equipment">Combat &amp; equipment</a><a class="jump" href="#field">Vision, terrain &amp; lives</a><a class="jump" href="#variants">Team variants</a><a class="jump" href="#tips">Strategy notes</a></nav>
+    <section id="overview"><h2 class="section-heading"><img src="../GOTA/assets/icons/champion.png" alt="">How to play</h2><p>Paintbot PW’s team game takes place in Heartwick. Sixteen wheeled
+    cogs split into red and blue teams, contest heart towers, and use paint weapons
+    to keep opponents away. This guide covers the standard team game; the separate
+    Heartland free-for-all variant has different rules.</p><div class="grid"><article class="panel"><h3>Capture territory</h3><p>The baseline island has ten hearts. Each team starts with one home heart; eight begin neutral. Stand near a heart for three uncontested seconds to claim it.</p></article><article class="panel"><h3>Fill the heart meter</h3><p>Each owned heart earns one point per second. Reach 900 points first, or have the higher meter when the ten-minute limit expires.</p></article><article class="panel"><h3>Keep your crew alive</h3><p>Each cog has 3 HP and three respawns, for four lives total. A team loses immediately once every cog is out with no respawns remaining.</p></article></div></section><section id="hearts"><h2 class="section-heading"><img src="../GOTA/assets/icons/tower.png" alt="">Hearts &amp; territory</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Capture rule reference table, scroll horizontally"><table><thead><tr><th scope="col">Capture rule</th><th scope="col">What happens</th></tr></thead><tbody><tr><th scope="row">Range</th><td>Stay within 140 world units (1.4 tiles), with a traversable connection to the heart.</td></tr>
+<tr><th scope="row">Capture time</th><td>3 seconds / 72 ticks. Extra friendly cogs do not speed it up.</td></tr>
+<tr><th scope="row">Contested heart</th><td>Both teams in range pause capture progress.</td></tr>
+<tr><th scope="row">Leaving</th><td>If attackers leave or only defenders remain, capture progress resets.</td></tr>
+<tr><th scope="row">Income</th><td>The old owner keeps earning until the capture completes.</td></tr>
+<tr><th scope="row">All ten hearts</th><td>Income increases to 10 points per second, but the game does not end immediately.</td></tr>
+<tr><th scope="row">Public information</th><td>Heart positions, ownership, capture progress, and whether a heart is contested are visible to everyone.</td></tr>
+</tbody></table></div><div class="note"><strong>Five hearts for three minutes = 900 points.</strong>
+    The meter measures accumulated control, so an early lead still counts after you
+    lose territory. Generated map variants can have different heart layouts and counts.</div></section><section id="scoring"><h2 class="section-heading"><img src="../GOTA/assets/icons/victory.png" alt="">Winning &amp; glory</h2><p>The heart meter decides the winning team. <strong>Glory is the
+    match score and ladder input.</strong> Only the winner keeps its glory; the
+    losing team and both sides of a draw score zero.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Glory event reference table, scroll horizontally"><table class="cards-table"><thead><tr><th scope="col">Glory event</th><th scope="col">Current Competition setting</th><th scope="col">Engine default</th></tr></thead><tbody><tr><th scope="row">Starting glory</th><td>Match length in seconds: 600 in a ten-minute game</td><td>Same</td></tr>
+<tr><th scope="row">Time passing</th><td>−1 each second</td><td>Same</td></tr>
+<tr><th scope="row">No supplies collected</th><td>+10 every 30 seconds without collecting a supply</td><td>Same</td></tr>
+<tr><th scope="row">Glory heart pickup</th><td>+20</td><td>Same</td></tr>
+<tr><th scope="row">Trailing in remaining lives</th><td>+5 per life behind, every 5 seconds</td><td>+1 per life behind, every 5 seconds</td></tr>
+<tr><th scope="row">Trailing in active cogs</th><td>+10 per additional eliminated cog, every 5 seconds</td><td>+1 per additional eliminated cog, every 5 seconds</td></tr>
+<tr><th scope="row">Loss or draw</th><td>Final glory becomes 0</td><td>Same</td></tr>
+</tbody></table></div><p>“Eliminated” means dead with no lives left. These bonuses reward winning
+    despite disadvantages. Taking friendly fire no longer awards glory in the
+    current rules. Match configuration can override the award amounts.</p>
+    <p>At the time limit, the higher heart meter wins; equal totals draw. If both
+    meters fill on the same tick, compare their totals. If both teams are eliminated
+    on the same tick, compare the meters without awarding an elimination bonus.</p></section><section id="equipment"><h2 class="section-heading"><img src="../GOTA/assets/icons/attack.png" alt="">Combat &amp; equipment</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Weapon / equipment reference table, scroll horizontally"><table class="cards-table"><thead><tr><th scope="col">Weapon / equipment</th><th scope="col">Numbers</th><th scope="col">How it works</th></tr></thead><tbody><tr><th scope="row">Paintball gun</th><td>5-tick windup · 1 shot/second · 5,250-unit range</td><td>Aim locks during windup, then a hitscan ray resolves. Friendly fire is enabled; simultaneous shots choose targets before damage.</td></tr>
+<tr><th scope="row">Grenade</th><td>Up to 1-second charge · 10-tick flight · 3 damage</td><td>Explodes in a 360-unit radius under the current strong-grenade rules. Grenade pickups return after 5 seconds.</td></tr>
+<tr><th scope="row">Spray</th><td>850-unit reach · 5-tick burst · 3 damage</td><td>Replaces the gun while carried. Aim stays locked for the burst; each victim is hit once, followed by an 8-tick recovery.</td></tr>
+<tr><th scope="row">Shield pickup</th><td>3 armor</td><td>Armor absorbs damage before HP. It does not heal you. Pickup respawns after 30 seconds.</td></tr>
+<tr><th scope="row">Medkit</th><td>Restore base HP</td><td>Healthy cogs ignore it. Pickup respawns after 30 seconds.</td></tr>
+</tbody></table></div><p>The game runs at 24 ticks per second. One Polyworld tile is 100 world
+    units, so the gun reaches 52.5 tiles and spray reaches 8.5 tiles.</p></section><section id="field"><h2 class="section-heading"><img src="../GOTA/assets/icons/health.png" alt="">Vision, terrain &amp; lives</h2><div class="split"><div><h3>Vision and cover</h3>
+    <p>Standard vision is a forward-facing 120-degree cone with unlimited distance
+    and wall occlusion. Matches can opt into shared team vision instead. Facing
+    and terrain matter when identifying threats.</p>
+    <h3>Trenches</h3><p>When fired at from outside a trench, 70% of gunfire passes
+    over it. Leaving a trench is five times slower and its fire cooldown is tripled.
+    Spray ignores trench cover. A grenade deals 6 damage in its own trench,
+    2 into another trench, and 3 outside trenches.</p>
+    <h3>Respawning</h3><p>Death removes equipment. Respawn takes 3 seconds, followed
+    by 1.5 seconds of spawn protection. Cogs spawn near an owned heart, favoring
+    less-covered positions; with no owned heart, they use their endzone.</p>
+    </div><figure><img src="assets/heartwick.png" loading="lazy"
+    alt="Heartwick concept artwork with red and blue cogs, heart towers, winding paths, and cottages">
+    <figcaption>Heartwick concept artwork, not a screenshot or tactical map.</figcaption></figure></div></section><section id="variants"><h2 class="section-heading"><img src="../GOTA/assets/icons/minion.png" alt="">Team variants</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Mode / variant reference table, scroll horizontally"><table><thead><tr><th scope="col">Mode / variant</th><th scope="col">What changes</th></tr></thead><tbody><tr><th scope="row">Competition</th><td>Sixteen cogs, eight per team, using the current glory awards above.</td></tr>
+<tr><th scope="row">Two policy teams</th><td>Two policies control the two teams; the battlefield still contains sixteen cogs.</td></tr>
+<tr><th scope="row">Two captains per team</th><td>Control is split between two captains on each team; sixteen cogs remain on the battlefield.</td></tr>
+<tr><th scope="row">Map variants</th><td>Twin Mesas, Archipelago, Serpent River, Crater, Terraces, Deep Forest, Badlands, Atoll, Highlands, and Delta change the terrain.</td></tr>
+<tr><th scope="row">Large maps</th><td>Big Deep Forest and Big Twin Mesas offer larger configurations. Check each match’s roster and map settings.</td></tr>
+</tbody></table></div></section><section id="tips"><h2 class="section-heading"><img src="../GOTA/assets/icons/stats.png" alt="">Strategy notes</h2><div class="grid"><article class="panel"><h3>Spread out with purpose</h3><p>More cogs on one heart do not capture it faster. Cover several objectives while keeping enough support to hold contested ground.</p></article><article class="panel"><h3>Track income and lives</h3><p>A kill helps when it protects capture time or removes enemy pressure. Spending all your lives for a brief fight can lose the match immediately.</p></article><article class="panel"><h3>Secure the win first</h3><p>Glory survives only on the winning side. Weigh a risky pickup or handicap against the heart-meter lead you need to keep it.</p></article></div></section>
+    <section id="sources"><h2>Sources &amp; artwork</h2>
+      <p>Rules reviewed on 29 September 2026. This guide describes the source version
+      available on that date; match settings and older replays can differ.</p>
+      <ul class="sources"><li><a href="https://github.com/Metta-AI/paintbot-pw/blob/main/coworld/paintbot/coworld_manifest_template.json">Hosted rules &amp; variant settings</a></li><li><a href="https://github.com/Metta-AI/paintbot-pw/blob/main/examples/paintbot/sim.nim">Simulation &amp; scoring</a></li><li><a href="https://github.com/Metta-AI/paintbot-pw/blob/main/examples/paintbot/mechanics.nim">Combat mechanics</a></li><li><a href="https://github.com/Metta-AI/paintbot-pw/blob/main/docs/paintbot-art.md">Artwork provenance</a></li></ul>
+      <p class="caption"><a href="assets/sources.txt">Artwork sources</a></p>
+    </section>
+    <footer><p><a href="../">All seven game guides</a> · Polyworld Buff</p>
+      <p>Game rules and reference. Strategy notes are suggestions, not measured rankings.</p></footer>
+  </main>
+</body>
+</html>

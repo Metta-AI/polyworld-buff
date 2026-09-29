@@ -1,0 +1,7 @@
+AWM guide artwork, copied 2026-09-29.
+sniper.png, bear.png, primordial.png: polyworld_data/awm/cards/art/.
+Original project-generated card illustrations, copied without modification.
+Their creation is documented in polyworld_data/awm/cards/README.md and the
+PROMPTS-archer.md, PROMPTS.md, and PROMPTS-mage-additions.md files.
+Rules and deck composition are maintained in Metta-AI/polyworld/examples/awm.
+https://github.com/Metta-AI/polyworld/tree/main/examples/awm

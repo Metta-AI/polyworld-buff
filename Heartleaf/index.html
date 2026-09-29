@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gather vegetables, invite your neighbors, and turn a week of shared dinners into the highest score in the village.">
+  <title>Heartleaf · Polyworld Buff</title>
+  <link rel="stylesheet" href="../guides.css">
+</head>
+<body style="--accent: #bbdea0">
+  <a class="skip" href="#guide">Skip to guide</a>
+  <header class="topbar"><nav class="nav-inner" aria-label="Site navigation">
+    <a class="brand" href="../">Polyworld Buff</a>
+    <span class="crumb">Heartleaf / Game guide</span>
+    <a href="../">All games &rarr;</a>
+  </nav></header>
+  <main id="guide">
+    <div class="hero">
+      <div><p class="eyebrow label">Village life · Gathering · Dinner parties</p>
+        <h1>Heartleaf</h1><p>Gather vegetables, invite your neighbors, and turn a week of shared dinners into the highest score in the village.</p>
+        <a class="jump" href="#overview">Learn the game &darr;</a>
+      </div>
+      <div class="hero-visual"><img class="hero-art"
+        src="assets/logo.png" alt="Heartleaf artwork"></div>
+    </div>
+    <dl class="facts"><div class="fact"><dt>Villagers</dt><dd>9</dd></div><div class="fact"><dt>Default match</dt><dd>7 days</dd></div><div class="fact"><dt>Dinner bell</dt><dd>18:00</dd></div><div class="fact"><dt>Curfew</dt><dd>21:00</dd></div></dl>
+    <nav class="section-nav" aria-label="Guide sections"><a class="jump" href="#overview">How to play</a><a class="jump" href="#day">A day in Heartleaf</a><a class="jump" href="#dinner">Dinner &amp; hospitality</a><a class="jump" href="#scoring">Scoring</a><a class="jump" href="#village">Village &amp; vegetables</a><a class="jump" href="#tips">Strategy notes</a></nav>
+    <section id="overview"><h2 class="section-heading"><img src="../GOTA/assets/icons/champion.png" alt="">How to play</h2><p>A week in Heartleaf is a contest of hospitality. Collect vegetables,
+    arrange dinner with your neighbors, and decide when to host or visit. The villager
+    with the most points after the final day wins.</p><div class="grid"><article class="panel"><h3>Gather</h3><p>Each of the 27 plots grows one vegetable each morning. Pick from any available garden; a harvested plot stays empty until the next day.</p></article><article class="panel"><h3>Share dinner</h3><p>Be inside a house at 18:00. A party needs its owner and at least one visitor. Everyone eats from the host’s pantry.</p></article><article class="panel"><h3>Get home</h3><p>Return to your own house by 21:00. Anyone elsewhere loses 3 points, even if they are inside another villager’s house.</p></article></div></section><section id="day"><h2 class="section-heading"><img src="../GOTA/assets/icons/move.png" alt="">A day in Heartleaf</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Time reference table, scroll horizontally"><table><thead><tr><th scope="col">Time</th><th scope="col">What happens</th><th scope="col">Plan around it</th></tr></thead><tbody><tr><th scope="row">09:00</th><td>Gardens refill; villagers begin at their doorsteps.</td><td>Choose a gathering route and possible dinner partners.</td></tr>
+<tr><th scope="row">09:00–18:00</th><td>Gather, travel, invite, accept invitations, or talk.</td><td>Build a pantry if hosting; leave enough time to reach dinner.</td></tr>
+<tr><th scope="row">18:00</th><td>Every house resolves dinner at the same instant.</td><td>Presence matters. An accepted invitation alone does not seat you.</td></tr>
+<tr><th scope="row">18:00–21:00</th><td>Evening travel continues after the meal.</td><td>Head to your own house before curfew.</td></tr>
+<tr><th scope="row">21:00</th><td>Curfew penalty and daily score tally.</td><td>Scores carry over into the next day.</td></tr>
+</tbody></table></div><p>One village day takes 3 minutes of simulation time:
+        one real second advances the clock by four village minutes. The normal match
+        lasts seven days; custom matches can run up to 28.</p></section><section id="dinner"><h2 class="section-heading"><img src="../GOTA/assets/icons/chalice.png" alt="">Dinner &amp; hospitality</h2><div class="split"><div><h3>What makes a party?</h3>
+    <p>The owner must be home and at least one other villager must be inside at the
+    dinner bell. An empty house, a lone host, and villagers outdoors earn no dinner points.</p>
+    <h3>Hosting</h3><p>Your carried vegetables become the pantry. First you earn
+    <strong>pantry items × visitors</strong>. You also join the meal. Hosting empties
+    your inventory; visitors keep theirs.</p>
+    <h3>Eating</h3><p>Dinner has three bite rounds. Each diner can receive one item per
+    round while food remains. Seating is shuffled deterministically. A bite favors
+    vegetable types you have not tasted this week.</p>
+    <p>A first taste earns 3 points; another bite of a familiar vegetable earns 1.
+    The set of tasted vegetables persists throughout the match.</p></div>
+    <aside class="panel"><h3>A dinner example</h3><p>You bring 6 vegetables and host
+    2 visitors. Your hospitality bonus is <strong>6 × 2 = 12 points</strong>.</p>
+    <p>The three of you then share those six items across the bite rounds. Each
+    diner earns their own tasting points; those points are added to your hosting
+    bonus if you are the host.</p><p>Guests do not pay with their own vegetables.
+    A small pantry can run out before everyone gets three bites.</p></aside></div></section><section id="scoring"><h2 class="section-heading"><img src="../GOTA/assets/icons/victory.png" alt="">Scoring</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Scoring event reference table, scroll horizontally"><table class="cards-table"><thead><tr><th scope="col">Scoring event</th><th scope="col">Points</th><th scope="col">Condition</th></tr></thead><tbody><tr><th scope="row">Hosting</th><td>Items in pantry × number of visitors</td><td>Owner and at least one visitor are in the house at 18:00.</td></tr>
+<tr><th scope="row">First taste</th><td>+3 per bite</td><td>First time this villager eats that vegetable type during the match.</td></tr>
+<tr><th scope="row">Repeat taste</th><td>+1 per bite</td><td>This villager has already tasted that type.</td></tr>
+<tr><th scope="row">Missed curfew</th><td>−3</td><td>Not in your own house at 21:00.</td></tr>
+<tr><th scope="row">Winner</th><td>Highest accumulated score</td><td>After the final day; scores may be negative.</td></tr>
+</tbody></table></div></section><section id="village"><h2 class="section-heading"><img src="../GOTA/assets/icons/minion.png" alt="">Village &amp; vegetables</h2><div class="split"><div><h3>Nine neighbors</h3><p>Ivan, Anton, Yura,
+    Sasha, Maxim, Nikita, Vova, Dima, and Egor each have a house with three garden plots.</p>
+    <h3>24 vegetables</h3><p>Variety matters because every villager tracks their own
+    first tastes. Vegetables left in your inventory carry into later days unless
+    you host dinner.</p><div class="tags"><span class="tag">Carrot</span><span class="tag">Tomato</span><span class="tag">Lettuce</span><span class="tag">Potato</span><span class="tag">Pumpkin</span><span class="tag">Radish</span><span class="tag">Beet</span><span class="tag">Corn</span><span class="tag">Pea</span><span class="tag">Onion</span><span class="tag">Garlic</span><span class="tag">Cabbage</span><span class="tag">Squash</span><span class="tag">Turnip</span><span class="tag">Leek</span><span class="tag">Spinach</span><span class="tag">Broccoli</span><span class="tag">Pepper</span><span class="tag">Cucumber</span><span class="tag">Zucchini</span><span class="tag">Celery</span><span class="tag">Eggplant</span><span class="tag">Parsnip</span><span class="tag">Kale</span></div>
+    <h3 style="margin-top:24px">Invitations and conversation</h3><p>Invite or accept
+    within 3 tiles. An invitation records intent, but never moves someone or binds
+    them to attend. Talk within 4 tiles in groups of up to four. Gathering and
+    entering a door require being within 1 tile.</p></div><figure>
+    <img class="village-art" src="assets/village.png" loading="lazy" alt="Heartleaf village terrain artwork showing nine houses around a central tree">
+    <figcaption>Village terrain artwork. Each home has three garden plots.</figcaption></figure></div></section><section id="tips"><h2 class="section-heading"><img src="../GOTA/assets/icons/stats.png" alt="">Strategy notes</h2><div class="grid"><article class="panel"><h3>Host with a plan</h3><p>A full basket becomes much more valuable when visitors actually arrive. Arrange company early and be home before the bell.</p></article><article class="panel"><h3>Visit for variety</h3><p>An invitation can save your pantry for another day while letting you collect new tastes from someone else’s meal.</p></article><article class="panel"><h3>Watch the clock</h3><p>Dinner and curfew are hard deadlines. A great gathering route is only useful if you can still reach the right house.</p></article></div></section>
+    <section id="sources"><h2>Sources &amp; artwork</h2>
+      <p>Rules reviewed on 29 September 2026. This guide describes the source version
+      available on that date; match settings and older replays can differ.</p>
+      <ul class="sources"><li><a href="https://github.com/Metta-AI/polyworld/blob/main/examples/heartleaf/plan.md">Game rules</a></li><li><a href="https://github.com/Metta-AI/polyworld/blob/main/examples/heartleaf/content.nim">Constants &amp; vegetables</a></li><li><a href="https://github.com/Metta-AI/polyworld/blob/main/examples/heartleaf/sim.nim">Dinner simulation</a></li></ul>
+      <p class="caption"><a href="assets/sources.txt">Artwork sources</a></p>
+    </section>
+    <footer><p><a href="../">All seven game guides</a> · Polyworld Buff</p>
+      <p>Game rules and reference. Strategy notes are suggestions, not measured rankings.</p></footer>
+  </main>
+</body>
+</html>
