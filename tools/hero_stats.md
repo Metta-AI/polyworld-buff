@@ -48,8 +48,21 @@ push to `main`. GitHub Pages publishes the repository root automatically.
 The previous `GOTA/hero_stats.html` address redirects to `GOTA/heros/` and
 preserves hero profile links.
 
-Base-stat progression charts appear as three tabs in the hero report.
+Base-stat progression charts follow Explore the roster as the final content
+section in the hero report, with five tabs:
+Health, DPS, Burst, Mana, and Speed. Mana shows the maximum pool, and speed
+uses tiles per second. Both exclude equipment and temporary effects.
+The Health and Burst tabs include gray benchmarks for one full lane wave:
+its sustained DPS and combined HP, respectively. A wave contains six melee
+creeps and two casters. The DPS line represents damage over one second.
 `hero_assets/progression.js` contains the dated snapshot and SVG renderer,
 and `hero_assets/progression.css` uses the report's fonts and colors.
 The importer preserves these assets when refreshing match statistics.
 Update the chart data and snapshot date together for new balance data.
+The October 5 balance patch uses fixed hero-specific variations within 5% of its
+role targets. The chart labels display the actual resulting values.
+
+Carry health uses an accelerating integer curve, keeping its level-20
+endpoint. Carry spells have explicit damage per rank, with weaker early
+ranks and unchanged final damage. Frontline health is roughly 25% higher.
+Burst values maximize damage over all legal rank allocations at each level.

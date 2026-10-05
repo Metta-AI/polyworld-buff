@@ -5,6 +5,8 @@ import
 const
   SiteUrl = "https://metta-ai.github.io/polyworld-buff/"
   ChartAssets = ["progression.css", "progression.js"]
+  ChartSection = "<section id=\"hero-progression\" " &
+    "aria-label=\"Hero progression\"></section>"
   ChartRoot = currentSourcePath().parentDir.parentDir /
     "GOTA/heros/hero_assets"
 
@@ -26,16 +28,15 @@ proc styleHeroReport*(html: string, standalone = false): string =
       "<link rel=\"stylesheet\" href=\"hero_assets/progression.css\">\n" &
       "<script src=\"hero_assets/progression.js\" defer></script>\n</head>"
     )
-  if "id=\"hero-progression\"" notin result:
-    var position = result.find("<div class=\"toolbar\">")
-    if position < 0:
-      position = result.find("<footer")
-    if position < 0:
-      raise newException(HeroReportError, "Cannot find hero report content")
-    result = result[0 ..< position] &
-      "<section id=\"hero-progression\" " &
-      "aria-label=\"Hero progression\"></section>\n    " &
-      result[position .. ^1]
+  result = result.replace(ChartSection & "\n    ", "")
+  result = result.replace(ChartSection, "")
+  var position = result.find("<details id=\"methods\">")
+  if position < 0:
+    position = result.find("<footer")
+  if position < 0:
+    raise newException(HeroReportError, "Cannot find hero report content")
+  result = result[0 ..< position] & ChartSection & "\n    " &
+    result[position .. ^1]
   for link in ["index.html", "../index.html", SiteUrl & "GOTA/"]:
     result = result.replace(
       "<a href=\"" & link & "\">GOTA guide</a> · ", ""

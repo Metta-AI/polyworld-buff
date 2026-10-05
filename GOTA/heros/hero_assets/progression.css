@@ -27,6 +27,8 @@
 .progression-grid { stroke: #ffffff09; stroke-width: 1; }
 .progression-axis { stroke: var(--line); stroke-width: 1; }
 .progression-gate { stroke: var(--gold-dim); stroke-opacity: .4; stroke-dasharray: 3 5; }
+.progression-benchmark line { stroke: var(--muted); stroke-opacity: .45; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.progression-svg .progression-benchmark text { fill: var(--muted); opacity: .7; font-size: 12px; }
 .progression-path { fill: none; stroke: currentColor; stroke-width: 2.5; }
 .progression-secondary .progression-path { stroke-dasharray: 6 4; }
 .progression-point { fill: currentColor; stroke: var(--panel); stroke-width: 1; }

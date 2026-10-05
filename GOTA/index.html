@@ -507,8 +507,8 @@
     <section class="panel balance-callout" aria-label="Hero progression charts">
       <div>
         <h2>Hero progression</h2>
-        <p>Compare health, basic-attack DPS, and full-combo damage at every
-          level, with hero role labels. October 5, 2026 snapshot.</p>
+        <p>Compare health, basic-attack DPS, full-combo damage, mana, and movement
+          speed at every level, with hero role labels. October 5, 2026 balance patch.</p>
       </div>
       <a class="balance-link" href="heros/#hero-progression">View progression charts &rarr;</a>
     </section>
@@ -560,7 +560,7 @@
           </p>
         </div>
         <div class="lanes">
-          <div class="chip"><img src="assets/icons/minion.png" alt=""><div><b>Creeps</b><div class="muted">60 HP, 12 damage, 15 last-hit gold. Casters attack from four tiles.</div></div></div>
+          <div class="chip"><img src="assets/icons/minion.png" alt=""><div><b>Creeps</b><div class="muted">60 HP, 42 damage, 15 last-hit gold. Casters attack from four tiles.</div></div></div>
           <div class="chip"><img src="assets/icons/tower.png" alt=""><div><b>Towers</b><div class="muted">HP: outer 1900, inner 2600, gate 3900. Damage: 36, 48, 60.</div></div></div>
           <div class="chip"><img src="assets/icons/fort.png" alt=""><div><b>Gods</b><div class="muted">400 HP, exposed after both god guards fall</div></div></div>
           <div class="chip"><img src="assets/icons/kills.png" alt=""><div><b>Hero bounty</b><div class="muted">150 XP and 100 gold</div></div></div>
@@ -595,8 +595,11 @@
           automatically. Fully ranking all four spells costs 15 points.</p>
         <p><b>Hero stats grow automatically.</b> Basic-attack damage scales as
           base damage + (hero level − 1) × damage per level, plus equipment.
-          Spell damage, healing, and mana restoration grow only with spell rank:
-          100%, 150%, 200%, then 250% of rank 1, rounded down.
+          Carry health grows slowly early and accelerates toward level 20. Other
+          roles gain health evenly. Mana interpolates between its starting and
+          level-20 pool. Spell damage, healing, and mana restoration grow with
+          spell rank. Carry spells use delayed damage growth; other spell
+          effects use 100%, 150%, 200%, then 250% of rank 1, rounded down.
           Mana costs, charges, cooldowns, and ranges stay the same across ranks.
           Each spell below lists its exact values and required hero levels.</p>
       </div>
@@ -615,16 +618,16 @@
               <a class="hero-balance" href="heros/#hero=vanguard-knight">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">MELEE · FRONTLINE PROTECTOR</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>330 → 2002</b><span class="muted">HP +88/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>110 → 262</b><span class="muted">MANA +8/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>25 → 120</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>451 → 2598</b><span class="muted">HP +113/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>107 → 254</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>33 → 147</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.17</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.32 → 2.78</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.27 → 2.57</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.89</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:16%"></i><div class="bar-label"><span>HEALTH</span><span>330 → 2002</span></div></div>
-                <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>110 → 262</span></div></div>
+                <div class="bar hp"><i style="width:100%"></i><div class="bar-label"><span>HEALTH</span><span>451 → 2598</span></div></div>
+                <div class="bar mp"><i style="width:49%"></i><div class="bar-label"><span>MANA</span><span>107 → 254</span></div></div>
               </div>
             </div>
           </div>
@@ -678,10 +681,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>40</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>60</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>80</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>100</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>41</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>61</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>82</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>102</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -747,9 +750,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>72</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>108</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>144</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>204</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>306</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>408</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -781,16 +784,16 @@
               <a class="hero-balance" href="heros/#hero=ranger">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">RANGER · MOBILE RANGED CARRY</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>25 → 44</b><span class="muted">HP +1/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>110 → 262</b><span class="muted">MANA +8/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>31 → 145</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>218 → 1928</b><span class="muted">HP · DELAYED GROWTH</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>52 → 361</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>21 → 249</b><span class="muted">BASIC DAMAGE +12/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.50</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.76 → 3.44</b><span class="muted">MOVE</span></div></div>
-                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.33</b><span class="muted">ATTACKS / S</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.24 → 3.57</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:57%"></i><div class="bar-label"><span>HEALTH</span><span>25 → 44</span></div></div>
-                <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>110 → 262</span></div></div>
+                <div class="bar hp"><i style="width:74%"></i><div class="bar-label"><span>HEALTH</span><span>218 → 1928</span></div></div>
+                <div class="bar mp"><i style="width:70%"></i><div class="bar-label"><span>MANA</span><span>52 → 361</span></div></div>
               </div>
             </div>
           </div>
@@ -812,10 +815,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>16</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>24</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>32</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>40</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>10</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>19</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>33</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>47</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -845,10 +848,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>32</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>48</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>64</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>80</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>25</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>49</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>85</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>122</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -878,10 +881,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>48</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>72</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>96</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>120</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>35</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>66</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>115</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>165</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -913,9 +916,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>95</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>142</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>190</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>110</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>250</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>442</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -946,16 +949,16 @@
               <a class="hero-balance" href="heros/#hero=arcanist">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">MAGE · BURST MAGE</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>190 → 665</b><span class="muted">HP +25/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>180 → 465</b><span class="muted">MANA +15/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>38 → 190</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>288 → 649</b><span class="muted">HP +19/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>185 → 479</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>26 → 121</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.00</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.48 → 3.01</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.53 → 3.07</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:29%"></i><div class="bar-label"><span>HEALTH</span><span>190 → 665</span></div></div>
-                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>180 → 465</span></div></div>
+                <div class="bar hp"><i style="width:25%"></i><div class="bar-label"><span>HEALTH</span><span>288 → 649</span></div></div>
+                <div class="bar mp"><i style="width:93%"></i><div class="bar-label"><span>MANA</span><span>185 → 479</span></div></div>
               </div>
             </div>
           </div>
@@ -975,7 +978,7 @@
               <p class="cast-type">Self cast</p>
               <table class="ability-levels" aria-label="Mana Crystal spell levels">
                 <caption>Spell levels · 4 ranks</caption>
-                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Mana restored</th></tr></thead>
+                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Mana</th></tr></thead>
                 <tbody>
                   <tr><th scope="row">1</th><td>1</td><td>28 mana</td></tr>
                   <tr><th scope="row">2</th><td>3</td><td>42 mana</td></tr>
@@ -1009,10 +1012,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>42</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>63</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>84</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>105</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>41</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>61</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>82</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>102</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1042,10 +1045,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>70</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>105</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>140</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>175</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>69</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>103</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>138</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>172</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1077,9 +1080,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>270</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>405</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>540</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>255</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>382</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>510</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1110,16 +1113,16 @@
               <a class="hero-balance" href="heros/#hero=druid-warden">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">MAGE · DURABLE SUPPORT</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>250 → 1162</b><span class="muted">HP +48/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>170 → 436</b><span class="muted">MANA +14/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>21 → 97</b><span class="muted">BASIC DAMAGE +4/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>306 → 686</b><span class="muted">HP +20/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>167 → 427</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>24 → 62</b><span class="muted">BASIC DAMAGE +2/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>4.00</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.56 → 3.09</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.64 → 3.18</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>250 → 1162</span></div></div>
-                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>170 → 436</span></div></div>
+                <div class="bar hp"><i style="width:26%"></i><div class="bar-label"><span>HEALTH</span><span>306 → 686</span></div></div>
+                <div class="bar mp"><i style="width:83%"></i><div class="bar-label"><span>MANA</span><span>167 → 427</span></div></div>
               </div>
             </div>
           </div>
@@ -1171,12 +1174,12 @@
               <p class="cast-type">Area cast</p>
               <table class="ability-levels" aria-label="Healing Bloom spell levels">
                 <caption>Spell levels · 4 ranks</caption>
-                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Healing</th></tr></thead>
+                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th><th scope="col">Healing</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>76 HP</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>114 HP</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>152 HP</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>190 HP</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>37</td><td>76 HP</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>55</td><td>114 HP</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>74</td><td>152 HP</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>92</td><td>190 HP</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1189,7 +1192,7 @@
                 <div><dt>Radius</dt><dd>2 tiles</dd></div>
                 <div><dt>Visual effect</dt><dd>Circle</dd></div>
               </dl>
-              <p class="bonus">Locks at your aimed map position. Heals all allied heroes in the circle at impact.</p>
+              <p class="bonus">Heals allied heroes and damages enemies in the area at impact. Target an ally, enemy, or ground.</p>
             </article>
             <article class="ability">
               <div class="ability-head">
@@ -1206,12 +1209,12 @@
               <p class="cast-type">Area cast</p>
               <table class="ability-levels" aria-label="Kindred Wisps spell levels">
                 <caption>Spell levels · 4 ranks</caption>
-                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Healing</th></tr></thead>
+                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th><th scope="col">Healing</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>80 HP</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>120 HP</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>160 HP</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>200 HP</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>88</td><td>80 HP</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>132</td><td>120 HP</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>176</td><td>160 HP</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>220</td><td>200 HP</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1224,7 +1227,7 @@
                 <div><dt>Radius</dt><dd>2.5 tiles</dd></div>
                 <div><dt>Visual effect</dt><dd>Sphere</dd></div>
               </dl>
-              <p class="bonus">Locks at your aimed map position. Heals all allied heroes in the circle at impact.</p>
+              <p class="bonus">Heals allied heroes and damages enemies in the area at impact. Target an ally, enemy, or ground.</p>
             </article>
             <article class="ability">
               <div class="ability-head">
@@ -1244,9 +1247,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>68</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>102</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>136</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>49</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>73</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>98</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1277,16 +1280,16 @@
               <a class="hero-balance" href="heros/#hero=demon-hunter">View league statistics &rarr;</a>
               <div class="role" style="color:var(--blue)">MELEE · MELEE ASSASSIN</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>220 → 904</b><span class="muted">HP +36/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>90 → 223</b><span class="muted">MANA +7/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>32 → 165</b><span class="muted">BASIC DAMAGE +7/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>335 → 1608</b><span class="muted">HP +67/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>93 → 230</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>29 → 124</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.25</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>4.04 → 4.95</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.45 → 3.73</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.60</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:24%"></i><div class="bar-label"><span>HEALTH</span><span>220 → 904</span></div></div>
-                <div class="bar mp"><i style="width:40%"></i><div class="bar-label"><span>MANA</span><span>90 → 223</span></div></div>
+                <div class="bar hp"><i style="width:62%"></i><div class="bar-label"><span>HEALTH</span><span>335 → 1608</span></div></div>
+                <div class="bar mp"><i style="width:44%"></i><div class="bar-label"><span>MANA</span><span>93 → 230</span></div></div>
               </div>
             </div>
           </div>
@@ -1340,10 +1343,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>38</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>57</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>76</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>95</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>39</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>58</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>78</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>97</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1373,10 +1376,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>65</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>97</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>130</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>162</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>67</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>100</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>134</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>167</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1409,9 +1412,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>100</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>150</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>200</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>177</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>265</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>354</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1440,16 +1443,16 @@
               <a class="hero-balance" href="heros/#hero=death-knight">View league statistics &rarr;</a>
               <div class="role" style="color:var(--red)">MELEE · SUSTAINING BRUISER</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>350 → 1528</b><span class="muted">HP +62/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>90 → 242</b><span class="muted">MANA +8/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>30 → 144</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>425 → 2420</b><span class="muted">HP +105/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>93 → 249</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>36 → 150</b><span class="muted">BASIC DAMAGE +6/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.27</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.28 → 2.74</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.13 → 2.42</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.86</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:23%"></i><div class="bar-label"><span>HEALTH</span><span>350 → 1528</span></div></div>
-                <div class="bar mp"><i style="width:37%"></i><div class="bar-label"><span>MANA</span><span>90 → 242</span></div></div>
+                <div class="bar hp"><i style="width:93%"></i><div class="bar-label"><span>HEALTH</span><span>425 → 2420</span></div></div>
+                <div class="bar mp"><i style="width:48%"></i><div class="bar-label"><span>MANA</span><span>93 → 249</span></div></div>
               </div>
             </div>
           </div>
@@ -1503,10 +1506,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>42</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>63</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>84</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>105</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>41</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>61</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>82</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>102</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1536,10 +1539,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>60</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>90</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>120</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>150</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>59</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>88</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>118</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>147</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1571,9 +1574,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>110</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>165</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>220</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>121</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>181</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>242</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1605,16 +1608,16 @@
               <a class="hero-balance" href="heros/#hero=crossbowman">View league statistics &rarr;</a>
               <div class="role" style="color:var(--red)">RANGER · HEAVY RANGED CARRY</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>230 → 1028</b><span class="muted">HP +42/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>60 → 174</b><span class="muted">MANA +6/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>58 → 229</b><span class="muted">BASIC DAMAGE +9/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>232 → 2056</b><span class="muted">HP · DELAYED GROWTH</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>49 → 340</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>19 → 247</b><span class="muted">BASIC DAMAGE +12/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>6.50</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.40 → 2.86</b><span class="muted">MOVE</span></div></div>
-                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.19</b><span class="muted">ATTACKS / S</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.16 → 3.43</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>230 → 1028</span></div></div>
-                <div class="bar mp"><i style="width:34%"></i><div class="bar-label"><span>MANA</span><span>60 → 174</span></div></div>
+                <div class="bar hp"><i style="width:79%"></i><div class="bar-label"><span>HEALTH</span><span>232 → 2056</span></div></div>
+                <div class="bar mp"><i style="width:66%"></i><div class="bar-label"><span>MANA</span><span>49 → 340</span></div></div>
               </div>
             </div>
           </div>
@@ -1636,10 +1639,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>20</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>30</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>40</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>50</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>10</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>21</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>36</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>52</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1669,10 +1672,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>50</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>75</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>100</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>125</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>26</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>52</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>91</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>130</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1702,10 +1705,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>68</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>102</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>136</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>170</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>35</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>70</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>122</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>175</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1738,9 +1741,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>115</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>172</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>230</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>118</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>267</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>470</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1771,16 +1774,16 @@
               <a class="hero-balance" href="heros/#hero=lich">View league statistics &rarr;</a>
               <div class="role" style="color:var(--red)">MAGE · CONTROL MAGE</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>185 → 527</b><span class="muted">HP +18/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>210 → 533</b><span class="muted">MANA +17/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>36 → 188</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>312 → 711</b><span class="muted">HP +21/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>204 → 517</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>24 → 119</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>5.50</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.40 → 2.86</b><span class="muted">MOVE</span></div></div>
-                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.75</b><span class="muted">ATTACKS / S</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.35 → 2.80</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:35%"></i><div class="bar-label"><span>HEALTH</span><span>185 → 527</span></div></div>
-                <div class="bar mp"><i style="width:39%"></i><div class="bar-label"><span>MANA</span><span>210 → 533</span></div></div>
+                <div class="bar hp"><i style="width:27%"></i><div class="bar-label"><span>HEALTH</span><span>312 → 711</span></div></div>
+                <div class="bar mp"><i style="width:100%"></i><div class="bar-label"><span>MANA</span><span>204 → 517</span></div></div>
               </div>
             </div>
           </div>
@@ -1835,10 +1838,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>48</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>72</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>96</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>120</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>49</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>73</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>98</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>122</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1869,10 +1872,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>53</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>79</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>106</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>132</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>54</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>81</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>108</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>135</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1904,9 +1907,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>125</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>187</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>250</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>262</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>393</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>524</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -1938,16 +1941,16 @@
               <a class="hero-balance" href="heros/#hero=warlock">View league statistics &rarr;</a>
               <div class="role" style="color:var(--red)">MAGE · UTILITY SUMMONER</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>240 → 1114</b><span class="muted">HP +46/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>190 → 494</b><span class="muted">MANA +16/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>21 → 116</b><span class="muted">BASIC DAMAGE +5/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>294 → 674</b><span class="muted">HP +20/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>194 → 504</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>26 → 64</b><span class="muted">BASIC DAMAGE +2/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>4.50</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.48 → 3.01</b><span class="muted">MOVE</span></div></div>
-                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.86</b><span class="muted">ATTACKS / S</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.41 → 2.92</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>0.80</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>240 → 1114</span></div></div>
-                <div class="bar mp"><i style="width:38%"></i><div class="bar-label"><span>MANA</span><span>190 → 494</span></div></div>
+                <div class="bar hp"><i style="width:26%"></i><div class="bar-label"><span>HEALTH</span><span>294 → 674</span></div></div>
+                <div class="bar mp"><i style="width:97%"></i><div class="bar-label"><span>MANA</span><span>194 → 504</span></div></div>
               </div>
             </div>
           </div>
@@ -1967,7 +1970,7 @@
               <p class="cast-type">Self cast</p>
               <table class="ability-levels" aria-label="Aether Siphon spell levels">
                 <caption>Spell levels · 4 ranks</caption>
-                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Mana restored</th></tr></thead>
+                <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Mana</th></tr></thead>
                 <tbody>
                   <tr><th scope="row">1</th><td>1</td><td>30 mana</td></tr>
                   <tr><th scope="row">2</th><td>3</td><td>45 mana</td></tr>
@@ -2001,10 +2004,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>36</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>54</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>72</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>90</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>35</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>52</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>70</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>87</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -2035,10 +2038,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>86</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>129</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>172</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>215</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>84</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>126</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>168</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>210</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -2070,9 +2073,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>105</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>157</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>210</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>47</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>70</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>94</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -2104,16 +2107,16 @@
               <a class="hero-balance" href="heros/#hero=berserker">View league statistics &rarr;</a>
               <div class="role" style="color:var(--red)">MELEE · AGGRESSIVE MELEE CARRY</div>
               <div class="stats">
-                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>300 → 1345</b><span class="muted">HP +55/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>40 → 116</b><span class="muted">MANA +4/LVL</span></div></div>
-                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>53 → 205</b><span class="muted">BASIC DAMAGE +8/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/health.png" alt=""><div><b>315 → 1512</b><span class="muted">HP +63/LVL</span></div></div>
+                <div class="stat"><img src="assets/icons/mana.png" alt=""><div><b>87 → 216</b><span class="muted">MANA · LEVEL 1 → 20</span></div></div>
+                <div class="stat"><img src="assets/icons/attack.png" alt=""><div><b>41 → 174</b><span class="muted">BASIC DAMAGE +7/LVL</span></div></div>
                 <div class="stat"><img src="assets/icons/range.png" alt=""><div><b>1.33</b><span class="muted">RANGE</span></div></div>
-                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.39 → 3.07</b><span class="muted">MOVE</span></div></div>
+                <div class="stat"><img src="assets/icons/move.png" alt=""><div><b>2.55 → 3.87</b><span class="muted">MOVE</span></div></div>
                 <div class="stat"><img src="assets/icons/damage.png" alt=""><div><b>1.20</b><span class="muted">ATTACKS / S</span></div></div>
               </div>
               <div class="bars">
-                <div class="bar hp"><i style="width:22%"></i><div class="bar-label"><span>HEALTH</span><span>300 → 1345</span></div></div>
-                <div class="bar mp"><i style="width:34%"></i><div class="bar-label"><span>MANA</span><span>40 → 116</span></div></div>
+                <div class="bar hp"><i style="width:58%"></i><div class="bar-label"><span>HEALTH</span><span>315 → 1512</span></div></div>
+                <div class="bar mp"><i style="width:42%"></i><div class="bar-label"><span>MANA</span><span>87 → 216</span></div></div>
               </div>
             </div>
           </div>
@@ -2167,10 +2170,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>45</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>67</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>90</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>112</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>44</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>66</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>88</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>110</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -2200,10 +2203,10 @@
                 <caption>Spell levels · 4 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>1</td><td>40</td></tr>
-                  <tr><th scope="row">2</th><td>3</td><td>60</td></tr>
-                  <tr><th scope="row">3</th><td>5</td><td>80</td></tr>
-                  <tr><th scope="row">4</th><td>7</td><td>100</td></tr>
+                  <tr><th scope="row">1</th><td>1</td><td>39</td></tr>
+                  <tr><th scope="row">2</th><td>3</td><td>58</td></tr>
+                  <tr><th scope="row">3</th><td>5</td><td>78</td></tr>
+                  <tr><th scope="row">4</th><td>7</td><td>97</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
@@ -2236,9 +2239,9 @@
                 <caption>Spell levels · 3 ranks</caption>
                 <thead><tr><th scope="col">Rank</th><th scope="col">Hero level</th><th scope="col">Damage</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">1</th><td>6</td><td>100</td></tr>
-                  <tr><th scope="row">2</th><td>12</td><td>150</td></tr>
-                  <tr><th scope="row">3</th><td>18</td><td>200</td></tr>
+                  <tr><th scope="row">1</th><td>6</td><td>188</td></tr>
+                  <tr><th scope="row">2</th><td>12</td><td>282</td></tr>
+                  <tr><th scope="row">3</th><td>18</td><td>376</td></tr>
                 </tbody>
               </table>
               <dl class="ability-stats">
