@@ -23,6 +23,8 @@ block:
   doAssert ">Latest Tournament</a>" in html
   doAssert "src=\"../assets/themes/gota/gota_logo.png\"" in html
   doAssert "{\"games\":540}" in html
+  doAssert html.count("id=\"hero-progression\"") == 1
+  doAssert "hero_assets/progression.js" in html
   let local = styleHeroReport(html, standalone = true)
   doAssert local == styleHeroReport(local, standalone = true)
   doAssert "href=\"hero_assets/site.css\"" in local
@@ -51,6 +53,11 @@ block:
     doAssert readFile(target.parentDir / "hero_assets/logo.png") == "artwork"
     doAssert readFile(source.parentDir / "hero_assets/site.css") ==
       readFile(Root / "GOTA/site.css")
+    for name in ["progression.css", "progression.js"]:
+      doAssert readFile(target.parentDir / "hero_assets" / name) ==
+        readFile(Root / "GOTA/heros/hero_assets" / name)
+      doAssert readFile(source.parentDir / "hero_assets" / name) ==
+        readFile(target.parentDir / "hero_assets" / name)
     doAssert not fileExists(target.parentDir / "private-replay.json")
     doAssert "hero_assets/site.css" in readFile(source)
     publishHeroReport(source, site, refreshSource = true)

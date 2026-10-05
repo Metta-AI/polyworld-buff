@@ -2,7 +2,11 @@ import
   std/[os, strutils],
   layouts
 
-const SiteUrl = "https://metta-ai.github.io/polyworld-buff/"
+const
+  SiteUrl = "https://metta-ai.github.io/polyworld-buff/"
+  ChartAssets = ["progression.css", "progression.js"]
+  ChartRoot = currentSourcePath().parentDir.parentDir /
+    "GOTA/heros/hero_assets"
 
 type HeroReportError* = object of CatchableError
 
@@ -16,6 +20,22 @@ proc styleHeroReport*(html: string, standalone = false): string =
     "<link rel=\"stylesheet\" href=\"../site.css\">"
   )
   result = stylePage(result, HeroStats)
+  if "hero_assets/progression.css" notin result:
+    result = result.replace(
+      "</head>",
+      "<link rel=\"stylesheet\" href=\"hero_assets/progression.css\">\n" &
+      "<script src=\"hero_assets/progression.js\" defer></script>\n</head>"
+    )
+  if "id=\"hero-progression\"" notin result:
+    var position = result.find("<div class=\"toolbar\">")
+    if position < 0:
+      position = result.find("<footer")
+    if position < 0:
+      raise newException(HeroReportError, "Cannot find hero report content")
+    result = result[0 ..< position] &
+      "<section id=\"hero-progression\" " &
+      "aria-label=\"Hero progression\"></section>\n    " &
+      result[position .. ^1]
   for link in ["index.html", "../index.html", SiteUrl & "GOTA/"]:
     result = result.replace(
       "<a href=\"" & link & "\">GOTA guide</a> · ", ""
@@ -36,9 +56,7 @@ proc styleHeroReport*(html: string, standalone = false): string =
       ("href=\"../standings/\"",
         "href=\"" & SiteUrl & "GOTA/standings/\""),
       ("href=\"../players/\"",
-        "href=\"" & SiteUrl & "GOTA/players/\""),
-      ("href=\"../progression/\"",
-        "href=\"" & SiteUrl & "GOTA/progression/\"")
+        "href=\"" & SiteUrl & "GOTA/players/\"")
     )
 
 proc writeReport(path, html: string) =
@@ -64,9 +82,16 @@ proc publishHeroReport*(source, root: string, refreshSource = false) =
     createDir(target.parentDir)
     if sourceAssets != targetAssets:
       copyDir(sourceAssets, targetAssets)
+    for name in ChartAssets:
+      let chart = ChartRoot / name
+      if absolutePath(chart) != targetAssets / name:
+        copyFile(chart, targetAssets / name)
     writeReport(target, html)
     if refreshSource and sourcePath != target:
       copyFile(stylesheet, sourceAssets / "site.css")
+      for name in ChartAssets:
+        if sourceAssets != targetAssets:
+          copyFile(targetAssets / name, sourceAssets / name)
       writeReport(sourcePath, styleHeroReport(html, standalone = true))
     echo "Updated ", target
   except OSError, IOError:

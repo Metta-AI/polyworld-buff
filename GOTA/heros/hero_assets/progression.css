@@ -1,0 +1,52 @@
+#hero-progression { margin: 0 0 28px; scroll-margin-top: 20px; }
+.progression-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.progression-tabs button {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--well);
+  color: var(--muted);
+}
+.progression-tabs button[aria-selected="true"] {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+  background: #f7dd8f0a;
+}
+.progression-tabs button:hover { color: var(--gold); }
+.progression-description { min-height: 42px; max-width: 1050px; }
+.progression-scroll { overflow-x: auto; margin: 18px 0 12px; }
+.progression-svg {
+  display: block;
+  width: 100%;
+  min-width: 960px;
+  height: auto;
+  font-family: Rubik, sans-serif;
+  font-size: 13px;
+}
+.progression-svg text { fill: var(--muted); }
+.progression-grid { stroke: #ffffff09; stroke-width: 1; }
+.progression-axis { stroke: var(--line); stroke-width: 1; }
+.progression-gate { stroke: var(--gold-dim); stroke-opacity: .4; stroke-dasharray: 3 5; }
+.progression-path { fill: none; stroke: currentColor; stroke-width: 2.5; }
+.progression-secondary .progression-path { stroke-dasharray: 6 4; }
+.progression-point { fill: currentColor; stroke: var(--panel); stroke-width: 1; }
+.progression-leader { fill: none; stroke: currentColor; stroke-width: 1; opacity: .65; }
+.progression-svg .progression-name { fill: currentColor; font-weight: 700; }
+.progression-svg .progression-value { fill: var(--text); font-size: 12px; }
+.progression-series { transition: opacity .15s; outline: none; }
+.progression-series:hover .progression-path,
+.progression-series:focus .progression-path { stroke-width: 4; }
+.progression-svg:has(.progression-series:hover) .progression-series:not(:hover),
+.progression-svg:has(.progression-series:focus) .progression-series:not(:focus) { opacity: .25; }
+.progression-role-frontline { color: var(--blue); }
+.progression-role-carry { color: var(--gold); }
+.progression-role-mage { color: var(--xp); }
+.progression-role-support { color: var(--green); }
+.progression-role-fighter { color: var(--red); }
+.progression-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font: var(--caption); }
+.progression-key b { font: var(--strong); margin-right: 4px; }
+.progression-note { margin: 12px 0 0; font: var(--caption); }
+@media (max-width: 660px) {
+  #hero-progression .section-title { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .progression-tabs button { padding: 9px 12px; }
+}

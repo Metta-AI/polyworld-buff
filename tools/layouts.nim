@@ -2,7 +2,7 @@ import std/strutils
 
 type
   SitePage* = enum
-    Guide, HeroStats, Standings, Players, Progression
+    Guide, HeroStats, Standings, Players
   SiteLayoutError* = object of CatchableError
 
 proc navigation(page: SitePage): string =
@@ -10,11 +10,10 @@ proc navigation(page: SitePage): string =
   let
     prefix = if page == Guide: "" else: "../"
     links = [
-      "index.html", "heros/", "standings/", "players/", "progression/"
+      "index.html", "heros/", "standings/", "players/"
     ]
     labels = [
-      "Game guide", "Hero statistics", "Latest Tournament", "Players",
-      "Hero progression"
+      "Game guide", "Hero statistics", "Latest Tournament", "Players"
     ]
   result = "<!-- GOTA navigation. -->\n" &
     "<header class=\"site-header wrap\">\n" &
@@ -69,7 +68,7 @@ proc stylePage*(html: string, page: SitePage): string =
       start = result.find("<header class=\"mast\">")
       if start >= 0:
         finish = result.find("</header>", start) + "</header>".len
-    of Standings, Players, Progression:
+    of Standings, Players:
       start = result.find("<header class=wrap>")
       if start >= 0:
         finish = result.find("</header>", start) + "</header>".len
@@ -94,5 +93,5 @@ proc stylePage*(html: string, page: SitePage): string =
     result = result.replace("site-header wrap", "site-header")
   of Standings:
     result = result.replace("<a href=\"../\">GotA guide</a>", "")
-  of Players, Progression:
+  of Players:
     discard

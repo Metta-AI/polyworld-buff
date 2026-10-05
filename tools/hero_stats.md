@@ -48,7 +48,8 @@ push to `main`. GitHub Pages publishes the repository root automatically.
 The previous `GOTA/hero_stats.html` address redirects to `GOTA/heros/` and
 preserves hero profile links.
 
-Base-stat progression charts live separately in `GOTA/progression/`.
-The page displays dated HP, basic-attack DPS, and burst-damage snapshots
-with hero role abbreviations. Update the six PNG/SVG chart files and the
-page's snapshot date together when publishing new balance data.
+Base-stat progression charts appear as three tabs in the hero report.
+`hero_assets/progression.js` contains the dated snapshot and SVG renderer,
+and `hero_assets/progression.css` uses the report's fonts and colors.
+The importer preserves these assets when refreshing match statistics.
+Update the chart data and snapshot date together for new balance data.
