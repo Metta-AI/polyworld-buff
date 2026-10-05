@@ -2,15 +2,20 @@ import std/strutils
 
 type
   SitePage* = enum
-    Guide, HeroStats, Standings, Players
+    Guide, HeroStats, Standings, Players, Progression
   SiteLayoutError* = object of CatchableError
 
 proc navigation(page: SitePage): string =
   ## Builds the shared GOTA header with paths relative to each page.
   let
     prefix = if page == Guide: "" else: "../"
-    links = ["index.html", "heros/", "standings/", "players/"]
-    labels = ["Game guide", "Hero statistics", "Latest Tournament", "Players"]
+    links = [
+      "index.html", "heros/", "standings/", "players/", "progression/"
+    ]
+    labels = [
+      "Game guide", "Hero statistics", "Latest Tournament", "Players",
+      "Hero progression"
+    ]
   result = "<!-- GOTA navigation. -->\n" &
     "<header class=\"site-header wrap\">\n" &
     "  <a class=\"site-brand\" href=\"" & prefix & "../\" " &
@@ -64,7 +69,7 @@ proc stylePage*(html: string, page: SitePage): string =
       start = result.find("<header class=\"mast\">")
       if start >= 0:
         finish = result.find("</header>", start) + "</header>".len
-    of Standings, Players:
+    of Standings, Players, Progression:
       start = result.find("<header class=wrap>")
       if start >= 0:
         finish = result.find("</header>", start) + "</header>".len
@@ -89,5 +94,5 @@ proc stylePage*(html: string, page: SitePage): string =
     result = result.replace("site-header wrap", "site-header")
   of Standings:
     result = result.replace("<a href=\"../\">GotA guide</a>", "")
-  of Players:
+  of Players, Progression:
     discard

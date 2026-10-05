@@ -12,7 +12,8 @@ for page in SitePage:
       of Guide: "index.html"
       of HeroStats: "heros/index.html"
       of Standings: "standings/index.html"
-      of Players: "players/index.html")
+      of Players: "players/index.html"
+      of Progression: "progression/index.html")
     html = readFile(file)
     styled = stylePage(html, page)
   doAssert html == styled

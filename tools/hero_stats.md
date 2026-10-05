@@ -47,3 +47,8 @@ Review the page, commit `GOTA/heros/`, then
 push to `main`. GitHub Pages publishes the repository root automatically.
 The previous `GOTA/hero_stats.html` address redirects to `GOTA/heros/` and
 preserves hero profile links.
+
+Base-stat progression charts live separately in `GOTA/progression/`.
+The page displays dated HP, basic-attack DPS, and burst-damage snapshots
+with hero role abbreviations. Update the six PNG/SVG chart files and the
+page's snapshot date together when publishing new balance data.
