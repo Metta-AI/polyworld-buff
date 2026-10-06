@@ -1,0 +1,29 @@
+.balance-grid {display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+.balance-grid .panel {min-width:0}
+.balance-copy p {margin:10px 0 16px}
+.balance-copy h3 {color:var(--gold);margin-top:20px}
+.balance-caption {font:var(--caption);color:var(--muted)}
+.balance-picks {width:100%;height:auto;display:block;margin-top:15px}
+.balance-picks text {font:var(--caption);fill:var(--muted)}
+.balance-picks .pick-name {fill:var(--text)}
+.balance-picks a:hover .pick-name {fill:var(--gold)}
+.balance-picks .pick-track {fill:#ffffff08}
+.balance-role-FL {color:var(--blue)}
+.balance-role-F {color:var(--red)}
+.balance-role-M {color:var(--xp)}
+.balance-role-S {color:var(--green)}
+.balance-role-C {color:var(--gold)}
+.balance-low {color:var(--muted)}
+.balance-outcomes {height:24px}
+.balance-outcomes .blue-win {background:var(--blue)}
+.balance-outcomes .red-win {background:var(--red)}
+.balance-outcomes .timeout {background:#7e889e}
+.balance-lineups {margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}
+.balance-lineups p {margin:10px 0}
+.balance-note {padding:14px 18px;margin-top:12px;border-left:3px solid var(--gold-dim);background:#f7dd8f08}
+.balance-note p {margin:0}
+#balance-report {margin-bottom:32px}
+#balance-report .facts {margin-bottom:18px}
+#balance-report th {white-space:normal;max-width:130px}
+#balance-report th:first-child {min-width:205px}
+@media(max-width:900px) {.balance-grid {grid-template-columns:1fr}}

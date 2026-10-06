@@ -62,6 +62,43 @@ Update the chart data and snapshot date together for new balance data.
 The October 5 balance patch uses fixed hero-specific variations within 5% of its
 role targets. The chart labels display the actual resulting values.
 
+The October 6 ladder analysis covers completed main-ladder games from the
+October 5 release verification through October 6 at 10:40 a.m. Pacific.
+It includes only release `2026.10.5.2`, gameplay version 67. Every replay
+must reproduce every recorded state hash and the hosted seat scores.
+The student league is outside this snapshot.
+
+`hero_assets/balance.js` renders the dated overview, pick shares, decisive
+win rates, progression, team composition and farming. The page embeds
+aggregate-only `balance-data` beside its usual `report-data`. It publishes
+no individual replay, player record, policy source or weights.
+
+The supplemental importer reads a verified analysis directory:
+
+```sh
+python3 tools/update_balance_report.py /path/to/analysis
+python3 tools/test_balance_report.py
+```
+
+Alongside the normal analyzer outputs, it requires `catalog.json` with
+current spell ranks and `drafts/<match-id>.json` from a draft-only replay
+audit. Each draft record contains its match ID, draft ticks, battle tick
+limit, draft mode and accepted picks with slot, class and event cause.
+`Command` identifies a deliberate pick and `TimeLimit` an automatic pick.
+The draft audit also checks every draft hash against the recorded tape.
+The importer rejects incomplete coverage, mismatched draft picks, wrong
+release versions and divergent replays before changing the page. It
+preserves the page layout and all five progression charts.
+
+Picks count hero appearances, including duplicates. Game presence counts
+distinct matches containing that hero. All-pick win rate includes draws
+as non-wins; decisive win rate excludes them. A mirrored hero can contribute
+both a win and a loss in one game, so pick counts are not independent games.
+The fewer-than-20 decisive-pick flag is descriptive, not a statistical test.
+Role averages are weighted by observed picks. Building kills include towers
+and barracks credited to the hero, excluding gods. The report reads the
+battle limit from replays rather than assuming a configured duration.
+
 Carry health uses an accelerating integer curve, keeping its level-20
 endpoint. Carry spells have explicit damage per rank, with weaker early
 ranks and unchanged final damage. Frontline health is roughly 25% higher.
