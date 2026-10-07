@@ -28,7 +28,8 @@ with TemporaryDirectory() as directory:
                 'policy_version_id': 'private-policy-' + str(slot),
             })
         game = {'id': identity, 'verified': True, 'hash_mismatches': 0,
-                'game_version': 'test-release', 'completed_at': '2026-10-06T01:00:00Z',
+                'game_version': 'test-release', 'replay_version': 68,
+                'completed_at': '2026-10-06T01:00:00Z',
                 'ticks': 28824, 'outcome': outcome, 'heroes': heroes}
         draft = {'id': identity, 'draft_ticks': 24, 'max_battle_ticks': 28800,
                  'draft_mode': 'OpenDraft', 'picks': [dict(slot=row['slot'],
@@ -45,6 +46,7 @@ with TemporaryDirectory() as directory:
     public, report = build(root)
     crossbow = next(row for row in report['heroes'] if row['hero'] == 'Crossbowman')
     assert report['appearances'] == 30
+    assert report['replay_version'] == 68
     assert crossbow['picks'] == 12 and crossbow['games'] == 3
     assert crossbow['seat_share'] == 0.4 and crossbow['game_presence'] == 1
     assert crossbow['wins'] == 1 and crossbow['losses'] == 1
@@ -62,6 +64,40 @@ with TemporaryDirectory() as directory:
     assert 'private-policy' not in before
     write(root, target)
     assert target.read_text() == before
+    full = root / 'full'
+    full.mkdir()
+    combined = {
+        'summary': {'start': manifest['start'], 'end': manifest['end'],
+                    'verified_games': 4, 'excluded_count': 1,
+                    'versions': [{'version': 'test-release', 'games': 3},
+                                 {'version': 'older-release', 'games': 1}]},
+        'catalog': {},
+    }
+    fullReport = full / 'report.html'
+    fullReport.write_text('<script id="report-data" type="application/json">'
+                         + json.dumps(combined) + '</script>')
+    write(root, target, full)
+    assert 'older-release' in target.read_text()
+    combined['summary']['versions'][0]['games'] = 2
+    fullReport.write_text('<script id="report-data" type="application/json">'
+                         + json.dumps(combined) + '</script>')
+    before = target.read_text()
+    try:
+        write(root, target, full)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('A mismatched release scope was accepted')
+    assert target.read_text() == before
+    game['replay_version'] = 67
+    (root / 'stats' / (identity + '.json')).write_text(json.dumps(game))
+    try:
+        build(root)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('Mixed gameplay versions entered the overview')
+    game['replay_version'] = 68
     game['hash_mismatches'] = 1
     (root / 'stats' / (identity + '.json')).write_text(json.dumps(game))
     try:

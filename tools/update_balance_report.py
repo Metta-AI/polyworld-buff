@@ -153,9 +153,13 @@ def build(analysis):
     outcomes = Counter(game['outcome'] for game in games)
     if set(outcomes) - {'time_limit', 'RedTeam', 'BlueTeam'}:
         raise ValueError('Unexpected outcome in the snapshot')
+    replayVersions = {game['replay_version'] for game in games}
+    if len(replayVersions) != 1:
+        raise ValueError('The balance overview must use one gameplay version')
     balance = {
         'start': manifest['start'], 'end': manifest['end'],
-        'release': manifest['release_version'], 'replay_version': 67,
+        'release': manifest['release_version'],
+        'replay_version': next(iter(replayVersions)),
         'league': 'Gods of the Arena', 'games': len(games), 'rounds': len(rounds),
         'first_round': rounds[0], 'last_round': rounds[-1],
         'appearances': len(rows), 'players': len({r['player_id'] for r in rows}),
@@ -183,9 +187,23 @@ def build(analysis):
     return public, balance
 
 
-def write(analysis, target):
+def write(analysis, target, publicAnalysis=None):
     """Replace embedded aggregates without overwriting the page or charts."""
     public, balance = build(analysis)
+    if publicAnalysis is not None:
+        payload = re.search(
+            r'<script id="report-data" type="application/json">(.*?)</script>',
+            (publicAnalysis / 'report.html').read_text(), re.S)
+        combined = json.loads(payload.group(1))
+        scope = next((row for row in combined['summary']['versions']
+                      if row['version'] == balance['release']), None)
+        if scope is None or scope['games'] != balance['games']:
+            raise ValueError('The overview differs from the full release scope')
+        if any(combined['summary'][key] != balance[key]
+               for key in ('start', 'end')):
+            raise ValueError('The overview and full report windows differ')
+        combined['catalog'] = public['catalog']
+        public = combined
     html = target.read_text()
     for name, payload in [('report-data', public), ('balance-data', balance)]:
         tag = '<script id="' + name + '" type="application/json">' + (
@@ -202,4 +220,5 @@ def write(analysis, target):
 
 
 if __name__ == '__main__':
-    write(Path(sys.argv[1]), ROOT / 'GOTA/heros/index.html')
+    write(Path(sys.argv[1]), ROOT / 'GOTA/heros/index.html',
+          Path(sys.argv[2]) if len(sys.argv) > 2 else None)

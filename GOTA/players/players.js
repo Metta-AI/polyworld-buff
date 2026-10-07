@@ -46,7 +46,7 @@ const reasonInfo = {
 function groupsFor(data) {
   return [
     {id: 'score', title: 'League', image: 'victory', rows: [
-      metric('score', 'Score', 'victory', 'recent average / game', 'number', 'Average recorded evaluation score across this snapshot’s hero-games. Current per-game formula: max(0, floor(total XP − 200 × game minutes)). Earlier games retain their recorded score precision.'),
+      metric('score', 'Score', 'victory', 'recent average / game', 'number', 'Average recorded evaluation score across this snapshot’s hero-games. In gameplay version 68, Emmett’s Glory is floor(total XP / game minutes) on a win and zero on a loss or draw. Earlier games retain their recorded scores.'),
       metric('won', 'Win / loss', 'victory', 'win % · loss % below', 'record', 'Wins and losses as percentages of all observed hero-games. Draws are shown separately as D; wins, losses and draws together total 100% before rounding. The bar shows win rate.'),
       metric('glory', 'Average glory', 'chalice', 'recent average / game', 'number', 'Average of each game’s recorded score on a win, or zero on a loss or draw. Includes losses and draws in the average; this is not the average score among wins only.'),
     ]},

@@ -7,6 +7,9 @@
     minimumFractionDigits: digits, maximumFractionDigits: digits
   });
   const pct = value => value == null ? '—' : n(value * 100, 1) + '%';
+  const date = value => new Date(value).toLocaleString('en-US', {
+    timeZone: 'America/Los_Angeles', timeZoneName: 'short'
+  });
   const colors = {FL: 'var(--blue)', F: 'var(--red)', M: 'var(--xp)', S: 'var(--green)', C: 'var(--gold)'};
   const roles = {FL: 'Frontline', F: 'Fighter', M: 'Mage', S: 'Support', C: 'Carry'};
   const link = name => '#hero=' + catalog[name].slug;
@@ -20,14 +23,15 @@
   const heroStats = name => report.heroes.find(row => row.hero === name);
   const fact = (value, title, sub) => `<div class="fact"><div><b>${value}</b><span class="label">${title}</span><br><small>${sub}</small></div></div>`;
   root.innerHTML = `
-    <div class="section-title"><h2>After the October 5 balance patch</h2><span class="label">Main ladder · Release ${report.release}</span></div>
+    <div class="section-title"><h2>Recent balance snapshot</h2><span class="label">Main ladder · Release ${report.release}</span></div>
+    <p class="balance-caption">${date(report.start)} – ${date(report.end)} · Current release only.</p>
     <div class="facts">
       ${fact(n(report.games), 'Verified games', 'Rounds ' + report.first_round + '–' + report.last_round)}
       ${fact(n(report.players), 'Players', 'Mixed policies in each team')}
       ${fact(n(report.policies), 'Policy versions', 'Repeated across the window')}
       ${fact(n(report.appearances), 'Hero picks', n(report.auto_picks) + ' draft-timeout picks')}
     </div>
-    <div class="insight"><p><b>${pct(timeout / report.games)} of games reached the time limit.</b> Only ${n(decisive)} games produced a winner. Hero win rates below describe this ladder sample; they do not isolate hero strength from policy skill or team composition.</p></div>
+    <div class="insight"><p><b>${pct(timeout / report.games)} of games reached the time limit.</b> ${n(decisive)} games produced a winner. Hero win rates below describe this ladder sample; they do not isolate hero strength from policy skill or team composition.</p></div>
     <div class="balance-grid">
       <article class="panel pad"><h2>Match outcomes</h2>
         <div class="outcomes balance-outcomes" aria-label="${report.outcomes.BlueTeam || 0} blue wins, ${report.outcomes.RedTeam || 0} red wins, ${timeout} timeouts">
@@ -42,7 +46,7 @@
           <div class="metric"><span class="label">Decisive games</span><b>${n(report.avg_decisive_minutes, 2)} min</b><small>Average time to finish a winning battle</small></div>
           <div class="metric"><span class="label">Blue share of wins</span><b>${pct((report.outcomes.BlueTeam || 0) / decisive)}</b><small>Among ${n(decisive)} decisive games</small></div>
         </div>
-        <p class="balance-caption">All games in this window record a 20-minute battle cap. Duration in the hero performance table includes the draft, matching the game's score denominator.</p>
+        <p class="balance-caption">The recorded battle caps are ${report.battle_caps.map(value => n(value)).join(" / ")} minutes. Duration in the hero performance table includes the draft, matching the game's score denominator.</p>
       </article>
       <article class="panel pad"><h2>What people are picking</h2>
         <p>${topThree.map(row => row.hero).join(', ')} account for <b class="gold">${pct(topThree.reduce((sum, row) => sum + row.seat_share, 0))}</b> of all seats.</p>
@@ -81,15 +85,15 @@
     <div class="panel scroll"><table><thead><tr><th>Rounds</th><th>Games</th><th>Draw rate</th><th>Carry seat share</th><th>Carry mean final level</th></tr></thead><tbody>${report.trends.map(row => `<tr><td>${row.first_round}–${row.last_round}</td><td>${row.games}</td><td>${pct(row.draw_rate)}</td><td>${pct(row.carry_share)}</td><td>${n(row.carry_level, 2)}</td></tr>`).join('')}</tbody></table></div>
     <p class="balance-caption">All groups use the same balance release. Policy updates and matchups change over time, so this is descriptive, not a controlled before-and-after comparison.</p>
     <article class="panel pad balance-copy" style="margin-top:18px"><h2>What this says about balance</h2>
-      <h3>Finishing games is the strongest signal</h3><p>${n(timeout)} of ${n(report.games)} games timed out. Test objective pressure and bot finishing behavior before judging the patch from win rates alone. The observed faction split is ${report.outcomes.BlueTeam || 0} blue wins versus ${report.outcomes.RedTeam || 0} red wins; ${n(decisive)} outcomes are too few to establish a side advantage.</p>
-      <h3>Carry progression is still worth watching</h3><p>Carries finish at mean level <b>${n(role('C').avg_level, 2)}</b>; ${pct(role('C').level12)} reach level 12 and ${pct(role('C').level18)} reach level 18. Their stronger late progression is rarely fully exercised. Tune and test the levels games actually reach before raising level-20 endpoints. This describes the combined Ranger/Crossbowman population and does not prove their early game is too weak.</p>
-      <h3>Frontline survives more, but farms less</h3><p>Frontline averages <b>${n(role('FL').avg_deaths, 1)} deaths</b> versus ${n(role('C').avg_deaths, 1)} for Carry and ${n(role('F').avg_deaths, 1)} for Fighter. Its mean final level is ${n(role('FL').avg_level, 2)}, versus ${n(role('C').avg_level, 2)} for Carry. Vanguard accounts for ${pct(heroStats('Vanguard Knight').picks / role('FL').picks)} of Frontline appearances. This suggests checking tank farming and positioning before adding another blanket health buff.</p>
+      <h3>Finishing games</h3><p>${n(timeout)} of ${n(report.games)} games timed out. Test objective pressure and bot finishing behavior before judging the patch from win rates alone. The observed faction split is ${report.outcomes.BlueTeam || 0} blue wins versus ${report.outcomes.RedTeam || 0} red wins; the faction split alone does not establish a side advantage.</p>
+      <h3>Carry progression is still worth watching</h3><p>Carries finish at mean level <b>${n(role('C').avg_level, 2)}</b>; ${pct(role('C').level12)} reach level 12 and ${pct(role('C').level18)} reach level 18. These figures show how often their later progression is exercised. Tune and test the levels games actually reach before raising level-20 endpoints. This describes the combined Ranger/Crossbowman population and does not prove their early game is too weak.</p>
+      <h3>Frontline survival and farming</h3><p>Frontline averages <b>${n(role('FL').avg_deaths, 1)} deaths</b> versus ${n(role('C').avg_deaths, 1)} for Carry and ${n(role('F').avg_deaths, 1)} for Fighter. Its mean final level is ${n(role('FL').avg_level, 2)}, versus ${n(role('C').avg_level, 2)} for Carry. Vanguard accounts for ${pct(heroStats('Vanguard Knight').picks / role('FL').picks)} of Frontline appearances. This suggests checking tank farming and positioning before adding another blanket health buff.</p>
       <h3>The two carries are not producing the same results</h3><p>Crossbowman averages ${n(heroStats('Crossbowman').avg_kills, 1)} hero kills and ${n(heroStats('Crossbowman').avg_buildings, 2)} buildings destroyed; Ranger averages ${n(heroStats('Ranger').avg_kills, 1)} kills and ${n(heroStats('Ranger').avg_buildings, 2)} buildings. Their similar progression curves do not produce equal ladder outcomes, but different policies and drafts prevent attributing the gap to the hero alone.</p>
-      <h3>Pick coverage limits hero comparisons</h3><p>${sparse.map(row => row.hero + ' (' + row.decisive_picks + ' decisive picks)').join(', ')} have particularly sparse decisive samples. ${unchosen.length ? unchosen.map(row => row.hero).join(' and ') + ' had no deliberate picks; every appearance was a draft-timeout selection. Those heroes may be running policies designed for another class. ' : ''}Repeated policies, duplicate heroes and team results make even the larger counts correlated. Do not treat the highest raw rate as a hero tier list.</p>
+      <h3>Pick coverage limits hero comparisons</h3><p>${sparse.length ? sparse.map(row => row.hero + ' (' + row.decisive_picks + ' decisive picks)').join(', ') + ' have particularly sparse decisive samples.' : 'Every hero has at least 20 decisive appearances in this snapshot.'} ${unchosen.length ? unchosen.map(row => row.hero).join(' and ') + ' had no deliberate picks; every appearance was a draft-timeout selection. Those heroes may be running policies designed for another class. ' : ''}Repeated policies, duplicate heroes and team results make even the larger counts correlated. Do not treat the highest raw rate as a hero tier list.</p>
       <h3>The reference draft has a selection bias</h3><p><a href="https://github.com/Metta-AI/polyworld/blob/2d38a1da94542b71f3a4824fa2939241c3087612/examples/gods_of_the_arena/players/base.bas#L17">base.bas</a> fills missing roles, then breaks equal-score ties by hero order. That favors Vanguard, Ranger, Arcanist, Druid and Demon Hunter over their same-role alternatives. Policies that reuse this draft can inherit that preference. This is a possible contributor to the pick skew; submitted policy implementations were not audited here.</p>
       <h3>Next useful balance test</h3><p>Use the same policy across a shuffled roster with one of each role per team. Compare finishing rate, carry survival and level timing, frontline deaths, and damage to objectives. Repeat with exchanged team sides and fixed map seeds. Keep this current-ladder snapshot separate from those controlled tests.</p>
     </article>
-    <div class="balance-note"><p><b>Evidence:</b> all ${n(report.games)} replay simulations matched every recorded hash across ${n(report.verified_ticks)} ticks and all hosted seat scores. Completed games only, on release ${report.release} / gameplay ${report.replay_version}. The window starts at release verification and includes no pre-patch control sample. Main Gods of the Arena ladder only; the student league is outside this report. <a href="${report.source}">View the main ladder</a>.</p></div>`;
+    <div class="balance-note"><p><b>Evidence:</b> all ${n(report.games)} replay simulations matched every recorded hash across ${n(report.verified_ticks)} ticks and all hosted seat scores. Completed games only, on release ${report.release} / gameplay ${report.replay_version}. This overview covers the current release within the dated window. The hero performance table also includes any earlier releases in that window, with a release filter for comparison. Main Gods of the Arena ladder only; the student league is outside this report. <a href="${report.source}">View the main ladder</a>.</p></div>`;
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('viewBox', '0 0 590 335');

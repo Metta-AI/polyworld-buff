@@ -10,7 +10,7 @@ in the sibling `polyworld` checkout with a new output directory:
 
 ```sh
 cd ../polyworld
-nim c -d:headless -o:tmp/gota/hero_stats \
+nim c -d:headless -d:replayEvents -o:tmp/gota/hero_stats \
   examples/gods_of_the_arena/tools/hero_stats.nim
 tmp/gota/hero_stats --hours 24 --jobs 4
 ```
@@ -62,11 +62,14 @@ Update the chart data and snapshot date together for new balance data.
 The October 5 balance patch uses fixed hero-specific variations within 5% of its
 role targets. The chart labels display the actual resulting values.
 
-The October 6 ladder analysis covers completed main-ladder games from the
-October 5 release verification through October 6 at 10:40 a.m. Pacific.
-It includes only release `2026.10.5.2`, gameplay version 67. Every replay
-must reproduce every recorded state hash and the hosted seat scores.
-The student league is outside this snapshot.
+The October 7 ladder analysis covers the last 24 hours through 9:38 a.m.
+Pacific. The hero performance table includes releases `2026.10.5.2` and
+`2026.10.6.1`, with a release filter. The balance overview includes only
+`2026.10.6.1`, gameplay version 68, within that same window. Every replay
+must reproduce every recorded state hash and the hosted seat scores using
+its matching engine. Platform-failed requests are counted as exclusions.
+The student league is outside this snapshot. Compile analyzers with
+`-d:replayEvents` to collect neutral, creep and building death statistics.
 
 `hero_assets/balance.js` renders the dated overview, pick shares, decisive
 win rates, progression, team composition and farming. The page embeds
@@ -79,6 +82,21 @@ The supplemental importer reads a verified analysis directory:
 python3 tools/update_balance_report.py /path/to/analysis
 python3 tools/test_balance_report.py
 ```
+
+When the window crosses releases, prepare a separate analysis manifest for
+the current release's completed games. Keep its start and end equal to the
+full window and verify it with the matching engine. Pass the full analysis
+directory as a second argument to preserve all releases and the exclusion
+counts in the hero performance table:
+
+```sh
+python3 tools/update_balance_report.py /path/to/current-release \
+  /path/to/full-window
+```
+
+The importer checks that the current release's verified game count and
+window agree with the full report. Gameplay version labels come from the
+verified records, and the balance overview rejects mixed gameplay versions.
 
 Alongside the normal analyzer outputs, it requires `catalog.json` with
 current spell ranks and `drafts/<match-id>.json` from a draft-only replay
