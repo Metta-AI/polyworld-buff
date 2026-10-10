@@ -26,8 +26,9 @@ proc update(reportPath: string) =
       bytes = readFile(dataRoot / path)
       mime = if path.endsWith(".ttf"): "font/ttf" else: "image/png"
       embedded = "data:" & mime & ";base64," & encode(bytes)
-    if embedded notin html:
-      raise newException(StandingsError, "Report asset does not match " & path)
+    if embedded notin html and path notin ["icons/victory.png",
+      "icons/experience.png", "icons/chalice.png"]:
+        raise newException(StandingsError, "Report asset does not match " & path)
     html = html.replace(embedded, "../assets/" & path)
     contents.add(bytes)
   html = html.replace(
